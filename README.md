@@ -2,10 +2,12 @@
 
 > Jedinstveni izvor istine za strategiju, brend, korisničko iskustvo, vizuelni sistem i budući razvoj Ivertim digitalnog proizvoda.
 
-**Status:** dokumentaciona osnova  
+**Status:** dokumentacija zaključana (v1.0.0) + početni tehnički scaffold (Astro), sadržaj i vizuelni brandbook u izradi  
 **Verzija:** 1.0.0  
 **Primarni vlasnik projekta:** Ivertim  
 **Primarni način rada:** Claude Design / Claude Code / GitHub
+
+Za trenutni tehnički status, odluke i otvorena pitanja vidi [`CLAUDE.md`](CLAUDE.md) — ovaj README ostaje strateški izvor istine, `CLAUDE.md` je operativna memorija.
 
 ---
 
@@ -136,6 +138,8 @@ Vizuelni karakter:
 - smiren;
 - bez dekorativnog viška;
 - premium kroz red, tipografiju, fotografiju i ritam, ne kroz efekte.
+
+Asset fajlovi: [`public/images/logo-horizontal.png`](public/images/logo-horizontal.png), [`public/images/logo-vertical.png`](public/images/logo-vertical.png), [`public/images/logo-mark.png`](public/images/logo-mark.png) — trenutno PNG, finalni SVG fajlovi stižu naknadno.
 
 Detalji: [`docs/02-logo-identity.md`](docs/02-logo-identity.md) i [`docs/04-visual-experience.md`](docs/04-visual-experience.md).
 
