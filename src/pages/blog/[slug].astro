@@ -1,0 +1,34 @@
+---
+import { getCollection, render } from "astro:content";
+import PageLayout from "../../layouts/PageLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<PageLayout title={post.data.title} description={post.data.description}>
+  <article>
+    <h1>{post.data.title}</h1>
+    <Content />
+  </article>
+</PageLayout>
+
+<style>
+  h1 {
+    font-size: var(--text-h1-size-fluid);
+    line-height: var(--text-h1-leading);
+    font-weight: var(--text-h1-weight);
+  }
+
+  article {
+    max-width: var(--content-max);
+  }
+</style>

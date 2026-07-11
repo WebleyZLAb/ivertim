@@ -1,0 +1,51 @@
+---
+import { getCollection } from "astro:content";
+import PageLayout from "../../layouts/PageLayout.astro";
+
+const projekti = (await getCollection("projekti")).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99)
+);
+---
+
+<PageLayout
+  title="Projekti"
+  description="Realizovani projekti Ivertim — problem, proces i rješenje za svaki prostor."
+>
+  <h1>Projekti</h1>
+  {
+    projekti.length === 0 ? (
+      <p><!-- TODO: lista projekata čeka sadržaj i fotografije --></p>
+    ) : (
+      <ul class="project-list">
+        {projekti.map((projekat) => (
+          <li>
+            <a href={`/projekti/${projekat.id}`}>{projekat.data.title}</a>
+            <p>{projekat.data.description}</p>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</PageLayout>
+
+<style>
+  h1 {
+    font-size: var(--text-h1-size-fluid);
+    line-height: var(--text-h1-leading);
+    font-weight: var(--text-h1-weight);
+  }
+
+  .project-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .project-list li {
+    padding: var(--space-lg);
+    border: var(--border-1) solid var(--border-subtle);
+    border-radius: var(--radius-3);
+  }
+</style>

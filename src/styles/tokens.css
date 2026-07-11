@@ -1,0 +1,377 @@
+/*
+  Generated 1:1 from /design-system/*.md. Do not hand-edit a value here —
+  change it in the design-system spec first, then regenerate this file.
+
+  Fluid clamp() formulas for display/H1-H3 typography and section-gap are
+  not specified in the docs (typography.md and spacing.md explicitly leave
+  exact clamp() formulas to be "generated centrally" in implementation).
+  These use viewport range 375px-1536px with mobile minimums chosen as a
+  reasonable scale-down of the locked desktop sizes — flagged in CLAUDE.md
+  for visual validation, not a locked design decision.
+*/
+
+:root {
+  /* ---------- Color: base neutral scale ---------- */
+  --neutral-0: #ffffff;
+  --neutral-50: #f7f6f4;
+  --neutral-100: #f1efec;
+  --neutral-200: #e6e2dc;
+  --neutral-300: #d5cfc6;
+  --neutral-400: #b7aea3;
+  --neutral-500: #958a7e;
+  --neutral-600: #74685c;
+  --neutral-700: #5a4f45;
+  --neutral-800: #40372f;
+  --neutral-900: #2b241f;
+  --neutral-950: #181513;
+
+  /* ---------- Color: base accent scale — Srednji orah ---------- */
+  --accent-50: #f7f2ed;
+  --accent-100: #eee2d6;
+  --accent-200: #ddc5ad;
+  --accent-300: #c8a27f;
+  --accent-400: #a97850;
+  --accent-500: #805a3c;
+  --accent-600: #6e4d33;
+  --accent-700: #5c402a;
+  --accent-800: #493221;
+  --accent-900: #362518;
+  --accent-950: #22160e;
+
+  /* ---------- Color: semantic — text ---------- */
+  --text-primary: var(--neutral-950);
+  --text-secondary: var(--neutral-700);
+  --text-tertiary: var(--neutral-500);
+  --text-disabled: var(--neutral-400);
+  --text-inverse: var(--neutral-0);
+  --text-accent: var(--accent-700);
+
+  /* ---------- Color: semantic — background ---------- */
+  --bg-primary: var(--neutral-50);
+  --bg-secondary: var(--neutral-100);
+  --bg-tertiary: var(--neutral-200);
+  --bg-inverse: var(--neutral-950);
+
+  /* ---------- Color: semantic — surface ---------- */
+  --surface-0: var(--neutral-50);
+  --surface-1: var(--neutral-0);
+  --surface-2: var(--neutral-100);
+  --surface-3: var(--neutral-0);
+  --surface-accent-subtle: var(--accent-50);
+  --surface-inverse: var(--neutral-950);
+
+  /* ---------- Color: semantic — border ---------- */
+  --border-subtle: var(--neutral-200);
+  --border-default: var(--neutral-300);
+  --border-strong: var(--neutral-500);
+  --border-accent: var(--accent-600);
+
+  /* ---------- Color: semantic — icon ---------- */
+  --icon-primary: var(--neutral-900);
+  --icon-secondary: var(--neutral-600);
+  --icon-tertiary: var(--neutral-500);
+  --icon-disabled: var(--neutral-400);
+  --icon-accent: var(--accent-700);
+  --icon-inverse: var(--neutral-0);
+
+  /* ---------- Color: action — primary ---------- */
+  --action-primary: var(--accent-600);
+  --action-primary-hover: var(--accent-700);
+  --action-primary-active: var(--accent-800);
+  --action-primary-text: var(--neutral-0);
+
+  /* ---------- Color: action — secondary ---------- */
+  --action-secondary: transparent;
+  --action-secondary-text: var(--neutral-950);
+  --action-secondary-border: var(--neutral-400);
+  --action-secondary-hover: var(--neutral-100);
+
+  /* ---------- Color: action — link ---------- */
+  --link-default: var(--accent-700);
+  --link-hover: var(--accent-800);
+  --link-active: var(--accent-900);
+  --link-visited: var(--accent-800);
+
+  /* ---------- Color: functional ---------- */
+  --success-text: #25633b;
+  --success-bg: #eaf5ed;
+  --success-border: #b7d9c0;
+  --success-solid: #347a4b;
+
+  --warning-text: #855707;
+  --warning-bg: #fff6e3;
+  --warning-border: #e8c77a;
+  --warning-solid: #b7791f;
+
+  --error-text: #8f2d2d;
+  --error-bg: #fdecec;
+  --error-border: #e7b6b6;
+  --error-solid: #b43c3c;
+
+  --info-text: #2f5f8f;
+  --info-bg: #edf4fb;
+  --info-border: #bdd0e4;
+  --info-solid: #3e73a8;
+
+  /* ---------- Color: focus ring ---------- */
+  --focus-default: 0 0 0 3px rgb(200 162 127 / 0.42);
+  --focus-inverse: 0 0 0 3px rgb(221 197 173 / 0.58);
+  --focus-error: 0 0 0 3px rgb(180 60 60 / 0.25);
+
+  /* ---------- Color: overlay ---------- */
+  --overlay-light: rgb(24 21 19 / 0.20);
+  --overlay-medium: rgb(24 21 19 / 0.45);
+  --overlay-heavy: rgb(24 21 19 / 0.70);
+
+  /* ---------- Color: selection / highlight ---------- */
+  --selection-bg: var(--accent-200);
+  --selection-text: var(--neutral-950);
+  --highlight-bg: var(--accent-100);
+  --highlight-text: var(--neutral-950);
+
+  /* ---------- Color: skeleton / progress ---------- */
+  --skeleton-base: var(--neutral-200);
+  --skeleton-highlight: var(--neutral-100);
+  --progress-track: var(--neutral-200);
+  --progress-fill: var(--accent-600);
+
+  /* ---------- Spacing: base scale ---------- */
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 48px;
+  --space-9: 64px;
+  --space-10: 80px;
+  --space-11: 96px;
+  --space-12: 128px;
+
+  /* ---------- Spacing: semantic scale ---------- */
+  --space-xs: var(--space-2);
+  --space-sm: var(--space-3);
+  --space-md: var(--space-4);
+  --space-lg: var(--space-6);
+  --space-xl: var(--space-7);
+  --space-2xl: var(--space-8);
+  --space-3xl: var(--space-10);
+  --space-4xl: var(--space-12);
+
+  /* ---------- Spacing: layout mapping (mobile default, see media queries below) ---------- */
+  --page-padding: 16px;
+  --container-padding: 16px;
+  --grid-gap: 16px;
+  --section-gap: clamp(4rem, 2.7rem + 5.5vw, 8rem);
+
+  /* ---------- Geometry: radius ---------- */
+  --radius-0: 0px;
+  --radius-1: 4px;
+  --radius-2: 8px;
+  --radius-3: 12px;
+  --radius-4: 16px;
+  --radius-full: 9999px;
+
+  /* ---------- Geometry: border width ---------- */
+  --border-0: 0px;
+  --border-1: 1px;
+  --border-2: 2px;
+
+  /* ---------- Geometry: opacity ---------- */
+  --opacity-0: 0;
+  --opacity-20: 0.20;
+  --opacity-40: 0.40;
+  --opacity-60: 0.60;
+  --opacity-80: 0.80;
+  --opacity-100: 1;
+
+  /* ---------- Geometry: blur ---------- */
+  --blur-0: 0px;
+  --blur-1: 4px;
+  --blur-2: 8px;
+  --blur-3: 16px;
+  --blur-4: 24px;
+
+  /* ---------- Geometry: shadow ---------- */
+  --shadow-0: none;
+  --shadow-1:
+    0 1px 2px rgb(0 0 0 / 0.05),
+    0 2px 8px rgb(0 0 0 / 0.04);
+  --shadow-2:
+    0 4px 12px rgb(0 0 0 / 0.08),
+    0 2px 4px rgb(0 0 0 / 0.04);
+  --shadow-3:
+    0 10px 30px rgb(0 0 0 / 0.12),
+    0 4px 12px rgb(0 0 0 / 0.06);
+  --shadow-4:
+    0 20px 60px rgb(0 0 0 / 0.16),
+    0 8px 24px rgb(0 0 0 / 0.08);
+
+  /* ---------- Geometry: elevation (shadow + surface pairing) ---------- */
+  --elevation-0-shadow: var(--shadow-0);
+  --elevation-0-surface: var(--surface-0);
+  --elevation-1-shadow: var(--shadow-1);
+  --elevation-1-surface: var(--surface-1);
+  --elevation-2-shadow: var(--shadow-2);
+  --elevation-2-surface: var(--surface-2);
+  --elevation-3-shadow: var(--shadow-3);
+  --elevation-3-surface: var(--surface-3);
+  --elevation-4-shadow: var(--shadow-4);
+  --elevation-4-surface: var(--surface-3);
+
+  /* ---------- Motion: duration ---------- */
+  --motion-instant: 0ms;
+  --motion-fast: 120ms;
+  --motion-normal: 200ms;
+  --motion-slow: 320ms;
+  --motion-slower: 480ms;
+
+  /* ---------- Motion: easing ---------- */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* ---------- Layout: containers ---------- */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-full: 100%;
+  --content-max: 720px;
+
+  /* ---------- Components: icon scale ---------- */
+  --icon-xs: 16px;
+  --icon-sm: 20px;
+  --icon-md: 24px;
+  --icon-lg: 32px;
+  --icon-xl: 48px;
+
+  /* ---------- Components: z-index ---------- */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+
+  /* ---------- Typography: scale (desktop / static values) ---------- */
+  --text-display-lg-size: 80px;
+  --text-display-lg-leading: 88px;
+  --text-display-lg-weight: 700;
+  --text-display-lg-tracking: -0.02em;
+
+  --text-display-md-size: 64px;
+  --text-display-md-leading: 72px;
+  --text-display-md-weight: 700;
+  --text-display-md-tracking: -0.02em;
+
+  --text-display-sm-size: 56px;
+  --text-display-sm-leading: 64px;
+  --text-display-sm-weight: 700;
+  --text-display-sm-tracking: -0.02em;
+
+  --text-h1-size: 48px;
+  --text-h1-leading: 56px;
+  --text-h1-weight: 700;
+  --text-h1-tracking: -0.02em;
+
+  --text-h2-size: 40px;
+  --text-h2-leading: 48px;
+  --text-h2-weight: 700;
+  --text-h2-tracking: -0.015em;
+
+  --text-h3-size: 32px;
+  --text-h3-leading: 40px;
+  --text-h3-weight: 700;
+  --text-h3-tracking: -0.01em;
+
+  --text-h4-size: 28px;
+  --text-h4-leading: 36px;
+  --text-h4-weight: 600;
+  --text-h4-tracking: 0;
+
+  --text-h5-size: 24px;
+  --text-h5-leading: 32px;
+  --text-h5-weight: 600;
+  --text-h5-tracking: 0;
+
+  --text-h6-size: 20px;
+  --text-h6-leading: 28px;
+  --text-h6-weight: 600;
+  --text-h6-tracking: 0;
+
+  --text-body-lg-size: 18px;
+  --text-body-lg-leading: 32px;
+  --text-body-lg-weight: 400;
+  --text-body-lg-tracking: 0;
+
+  --text-body-md-size: 16px;
+  --text-body-md-leading: 28px;
+  --text-body-md-weight: 400;
+  --text-body-md-tracking: 0;
+
+  --text-body-sm-size: 14px;
+  --text-body-sm-leading: 24px;
+  --text-body-sm-weight: 400;
+  --text-body-sm-tracking: 0;
+
+  --text-label-lg-size: 16px;
+  --text-label-lg-leading: 24px;
+  --text-label-lg-weight: 500;
+  --text-label-lg-tracking: 0.005em;
+
+  --text-label-md-size: 14px;
+  --text-label-md-leading: 20px;
+  --text-label-md-weight: 500;
+  --text-label-md-tracking: 0.005em;
+
+  --text-label-sm-size: 12px;
+  --text-label-sm-leading: 16px;
+  --text-label-sm-weight: 500;
+  --text-label-sm-tracking: 0.005em;
+
+  --text-caption-size: 12px;
+  --text-caption-leading: 16px;
+  --text-caption-weight: 400;
+  --text-caption-tracking: 0;
+
+  --text-overline-size: 12px;
+  --text-overline-leading: 16px;
+  --text-overline-weight: 600;
+  --text-overline-tracking: 0.08em;
+
+  /* ---------- Typography: fluid sizes for display / H1-H3 (see file header note) ---------- */
+  --text-display-lg-size-fluid: clamp(2.75rem, 2.02rem + 3.1vw, 5rem);
+  --text-display-md-size-fluid: clamp(2.375rem, 1.85rem + 2.24vw, 4rem);
+  --text-display-sm-size-fluid: clamp(2.125rem, 1.68rem + 1.9vw, 3.5rem);
+  --text-h1-size-fluid: clamp(2rem, 1.68rem + 1.38vw, 3rem);
+  --text-h2-size-fluid: clamp(1.75rem, 1.51rem + 1.03vw, 2.5rem);
+  --text-h3-size-fluid: clamp(1.5rem, 1.34rem + 0.69vw, 2rem);
+
+  /* ---------- Typography: font family ---------- */
+  --font-family-primary: "Instrument Sans Variable", "Instrument Sans", system-ui, sans-serif;
+}
+
+/* ---------- Layout: breakpoint-driven overrides (tablet: 768px, desktop: 1280px) ---------- */
+/* Breakpoint values (mobile 0, tablet 768, laptop 1024, desktop 1280, wide 1536)
+   are structural, not CSS custom properties — see design-system/layout.md. */
+@media (min-width: 768px) {
+  :root {
+    --page-padding: 24px;
+    --container-padding: 24px;
+    --grid-gap: 24px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --page-padding: 32px;
+    --container-padding: 32px;
+    --grid-gap: 24px;
+  }
+}

@@ -1,0 +1,108 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<BaseLayout
+  title="Kompetentnost kojoj vjeruješ"
+  description="Ivertim — pločasti namještaj po mjeri, kompletno opremanje prostora i uslužno rezanje, iz Prijedora."
+>
+  <Header />
+  <main>
+    <section class="section" aria-labelledby="hero-heading">
+      <h1 id="hero-heading">Kompetentnost kojoj vjeruješ.</h1>
+      <p><!-- TODO: uvodni copy — čeka finalni tekst iz ChatGPT/vlasnik radne sesije --></p>
+      <a class="cta" href="/kontakt">Razgovarajmo</a>
+    </section>
+
+    <section class="section" aria-labelledby="difference-heading">
+      <h2 id="difference-heading">Zašto je proces drugačiji</h2>
+      <p><!-- TODO: diferencijacija copy --></p>
+    </section>
+
+    <section class="section" aria-labelledby="proof-heading">
+      <h2 id="proof-heading">Dokaz</h2>
+      <p><!-- TODO: istaknuti projekti/proces, čeka sadržaj iz content collection-a `projekti` --></p>
+    </section>
+
+    <section class="section" aria-labelledby="process-heading">
+      <h2 id="process-heading">Proces saradnje</h2>
+      <p><!-- TODO: kratak pregled procesa, link ka /proces-saradnje --></p>
+      <a href="/proces-saradnje">Pogledaj cijeli proces</a>
+    </section>
+
+    <section class="section" aria-labelledby="exits-heading">
+      <h2 id="exits-heading">Istraži dalje</h2>
+      <ul class="exit-links">
+        <li><a href="/usluge">Usluge</a></li>
+        <li><a href="/projekti">Projekti</a></li>
+        <li><a href="/blog">Blog / Savjeti</a></li>
+        <li><a href="/kontakt">Kontakt</a></li>
+      </ul>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  main {
+    max-width: var(--container-xl);
+    margin: 0 auto;
+  }
+
+  .section {
+    padding: var(--space-2xl) var(--container-padding);
+  }
+
+  h1 {
+    font-size: var(--text-display-sm-size-fluid);
+    line-height: var(--text-h1-leading);
+    font-weight: var(--text-display-sm-weight);
+    letter-spacing: var(--text-display-sm-tracking);
+    max-width: var(--content-max);
+  }
+
+  h2 {
+    font-size: var(--text-h2-size-fluid);
+    line-height: var(--text-h2-leading);
+    font-weight: var(--text-h2-weight);
+    letter-spacing: var(--text-h2-tracking);
+  }
+
+  .cta {
+    display: inline-flex;
+    margin-top: var(--space-lg);
+    padding: var(--space-sm) var(--space-xl);
+    background: var(--action-primary);
+    color: var(--action-primary-text);
+    border-radius: var(--radius-2);
+    text-decoration: none;
+    font-weight: var(--text-label-lg-weight);
+  }
+
+  .cta:hover {
+    background: var(--action-primary-hover);
+  }
+
+  .exit-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+    list-style: none;
+    padding: 0;
+  }
+
+  .exit-links a {
+    display: inline-block;
+    padding: var(--space-sm) var(--space-lg);
+    border: var(--border-1) solid var(--action-secondary-border);
+    border-radius: var(--radius-2);
+    text-decoration: none;
+    color: var(--action-secondary-text);
+  }
+
+  .exit-links a:hover {
+    background: var(--action-secondary-hover);
+  }
+</style>

@@ -1,0 +1,51 @@
+---
+import { getCollection } from "astro:content";
+import PageLayout from "../../layouts/PageLayout.astro";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+---
+
+<PageLayout
+  title="Blog / Savjeti"
+  description="Savjeti o namještaju po mjeri, planiranju prostora i procesu proizvodnje."
+>
+  <h1>Blog / Savjeti</h1>
+  {
+    posts.length === 0 ? (
+      <p><!-- TODO: blog sadržaj čeka copy (50% edukativno / 30% prodajno / 20% ostalo, dogovoreno u docs/07-marketing.md) --></p>
+    ) : (
+      <ul class="post-list">
+        {posts.map((post) => (
+          <li>
+            <a href={`/blog/${post.id}`}>{post.data.title}</a>
+            <p>{post.data.description}</p>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</PageLayout>
+
+<style>
+  h1 {
+    font-size: var(--text-h1-size-fluid);
+    line-height: var(--text-h1-leading);
+    font-weight: var(--text-h1-weight);
+  }
+
+  .post-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .post-list li {
+    padding: var(--space-lg);
+    border: var(--border-1) solid var(--border-subtle);
+    border-radius: var(--radius-3);
+  }
+</style>

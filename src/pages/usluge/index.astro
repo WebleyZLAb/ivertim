@@ -1,0 +1,51 @@
+---
+import { getCollection } from "astro:content";
+import PageLayout from "../../layouts/PageLayout.astro";
+
+const usluge = (await getCollection("usluge")).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99)
+);
+---
+
+<PageLayout
+  title="Usluge"
+  description="Pločasti namještaj po mjeri, uslužno rezanje i kompletno opremanje prostora."
+>
+  <h1>Usluge</h1>
+  {
+    usluge.length === 0 ? (
+      <p><!-- TODO: lista usluga čeka finalni spisak i sadržaj od vlasnika --></p>
+    ) : (
+      <ul class="service-list">
+        {usluge.map((usluga) => (
+          <li>
+            <a href={`/usluge/${usluga.id}`}>{usluga.data.title}</a>
+            <p>{usluga.data.description}</p>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</PageLayout>
+
+<style>
+  h1 {
+    font-size: var(--text-h1-size-fluid);
+    line-height: var(--text-h1-leading);
+    font-weight: var(--text-h1-weight);
+  }
+
+  .service-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .service-list li {
+    padding: var(--space-lg);
+    border: var(--border-1) solid var(--border-subtle);
+    border-radius: var(--radius-3);
+  }
+</style>

@@ -1,0 +1,163 @@
+---
+export const prerender = false;
+
+import PageLayout from "../layouts/PageLayout.astro";
+
+const status = Astro.url.searchParams.get("status");
+
+const statusMessages: Record<string, { text: string; kind: "success" | "error" }> = {
+  success: {
+    text: "Hvala! Upit je poslat, javićemo se uskoro.",
+    kind: "success",
+  },
+  missing: { text: "Molimo popuni ime, email i poruku.", kind: "error" },
+  "invalid-email": { text: "Provjeri unesenu email adresu.", kind: "error" },
+  "too-long": { text: "Poruka je predugačka, molimo skrati je.", kind: "error" },
+  error: { text: "Nešto nije uspjelo, pokušaj ponovo malo kasnije.", kind: "error" },
+};
+
+const feedback = status ? statusMessages[status] : undefined;
+---
+
+<PageLayout
+  title="Kontakt"
+  description="Pošalji upit Ivertim timu — javljamo se sa jasnim sljedećim korakom."
+>
+  <h1>Kontakt</h1>
+  <p><!-- TODO: uvodni tekst + kontakt podaci (telefon, adresa, radno vrijeme) čekaju od vlasnika --></p>
+
+  {
+    feedback && (
+      <p role="status" class:list={["feedback", feedback.kind]}>
+        {feedback.text}
+      </p>
+    )
+  }
+
+  <form method="POST" action="/api/contact" class="contact-form">
+    <div class="field honeypot" aria-hidden="true">
+      <label for="company">Kompanija</label>
+      <input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="field">
+      <label for="name">Ime i prezime</label>
+      <input type="text" id="name" name="name" required />
+    </div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required />
+    </div>
+
+    <div class="field">
+      <label for="phone">Telefon (opciono)</label>
+      <input type="tel" id="phone" name="phone" />
+    </div>
+
+    <div class="field">
+      <label for="message">Poruka</label>
+      <textarea id="message" name="message" rows="6" required></textarea>
+    </div>
+
+    <button type="submit">Pošalji upit</button>
+  </form>
+</PageLayout>
+
+<style>
+  h1 {
+    font-size: var(--text-h1-size-fluid);
+    line-height: var(--text-h1-leading);
+    font-weight: var(--text-h1-weight);
+  }
+
+  .feedback {
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-2);
+    font-size: var(--text-body-sm-size);
+  }
+
+  .feedback.success {
+    color: var(--success-text);
+    background: var(--success-bg);
+    border: var(--border-1) solid var(--success-border);
+  }
+
+  .feedback.error {
+    color: var(--error-text);
+    background: var(--error-bg);
+    border: var(--border-1) solid var(--error-border);
+  }
+
+  .contact-form {
+    display: grid;
+    gap: var(--space-lg);
+    max-width: var(--content-max);
+    margin-top: var(--space-xl);
+  }
+
+  .honeypot {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .field {
+    display: grid;
+    gap: var(--space-xs);
+  }
+
+  label {
+    font-size: var(--text-label-md-size);
+    font-weight: var(--text-label-md-weight);
+    color: var(--text-secondary);
+  }
+
+  input,
+  textarea {
+    font-family: var(--font-family-primary);
+    font-size: var(--text-body-md-size);
+    color: var(--text-primary);
+    background: var(--surface-1);
+    border: var(--border-1) solid var(--border-default);
+    border-radius: var(--radius-2);
+    padding: var(--space-sm) var(--space-md);
+    transition: border-color var(--motion-fast) var(--ease-out);
+  }
+
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: none;
+    border-color: var(--border-accent);
+    box-shadow: var(--focus-default);
+  }
+
+  button {
+    justify-self: start;
+    padding: var(--space-sm) var(--space-xl);
+    background: var(--action-primary);
+    color: var(--action-primary-text);
+    border: none;
+    border-radius: var(--radius-2);
+    font-size: var(--text-label-lg-size);
+    font-weight: var(--text-label-lg-weight);
+    cursor: pointer;
+    transition: background var(--motion-fast) var(--ease-out);
+  }
+
+  button:hover {
+    background: var(--action-primary-hover);
+  }
+
+  button:active {
+    background: var(--action-primary-active);
+  }
+
+  button:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-default);
+  }
+</style>
