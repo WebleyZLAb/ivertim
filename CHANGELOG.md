@@ -1,3 +1,7 @@
+# Changelog
+
+All notable changes to the project documentation and Design System are documented here.
+
 ## [1.0.1] - Design Tokens Implementation
 
 ### Added
@@ -17,11 +21,6 @@
 - Vizuelna verifikacija accent HEX skale (`#805A3C`) uz fizički uzorak/logotip prije produkcije.
 - WCAG kontrast provjera u stvarnim komponentama.
 - Focus/disabled stanja testirati u browseru.
-
-
-# Changelog
-
-All notable changes to the project documentation and Design System are documented here.
 
 ## [1.0.0] - Design System locked
 
