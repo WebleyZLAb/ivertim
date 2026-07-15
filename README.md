@@ -208,7 +208,7 @@ Detalji: [`docs/04-visual-experience.md`](docs/04-visual-experience.md).
 
 ## 8. Design System
 
-Kompletna specifikacija je u folderu [`design-system`](design-system).
+Kompletna specifikacija je u folderu `design-system`.
 
 Obavezna pravila:
 
@@ -221,7 +221,15 @@ Obavezna pravila:
 - precizne komponente ostaju fiksne ili diskretno mijenjane na breakpointima;
 - tipografija i veliki layout razmaci mogu skalirati fluidno.
 
-Početna tačka: [`design-system/README.md`](design-system/README.md).
+**Machine-ready izvor:** `design-system/tokens.css` sadrži sve konkretne implementacione vrijednosti (HEX, px, rem, ms, clamp formule). To je jedini izvor istine za implementaciju — `design-system/IMPLEMENTATION_TOKENS.md` objašnjava fluid formule i breakpointe. Ostali dokumenti u `/design-system` (colors.md, spacing.md, typography.md...) ostaju konceptualno objašnjenje i ne smiju se koristiti za izvođenje vrijednosti kad `tokens.css` već ima konkretan odgovor.
+
+Početna tačka: [`design-system/README.md`](https://github.com/WebleyZLAb/ivertim/blob/main/design-system/README.md).
+
+Typography
+
+Official typeface: Instrument Sans Variable.
+
+The entire interface uses a single font family. Hierarchy is created through the typography scale, weight, spacing and layout—not by introducing additional font families.
 
 Typography
 
@@ -312,19 +320,19 @@ Preporučeni prvi zadatak za Claude Code:
 
 ## 12. Tehnička sloboda
 
-Dokumentacija namjerno ne zaključava unaprijed:
+Framework je zaključan: **Astro**.
 
-- framework;
-- bundler;
-- routing pristup;
+Dokumentacija i dalje namjerno ne zaključava unaprijed:
+
+- routing pristup unutar Astro-a;
 - CMS;
 - data layer;
 - animation library;
-- strukturu `/src`;
+- strukturu `/src` iznad postojećeg scaffolda;
 - način deploymenta;
 - način organizacije komponenti.
 
-Claude Code smije predložiti najbolje tehničko rješenje za konkretan trenutak, ali prijedlog mora:
+Claude Code smije predložiti najbolje tehničko rješenje za ove otvorene tačke, ali prijedlog mora:
 
 - poštovati postojeće principe;
 - biti proporcionalan obimu projekta;
@@ -333,13 +341,13 @@ Claude Code smije predložiti najbolje tehničko rješenje za konkretan trenutak
 - imati jasno obrazloženje;
 - ne zaključavati projekat bez potrebe.
 
-Prethodno razmatrani alati uključuju Vite, Next.js, GitHub i Vercel, ali konačna odluka se donosi u razvojnoj fazi.
+Vite i Next.js su ranije razmatrani, ali odluka je pala na Astro zbog content-focused sajta bez potrebe za teškim client-side state managementom. GitHub i Vercel ostaju predviđeni za repo i deployment.
 
 ---
 
 ## 13. Status zaključavanja
 
-Zaključano za Design System v1.0.0:
+Zaključano za Design System v1.0.1:
 
 - neutralna HEX skala;
 - accent skala Srednji orah;
@@ -349,12 +357,15 @@ Zaključano za Design System v1.0.0:
 - focus ring;
 - overlay;
 - selection;
-- skeleton i progress boje.
+- skeleton i progress boje;
+- kompletne implementacione vrijednosti (`design-system/tokens.css`) — spacing, radius, shadow, motion, typography, boja i dimenzije komponenti;
+- tačne fluid `clamp()` formule za responsive tipografiju i layout;
+- font-family: Instrument Sans Variable (potvrđeno i povezano u `tokens.css`).
 
 Preostala implementaciona provjera:
 
-- potvrditi i povezati već zaključanu font-family odluku iz Visual Experience materijala;
-- provjeriti kontrast u stvarnim komponentama prije produkcije;
+- vizuelno potvrditi accent HEX skalu (`#805A3C` i izvedeni tonovi) pored fizičkog uzorka/logotipa prije finalne produkcije — skala je matematički izvedena iz "srednji orah" odluke, ali nikad fizički verifikovana;
+- provjeriti kontrast (WCAG) svih text/bg parova u stvarnim komponentama;
 - testirati focus i disabled stanja u browseru.
 
 Nove vrijednosti se ne uvode bez dokumentovane potrebe i odobrenja.
