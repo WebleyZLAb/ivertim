@@ -1,4 +1,4 @@
-# 08 — Signature System
+# 09 — Signature System
 
 > Version: 1.0
 > Status: Approved
@@ -154,25 +154,25 @@ Defines the origin of the Signature Shape.
 
 ---
 
-**04-visual-experience.md**
+**05-visual-experience.md**
 
 Defines where the Signature System naturally integrates into layouts and interfaces.
 
 ---
 
-**05-design-tokens.md**
+**06-design-tokens.md**
 
 Defines measurements, spacing, colors and implementation values used together with the Signature System.
 
 ---
 
-**06-development-rules.md**
+**07-development-rules.md**
 
 Defines how developers should technically implement the visual system.
 
 ---
 
-**07-marketing.md**
+**08-marketing.md**
 
 Defines how marketing communicates.
 
