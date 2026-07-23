@@ -7,8 +7,8 @@
 > This document extends:
 >
 > - 02-logo-identity.md
-> - 04-visual-experience.md
-> - 05-design-tokens.md
+> - 05-visual-experience.md
+> - 06-design-tokens.md
 >
 > This document defines the recurring visual language of the Ivertim brand.
 >
