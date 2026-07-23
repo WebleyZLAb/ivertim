@@ -1,4 +1,4 @@
-# 05 — Design Tokens
+# 06 — Design Tokens
 
 Kompletna specifikacija se nalazi u folderu `/design-system`.
 
