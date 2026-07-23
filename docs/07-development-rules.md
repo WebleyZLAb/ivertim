@@ -1,4 +1,4 @@
-# 06 — Development Rules
+# 07 — Development Rules
 
 ## Osnovni pristup
 
