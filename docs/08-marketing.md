@@ -1,4 +1,4 @@
-# 07 — Marketing
+# 08 — Marketing
 
 Marketing se nadovezuje na zaključanu strategiju, branding i web iskustvo.
 
