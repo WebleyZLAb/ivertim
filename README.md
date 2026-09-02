@@ -39,16 +39,14 @@ Ako nešto nije definisano:
 
 ## 2. Šta je Ivertim
 
-Ivertim je firma iz Prijedora usmjerena na proizvodnju pločastog namještaja i kompletno rješavanje prostora.
+Ivertim je firma iz Prijedora usmjerena na uslužno rezanje i obradu pločastih materijala i na proizvodnju pločastog namještaja po mjeri.
 
-Glavne usluge:
+Glavne usluge (ažurirano 2026-09-02, eksplicitna odluka vlasnika — vidi `docs/00-strategy.md` i `CLAUDE.md`):
 
-- proizvodnja kuhinja, ormara, komoda, cipelarâ i drugog pločastog namještaja;
-- uslužno rezanje iverice i drugih pločastih materijala;
-- kompletno opremanje stanova i kuća;
-- 3D projektovanje i prikaz rješenja;
-- proizvodnja povezana sa savremenim CNC procesom;
-- transport i montaža kao dio kompletnog procesa.
+1. **uslužno rezanje, kantovanje i bušenje pločastih materijala** — primarna usluga i glavni proizvodni fokus (drvni centar);
+2. **izrada pločastog namještaja po mjeri** (kuhinje, ormari, komode, cipelare i drugo) — i dalje puna usluga, sekundarna po komunikacionom prioritetu i kapacitetu.
+
+3D projektovanje, CNC proces i transport/montaža ostaju dio procesa isporuke obje usluge, ne posebne stavke ponude. Kompletno opremanje stanova i kuća se i dalje dešava, ali kroz vlasnikovu postojeću mrežu saradnika — ne navodi se kao samostalna, marketinški istaknuta usluga na sajtu.
 
 Ivertim nije brend koji prodaje obećanja, dekorativnu priču ili generičku tvrdnju da je „najbolji“. Ivertim je partner koji sluša, mjeri, planira, preuzima odgovornost i isporučuje dogovoreno rješenje.
 
@@ -380,10 +378,15 @@ Nove vrijednosti se ne uvode bez dokumentovane potrebe i odobrenja.
 - [`docs/01-branding.md`](docs/01-branding.md)
 - [`docs/02-logo-identity.md`](docs/02-logo-identity.md)
 - [`docs/03-web-experience.md`](docs/03-web-experience.md)
-- [`docs/04-visual-experience.md`](docs/04-visual-experience.md)
-- [`docs/05-design-tokens.md`](docs/05-design-tokens.md)
-- [`docs/06-development-rules.md`](docs/06-development-rules.md)
-- [`docs/07-marketing.md`](docs/07-marketing.md)
+- [`docs/05-visual-experience.md`](docs/05-visual-experience.md)
+- [`docs/06-design-tokens.md`](docs/06-design-tokens.md)
+- [`docs/07-development-rules.md`](docs/07-development-rules.md)
+- [`docs/08-marketing.md`](docs/08-marketing.md)
+- [`docs/09 - Signature System.md`](<docs/09 - Signature System.md>)
+
+### Copywriting
+
+Kompletni copywriting blueprintovi (glasovni sistem, template i pojedinačne stranice) nalaze se u [`docs/04 - Copywriting/`](<docs/04 - Copywriting>). Status po fajlu: "Approved" (vidi header svakog dokumenta); sadržaj treba revidirati u skladu sa aktuelnom listom usluga prije implementacije — vidi `CLAUDE.md`.
 
 ### Design System
 

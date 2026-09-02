@@ -15,10 +15,14 @@ Ivertim/
 │   ├── 01-branding.md              — brand essence, voice, tone
 │   ├── 02-logo-identity.md         — logo direction and rules (see public/images/ for actual asset files)
 │   ├── 03-web-experience.md        — information architecture, UX principles
-│   ├── 04-visual-experience.md     — visual direction, photography, color direction
-│   ├── 05-design-tokens.md         — token architecture overview
-│   ├── 06-development-rules.md     — engineering priorities and rules
-│   └── 07-marketing.md             — content/marketing principles
+│   ├── 04 - Copywriting/           — full copywriting blueprint set (communication system + per-page
+│   │                                  blueprints); "Approved" status per file, needs revision against
+│   │                                  the current service list — see CLAUDE.md
+│   ├── 05-visual-experience.md     — visual direction, photography, color direction
+│   ├── 06-design-tokens.md         — token architecture overview
+│   ├── 07-development-rules.md     — engineering priorities and rules
+│   ├── 08-marketing.md             — content/marketing principles
+│   └── 09 - Signature System.md    — recurring visual language / brand signature system
 │
 ├── design-system/               ← locked v1.0.0 design system, source of truth for all visual values
 │   ├── README.md                    — index and status
@@ -65,7 +69,7 @@ Ivertim/
 ## Reading order for understanding the project
 
 1. `README.md` — brand strategy, IA, locked decisions, authority hierarchy.
-2. `docs/00-strategy.md` → `docs/07-marketing.md` — full strategy/brand/UX/visual/marketing context.
+2. `docs/00-strategy.md` → `docs/09 - Signature System.md` (including `docs/04 - Copywriting/`) — full strategy/brand/UX/copywriting/visual/marketing context.
 3. `design-system/` — the locked, implementable design system (colors, type, spacing, geometry, motion).
 4. `public/images/` — actual approved logo asset files (PNG placeholders; final SVG pending).
 5. `src/` — current technical scaffold implementing the above. `CLAUDE.md` has the up-to-date status,

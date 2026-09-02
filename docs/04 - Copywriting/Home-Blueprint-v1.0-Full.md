@@ -173,12 +173,17 @@ Blag hover i otkrivanje naziva usluge.
 
 ### H2
 
-**Svaki prostor traži drugačije rješenje.**
+**Dvije usluge. Jedan isti pristup preciznosti.**
 
-Ne postoje dvije iste kuhinje, dva ista doma niti dva ista poslovna
-prostora. Zato svakoj usluzi pristupamo na isti način --- prvo
-razumijemo prostor, zatim potrebe, pa tek onda tražimo najbolje
-rješenje.
+Bilo da vam treba precizno isječen i okantovan materijal ili kompletan
+namještaj po mjeri, pristupamo im na isti način --- prvo razumijemo šta
+vam treba, zatim izmjerimo, pa tek onda predlažemo najbolje rješenje.
+
+*(Napomena uz reviziju 2026-09-02: kopija revidirana da odražava dvije
+stvarne usluge — uslužno rezanje/kantovanje/bušenje kao primarna,
+namještaj po mjeri kao sekundarna — umjesto ranije formulacije okrenute
+oko tipova prostora. Vidi `Services-Landing-Blueprint-v1.1` i
+`CLAUDE.md`.)*
 
 CTA: Istražite usluge
 
