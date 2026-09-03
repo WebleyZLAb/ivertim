@@ -1,8 +1,8 @@
 # CONTACT BLUEPRINT
 
 **Project:** Ivertim\
-**Version:** 1.0\
-**Status:** Approved
+**Version:** 1.1\
+**Status:** Approved — §10 dopunjeno 2026-09-03 (uklonjen Showroom, potvrđeni kontakt podaci, vidi `CLAUDE.md`)
 
 ------------------------------------------------------------------------
 
@@ -142,9 +142,9 @@ Telefon --- za brza pitanja i dogovor.
 
 E-mail --- za planove, fotografije i dokumentaciju.
 
-Showroom --- za razgovor uživo i pregled materijala.
-
 Radno vrijeme --- jasno prikazano.
+
+*(Napomena 2026-09-03: "Showroom" je uklonjen kao kontakt kanal — ne postoji trenutno. Na adresi (Svale) je fabrika sa novim mašinama i kancelarije ispred; showroom u IKEA-stilu ("neko crta ljudima") je bio razmatran za budućnost, nakon renoviranja kancelarija, ali vlasnik svjesno povlači taj model jer je fokus na uslužnom rezanju/drvnom centru, ne na dizajnerskoj usluzi za kupce. Ako se showroom ipak izgradi, dodati kao sekundarni, ne glavni CTA — vidi `CLAUDE.md`.)*
 
 ------------------------------------------------------------------------
 
@@ -206,14 +206,20 @@ Preporučena pitanja:
 # 15. TODO
 
 -   ~~Potvrditi radno vrijeme.~~ — riješeno 2026-09-03: radnim danima 7–16h, vikendom ne radi. Vidi `CLAUDE.md`.
--   ~~Potvrditi adresu.~~ — riješeno 2026-09-03: Svale bb, 79101 Prijedor. Napomena: ova sekcija (§10) pretpostavlja "Showroom" kao kategoriju — nije potvrđeno da adresa funkcioniše kao showroom u maloprodajnom smislu (firma je "Zajednička zanatska radnja", ne prodavnica); provjeriti sa vlasnikom kako se adresa treba predstaviti (radionica/adresa/showroom) prije nego copy ide u produkciju.
--   Potvrditi telefon — vlasnik je poslao kontekst (Nenadov broj, ne Bojanov) ali ne i same cifre; još nedostaje.
--   ~~Potvrditi kontakt podatke.~~ — email potvrđen 2026-09-03: namjestajivertim@gmail.com (privremen, bez domena — vidi `CLAUDE.md`). Telefon i dalje nedostaje (vidi red iznad).
+-   ~~Potvrditi adresu.~~ — riješeno 2026-09-03: Svale bb, 79101 Prijedor (fabrika sa mašinama + kancelarije).
+-   ~~Potvrditi telefon.~~ — riješeno 2026-09-03: +387 65 748 943 (Nenadov broj).
+-   ~~Potvrditi kontakt podatke.~~ — riješeno 2026-09-03: email namjestajivertim@gmail.com (privremen, bez domena), adresa i telefon iznad. Vidi `CLAUDE.md`.
+-   ~~Showroom kao kontakt kanal.~~ — riješeno 2026-09-03: uklonjen iz §10 (vidi napomenu tamo) — ne postoji trenutno, i vlasnik svjesno povlači taj model u korist fokusa na uslužno rezanje.
 -   Definisati tekst automatskog odgovora.
 
 ------------------------------------------------------------------------
 
 # 16. Changelog
+
+## v1.1 — 2026-09-03
+
+-   Uklonjen "Showroom" iz §10 KONTAKT INFORMACIJE — ne postoji trenutno; vlasnik svjesno povlači taj model (IKEA-stil dizajn usluga) u korist fokusa na uslužno rezanje/drvni centar. Vidi napomenu u §10 i `CLAUDE.md`.
+-   Potvrđeni kontakt podaci: telefon, email, adresa, radno vrijeme — vidi TODO i `CLAUDE.md`.
 
 ## v1.0
 
