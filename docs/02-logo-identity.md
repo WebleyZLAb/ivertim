@@ -18,13 +18,20 @@ Potrebne varijante:
 
 ## Asset fajlovi
 
-Trenutno dostupno (PNG, radna verzija — finalni SVG fajlovi stižu naknadno):
+**Ažurirano 2026-09-03 — finalni SVG fajlovi stigli od vlasnika, zamjenjuju dio PNG radne verzije:**
 
-- [`public/images/logo-horizontal.png`](../public/images/logo-horizontal.png) — horizontalni lockup (znak + wordmark);
-- [`public/images/logo-vertical.png`](../public/images/logo-vertical.png) — vertikalni lockup;
-- [`public/images/logo-mark.png`](../public/images/logo-mark.png) — samostalni znak.
+- [`public/images/logo-horizontal.svg`](../public/images/logo-horizontal.svg) — horizontalni lockup (znak + wordmark), svijetla primjena;
+- [`public/images/logo-horizontal-inverse.svg`](../public/images/logo-horizontal-inverse.svg) — isti lockup, tamna primjena (bijeli fill za tamnu pozadinu);
+- [`public/images/logo-mark.svg`](../public/images/logo-mark.svg) — samostalni znak, svijetla primjena;
+- [`public/images/logo-mark-inverse.svg`](../public/images/logo-mark-inverse.svg) — samostalni znak, tamna primjena;
+- [`public/images/logo-wordmark.svg`](../public/images/logo-wordmark.svg) — samostalni wordmark (bez znaka), svijetla primjena;
+- [`public/images/logo-wordmark-inverse.svg`](../public/images/logo-wordmark-inverse.svg) — samostalni wordmark, tamna primjena;
+- [`public/images/signature-shape.svg`](../public/images/signature-shape.svg) — vektorski izvor Signature Shape-a (vidi `09 - Signature System.md`), svijetla primjena;
+- [`public/images/signature-shape-inverse.svg`](../public/images/signature-shape-inverse.svg) — Signature Shape, tamna primjena.
 
-Još nedostaje iz sistema logotipa navedenog gore: favicon varijanta, app/social icon, monohromatske varijante, tamna primjena. Ne izmišljati ove varijante ručno — čekati finalne SVG fajlove.
+Ovi SVG fajlovi su sada primarni izvor za horizontalni lockup, znak, wordmark i Signature Shape — zamjenjuju odgovarajuće PNG placeholdere za implementaciju. Stari `logo-horizontal.png` i `logo-mark.png` ostaju u repou dok se ne odluči da li ih ukloniti; `logo-vertical.png` ostaje jedina PNG-only varijanta — vertikalni lockup nije stigao kao SVG u ovoj isporuci.
+
+Još nedostaje iz sistema logotipa navedenog gore: vertikalni lockup kao SVG, favicon varijanta, app/social icon, monohromatske (single-ink) varijante. Ne izmišljati ove varijante ručno — čekati da vlasnik isporuči i njih.
 
 ## Wordmark
 

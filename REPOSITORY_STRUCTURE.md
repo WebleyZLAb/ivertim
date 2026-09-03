@@ -40,9 +40,17 @@ Ivertim/
 │
 ├── public/
 │   └── images/
-│       ├── logo-horizontal.png     — approved horizontal logo lockup (PNG; final SVG pending)
-│       ├── logo-vertical.png       — approved vertical logo lockup (PNG; final SVG pending)
-│       └── logo-mark.png           — approved standalone mark (PNG; final SVG pending)
+│       ├── logo-horizontal.svg          — final horizontal lockup (light), 2026-09-03
+│       ├── logo-horizontal-inverse.svg  — final horizontal lockup (dark bg)
+│       ├── logo-mark.svg                — final standalone mark (light)
+│       ├── logo-mark-inverse.svg        — final standalone mark (dark bg)
+│       ├── logo-wordmark.svg            — final standalone wordmark (light)
+│       ├── logo-wordmark-inverse.svg    — final standalone wordmark (dark bg)
+│       ├── signature-shape.svg          — vector source for the Signature System shape (light)
+│       ├── signature-shape-inverse.svg  — Signature Shape (dark bg)
+│       ├── logo-horizontal.png          — superseded by logo-horizontal.svg, kept pending cleanup decision
+│       ├── logo-mark.png                — superseded by logo-mark.svg, kept pending cleanup decision
+│       └── logo-vertical.png            — still the only vertical lockup; no SVG delivered yet
 │
 └── src/                          ← Astro technical scaffold (see CLAUDE.md for current build status)
     ├── content.config.ts             — Content Collections schemas (usluge, projekti, blog)
@@ -71,7 +79,7 @@ Ivertim/
 1. `README.md` — brand strategy, IA, locked decisions, authority hierarchy.
 2. `docs/00-strategy.md` → `docs/09 - Signature System.md` (including `docs/04 - Copywriting/`) — full strategy/brand/UX/copywriting/visual/marketing context.
 3. `design-system/` — the locked, implementable design system (colors, type, spacing, geometry, motion).
-4. `public/images/` — actual approved logo asset files (PNG placeholders; final SVG pending).
+4. `public/images/` — actual approved logo asset files: final SVG for horizontal lockup, mark, wordmark and Signature Shape (light + dark each); vertical lockup still PNG-only.
 5. `src/` — current technical scaffold implementing the above. `CLAUDE.md` has the up-to-date status,
    technical decisions, and known limitations of this scaffold (e.g. temporary fluid-typography values
    not yet visually validated).

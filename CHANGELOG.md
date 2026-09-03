@@ -2,6 +2,25 @@
 
 All notable changes to the project documentation and Design System are documented here.
 
+## [2.1.0] - Final SVG logo assets (2026-09-03)
+
+MINOR per §15 semver rule — new assets resolve a documented gap, no locked decision changes.
+
+### Added
+
+- `public/images/logo-horizontal.svg` / `logo-horizontal-inverse.svg` — final horizontal lockup (light/dark).
+- `public/images/logo-mark.svg` / `logo-mark-inverse.svg` — final standalone mark (light/dark).
+- `public/images/logo-wordmark.svg` / `logo-wordmark-inverse.svg` — final standalone wordmark (light/dark), a variant that previously had no dedicated asset.
+- `public/images/signature-shape.svg` / `signature-shape-inverse.svg` — first real vector source for the Signature Shape described in `docs/09 - Signature System.md` (previously only described in prose, no asset).
+
+### Changed
+
+- `docs/02-logo-identity.md` §Asset fajlovi, `README.md` §5, `REPOSITORY_STRUCTURE.md` — updated to list the new SVGs as primary and note what's still missing (vertical lockup SVG, favicon, app/social icon, monochrome-only variants).
+
+### Note
+
+- `logo-horizontal.png` and `logo-mark.png` are superseded by the new SVGs but were left in the repo rather than deleted without being asked; `logo-vertical.png` remains the only vertical-lockup asset (no SVG delivered for it yet).
+
 ## [2.0.1] - Pivot consistency pass (2026-09-03)
 
 PATCH per §15 semver rule — clarifies and completes the 2.0.0 pivot without changing any locked decision. Full context in `CLAUDE.md`.

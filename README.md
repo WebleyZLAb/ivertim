@@ -2,8 +2,8 @@
 
 > Jedinstveni izvor istine za strategiju, brend, korisničko iskustvo, vizuelni sistem i budući razvoj Ivertim digitalnog proizvoda.
 
-**Status:** dokumentacija zaključana (v2.0.0, uključuje 2026-09-02 pivot na uslužno rezanje kao primarnu uslugu) + početni tehnički scaffold (Astro), sadržaj i vizuelni brandbook u izradi  
-**Verzija:** 2.0.0  
+**Status:** dokumentacija zaključana (v2.1.0, uključuje 2026-09-02 pivot na uslužno rezanje kao primarnu uslugu i 2026-09-03 finalne SVG logo asset-e) + početni tehnički scaffold (Astro), sadržaj i vizuelni brandbook u izradi  
+**Verzija:** 2.1.0  
 **Primarni vlasnik projekta:** Ivertim  
 **Primarni način rada:** Claude Design / Claude Code / GitHub
 
@@ -137,7 +137,7 @@ Vizuelni karakter:
 - bez dekorativnog viška;
 - premium kroz red, tipografiju, fotografiju i ritam, ne kroz efekte.
 
-Asset fajlovi: [`public/images/logo-horizontal.png`](public/images/logo-horizontal.png), [`public/images/logo-vertical.png`](public/images/logo-vertical.png), [`public/images/logo-mark.png`](public/images/logo-mark.png) — trenutno PNG, finalni SVG fajlovi stižu naknadno.
+Asset fajlovi: finalni SVG (2026-09-03) za horizontalni lockup, znak, wordmark i Signature Shape, svaki u svijetloj i tamnoj primjeni — vidi [`docs/02-logo-identity.md`](docs/02-logo-identity.md) za kompletnu listu i status. Vertikalni lockup, favicon, app/social icon i monohromatske varijante još nisu stigli.
 
 Detalji: [`docs/02-logo-identity.md`](docs/02-logo-identity.md) i [`docs/05-visual-experience.md`](docs/05-visual-experience.md).
 
