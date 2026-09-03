@@ -94,6 +94,8 @@ Not blocked, can happen independently whenever convenient:
 - Set up real `RESEND_API_KEY` / `CONTACT_EMAIL_TO` / `CONTACT_EMAIL_FROM` once the business email/domain is confirmed.
 - Decide on a Vercel (or other) project connection when ready to deploy.
 
+**Balkan Direct Response Master Skill (2026-09-03):** owner built a general-purpose direct-response/ads/funnel copywriting skill (Hormozi strategy + Gajić local execution, Meta ads/email/landing/sales-scripts) separately with GPT and asked to bring it into Ivertim. Flagged a real tone conflict — it's a hook/urgency/conversion-pressure framework, while `00 - Communication System.md` is explicitly calm/advisory/non-salesy with no false urgency and one fixed CTA. Owner decided to keep them separate: installed as its own personal Claude Code skill at `~/.claude/skills/balkan-direct-response-master/SKILL.md` (available across projects, invoked on demand), **not** merged into Ivertim's docs or voice. Ivertim's own copywriting (the eventual skill from `docs/04 - Copywriting/`, per item 1 above) stays the default/primary voice for the site; Balkan Direct Response is for future paid ads/email/sales-script work only, once that infrastructure exists — none of it exists yet.
+
 ## Open Questions
 
 - Dark mode: token naming is dark-mode-ready but dark mode itself is out of scope for v1 launch.
