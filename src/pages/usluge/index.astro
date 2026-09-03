@@ -11,7 +11,7 @@ const usluge = (await getCollection("usluge")).sort(
   title="Usluge"
   description="Dvije usluge, jedan isti pristup preciznosti — uslužno rezanje, kantovanje i bušenje, i izrada namještaja po mjeri."
 >
-  <section class="hero">
+  <section class="hero" data-reveal>
     <h1>Dvije usluge. Jedan isti pristup preciznosti.</h1>
     <p class="lead">
       Bilo da vam treba precizno isječen i okantovan materijal ili kompletan namještaj po mjeri, počinjemo isto — razumijemo šta vam treba, izmjerimo i predložimo rješenje koje odgovara.
@@ -24,7 +24,7 @@ const usluge = (await getCollection("usluge")).sort(
     ) : (
       <ul class="service-list">
         {usluge.map((usluga, index) => (
-          <li>
+          <li class:list={["service-card", { "service-card--accent": index === 0 }]} data-reveal>
             <p class="eyebrow">{index === 0 ? "Primarna usluga" : "Sekundarna usluga"}</p>
             <a class="service-title" href={`/usluge/${usluga.id}`}>{usluga.data.title}</a>
             <p class="service-description">{usluga.data.description}</p>
@@ -35,7 +35,7 @@ const usluge = (await getCollection("usluge")).sort(
     )
   }
 
-  <section class="closing">
+  <section class="closing" data-reveal>
     <h2>Niste sigurni koja usluga odgovara vašem projektu?</h2>
     <p>
       Svaki prostor je drugačiji. Ako niste sigurni odakle krenuti, razgovaraćemo o vašim potrebama i zajedno pronaći najbolje rješenje.
@@ -69,11 +69,25 @@ const usluge = (await getCollection("usluge")).sort(
     margin-top: var(--space-3xl);
   }
 
-  .service-list li {
+  .service-card {
+    position: relative;
+    overflow: hidden;
     padding: var(--space-xl);
     background: var(--surface-1);
     border: var(--border-1) solid var(--border-subtle);
     border-radius: var(--radius-3);
+  }
+
+  .service-card--accent::after {
+    content: "";
+    position: absolute;
+    right: -28px;
+    bottom: -28px;
+    width: 110px;
+    height: 110px;
+    background: url("/images/signature-shape.svg") no-repeat center / contain;
+    opacity: 0.06;
+    pointer-events: none;
   }
 
   .eyebrow {

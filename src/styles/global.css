@@ -63,6 +63,23 @@ a:active {
   border-radius: var(--radius-1);
 }
 
+/* Scroll-reveal: paired with BaseLayout's IntersectionObserver script.
+   Elements start slightly lowered and transparent, then settle into place
+   once — never re-hides, never loops. Skipped entirely under reduced motion
+   (the script adds .is-revealed immediately in that case). */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity var(--motion-slow) var(--ease-out),
+    transform var(--motion-slow) var(--ease-out);
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

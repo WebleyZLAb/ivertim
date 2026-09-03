@@ -16,10 +16,11 @@ const navItems = [
 
   <details class="nav-disclosure">
     <summary aria-label="Otvori meni">
-      <svg class="icon-open" viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
-        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      <svg class="icon-open" viewBox="0 0 174.79 168.95" width="22" height="22" fill="currentColor" aria-hidden="true">
+        <path d="M101.53,160.33c-.29-12.65.69-24.16-.33-36.72-2.31-28.52-25.08-52.38-53.58-54.66-11.79-.94-22.45-.07-34.18-.33-1.97-.04-3.84-2.16-3.84-4.17V23.21c0-8.57,6.53-17.98,16.33-17.99l116.48-.05c15.5,0,25.49,13.34,25.47,27.79l-.13,109.78c-.02,12.78-10.46,21.09-22.56,21.05l-40.2-.12c-1.54,0-3.43-1.84-3.46-3.33Z" />
+        <path d="M75.45,163.71l-50.37-.31c-8.97-.05-15.45-8.75-15.45-17l-.03-51.65c0-1.33,2.55-3.57,3.77-3.52,9.75.37,18.45-.61,28.14.4,19.76,2.05,35.54,19.13,37.11,38.91.81,10.28.11,19.44.34,29.82.03,1.39-2.04,3.36-3.5,3.35Z" />
       </svg>
-      <svg class="icon-close" viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+      <svg class="icon-close" viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
         <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
       </svg>
     </summary>
@@ -38,6 +39,15 @@ const navItems = [
     </nav>
   </details>
 </header>
+
+<script>
+  const disclosure = document.querySelector<HTMLDetailsElement>(".nav-disclosure");
+  const summary = disclosure?.querySelector("summary");
+
+  disclosure?.addEventListener("toggle", () => {
+    summary?.setAttribute("aria-label", disclosure.open ? "Zatvori meni" : "Otvori meni");
+  });
+</script>
 
 <style>
   .site-header {
@@ -124,16 +134,29 @@ const navItems = [
     display: none;
   }
 
+  .icon-open,
   .icon-close {
-    display: none;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    transition:
+      opacity var(--motion-fast) var(--ease-out),
+      transform var(--motion-fast) var(--ease-out);
+  }
+
+  .icon-close {
+    opacity: 0;
+    transform: rotate(-45deg) scale(0.6);
   }
 
   .nav-disclosure[open] .icon-open {
-    display: none;
+    opacity: 0;
+    transform: rotate(45deg) scale(0.6);
   }
 
   .nav-disclosure[open] .icon-close {
-    display: block;
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
   }
 
   /* Desktop: nav is a plain always-visible row; disclosure chrome and
@@ -163,6 +186,7 @@ const navItems = [
     }
 
     .nav-disclosure summary {
+      position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;

@@ -15,7 +15,8 @@ const usluge = (await getCollection("usluge")).sort(
 >
   <Header />
   <main>
-    <section class="section hero" aria-labelledby="hero-heading">
+    <section class="section hero" aria-labelledby="hero-heading" data-reveal>
+      <img class="hero-signature" src="/images/signature-shape.svg" alt="" aria-hidden="true" />
       <h1 id="hero-heading">Precizna obrada pločastog materijala — od uslužnog rezanja do namještaja po mjeri.</h1>
       <p class="lead">
         Nekome treba samo precizno isječen i okantovan materijal, nekome kompletno rješenje po mjeri prostora. Zato ne počinjemo od gotovog proizvoda, već od razumijevanja onoga što vam zaista treba.
@@ -26,7 +27,7 @@ const usluge = (await getCollection("usluge")).sort(
       </div>
     </section>
 
-    <section class="section" aria-labelledby="usluge-heading">
+    <section class="section" aria-labelledby="usluge-heading" data-reveal>
       <h2 id="usluge-heading">Dvije usluge. Jedan isti pristup preciznosti.</h2>
       <p class="section-lead">
         Bilo da vam treba precizno isječen i okantovan materijal ili kompletan namještaj po mjeri, pristupamo im na isti način — prvo razumijemo šta vam treba, zatim izmjerimo, pa tek onda predlažemo najbolje rješenje.
@@ -36,7 +37,7 @@ const usluge = (await getCollection("usluge")).sort(
         usluge.length > 0 && (
           <ul class="usluge-list">
             {usluge.map((usluga, index) => (
-              <li>
+              <li class:list={["usluga-card", { "usluga-card--accent": index === 0 }]}>
                 <p class="eyebrow">{index === 0 ? "Primarna usluga" : "Sekundarna usluga"}</p>
                 <a class="usluga-title" href={`/usluge/${usluga.id}`}>{usluga.data.title}</a>
                 <p class="usluga-description">{usluga.data.description}</p>
@@ -49,7 +50,7 @@ const usluge = (await getCollection("usluge")).sort(
       <a class="link-cta" href="/usluge">Istražite usluge →</a>
     </section>
 
-    <section class="section" aria-labelledby="process-heading">
+    <section class="section" aria-labelledby="process-heading" data-reveal>
       <h2 id="process-heading">Proces postoji da bi neizvjesnost pretvorio u sigurnost.</h2>
       <p class="section-lead">
         Svaki korak postoji kako bi odluke bile donesene na vrijeme, a projekat tekao jasno i bez nepotrebnih iznenađenja.
@@ -57,7 +58,7 @@ const usluge = (await getCollection("usluge")).sort(
       <a class="link-cta" href="/proces-saradnje">Pogledajte cijeli proces →</a>
     </section>
 
-    <section class="section" aria-labelledby="proof-heading">
+    <section class="section" aria-labelledby="proof-heading" data-reveal>
       <h2 id="proof-heading">Ne prikazujemo namještaj. Prikazujemo riješene prostore.</h2>
       <p class="section-lead">
         Svaki projekat nastaje iz konkretnog problema. Zato ne prikazujemo samo gotove enterijere, već način razmišljanja koji je doveo do rješenja.
@@ -65,7 +66,7 @@ const usluge = (await getCollection("usluge")).sort(
       <a class="link-cta" href="/projekti">Pogledajte projekte →</a>
     </section>
 
-    <section class="section closing" aria-labelledby="closing-heading">
+    <section class="section closing" aria-labelledby="closing-heading" data-reveal>
       <h2 id="closing-heading">Prvi korak je razgovor.</h2>
       <p class="section-lead">
         Svaki projekat počinje drugačije, ali uvijek istim prvim korakom. Razgovor nam pomaže da razumijemo vaš prostor, potrebe i očekivanja kako bismo zajedno pronašli najbolje rješenje.
@@ -89,8 +90,20 @@ const usluge = (await getCollection("usluge")).sort(
   }
 
   .hero {
+    position: relative;
+    overflow: hidden;
     border-top: none;
     padding-top: var(--space-2xl);
+  }
+
+  .hero-signature {
+    position: absolute;
+    top: -10%;
+    right: -8%;
+    width: 340px;
+    height: 340px;
+    opacity: 0.05;
+    pointer-events: none;
   }
 
   h1 {
@@ -186,11 +199,25 @@ const usluge = (await getCollection("usluge")).sort(
     margin-bottom: var(--space-xs);
   }
 
-  .usluge-list li {
+  .usluga-card {
+    position: relative;
+    overflow: hidden;
     padding: var(--space-xl);
     background: var(--surface-1);
     border: var(--border-1) solid var(--border-subtle);
     border-radius: var(--radius-3);
+  }
+
+  .usluga-card--accent::after {
+    content: "";
+    position: absolute;
+    right: -28px;
+    bottom: -28px;
+    width: 110px;
+    height: 110px;
+    background: url("/images/signature-shape.svg") no-repeat center / contain;
+    opacity: 0.06;
+    pointer-events: none;
   }
 
   .usluga-title {
