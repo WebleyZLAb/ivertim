@@ -1,37 +1,136 @@
+---
+const year = new Date().getFullYear();
+---
+
 <footer class="site-footer">
-  <p>&copy; {new Date().getFullYear()} Ivertim</p>
-  <nav aria-label="Footer navigacija">
-    <ul>
-      <li><a href="/kontakt">Kontakt</a></li>
-      <li><a href="/usluge">Usluge</a></li>
-      <li><a href="/projekti">Projekti</a></li>
-    </ul>
-  </nav>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <img src="/images/logo-mark.svg" alt="" width="28" height="28" />
+      <p class="tagline">Kompetentnost kojoj vjeruješ.</p>
+    </div>
+
+    <div class="footer-contact">
+      <p class="label">Kontakt</p>
+      <a href="tel:+38765748943">+387 65 748 943</a>
+      <a href="mailto:namjestajivertim@gmail.com">namjestajivertim@gmail.com</a>
+      <p>Svale bb, 79101 Prijedor</p>
+      <p>Radnim danima 7–16h, vikendom ne radimo.</p>
+    </div>
+
+    <nav aria-label="Footer navigacija">
+      <p class="label">Stranice</p>
+      <ul>
+        <li><a href="/usluge">Usluge</a></li>
+        <li><a href="/projekti">Projekti</a></li>
+        <li><a href="/proces-saradnje">Proces saradnje</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/kontakt">Kontakt</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="footer-legal">
+    <p>&copy; {year} Ivertim — Zajednička zanatska radnja IVER TIM Nenad Crnogorac Bojan Jeftić s.p, Prijedor.</p>
+  </div>
 </footer>
 
 <style>
   .site-footer {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-md);
     padding: var(--space-2xl) var(--container-padding);
     margin-top: var(--section-gap);
     border-top: var(--border-1) solid var(--border-subtle);
-    color: var(--text-tertiary);
+    background: var(--bg-secondary);
+  }
+
+  .footer-main {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    max-width: var(--container-xl);
+    margin: 0 auto;
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .footer-brand img {
+    flex-shrink: 0;
+  }
+
+  .tagline {
+    color: var(--text-secondary);
     font-size: var(--text-body-sm-size);
   }
 
-  .site-footer nav ul {
+  .label {
+    font-size: var(--text-overline-size);
+    font-weight: var(--text-overline-weight);
+    letter-spacing: var(--text-overline-tracking);
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .footer-contact {
     display: flex;
-    gap: var(--space-lg);
+    flex-direction: column;
+    gap: var(--space-xs);
+    font-size: var(--text-body-sm-size);
+    color: var(--text-secondary);
+  }
+
+  .footer-contact a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    width: fit-content;
+  }
+
+  .footer-contact a:hover {
+    color: var(--text-accent);
+  }
+
+  .footer-contact p {
+    margin: 0;
+  }
+
+  nav[aria-label="Footer navigacija"] ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
-  .site-footer a {
+  nav[aria-label="Footer navigacija"] a {
     color: var(--text-secondary);
+    text-decoration: none;
+    font-size: var(--text-body-sm-size);
+  }
+
+  nav[aria-label="Footer navigacija"] a:hover {
+    color: var(--text-accent);
+  }
+
+  .footer-legal {
+    max-width: var(--container-xl);
+    margin: var(--space-2xl) auto 0;
+    padding-top: var(--space-lg);
+    border-top: var(--border-1) solid var(--border-subtle);
+    color: var(--text-tertiary);
+    font-size: var(--text-caption-size);
+  }
+
+  .footer-legal p {
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .footer-main {
+      grid-template-columns: 1.2fr 1fr 1fr;
+    }
   }
 </style>

@@ -1,43 +1,306 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
 
-const steps = [
-  "Prvi razgovor",
-  "Razumijevanje potreba",
-  "Mjerenje prostora",
-  "Prijedlog rješenja",
-  "Nacrt i 3D prikaz",
-  "Potvrda",
-  "Proizvodnja",
-  "Transport i montaža",
-  "Postprodajna briga",
+const skraceniProces = [
+  {
+    naziv: "Nacrt ili mjere",
+    zasto: "Precizan rezultat počinje tačnim ulaznim podatkom.",
+    dobijate: "Sigurnost da će obrada odgovarati vašem nacrtu ili mjerama.",
+  },
+  {
+    naziv: "Potvrda materijala, formata i roka",
+    zasto: "Jasan dogovor prije obrade sprječava nesporazume i kašnjenje.",
+    dobijate: "Potvrđen materijal, format i rok prije nego što obrada počne.",
+  },
+  {
+    naziv: "Obrada i preuzimanje ili dostava",
+    zasto: "Rezultat mora biti gotov za montažu na vašoj strani, bez dodatne dorade.",
+    dobijate:
+      "Materijal isječen, okantovan i, po potrebi, izbušen prema dogovoru — spreman za preuzimanje ili dostavu.",
+  },
+];
+
+const sestKoraka = [
+  {
+    naziv: "Razgovor",
+    zasto: "Svaki dobar projekat počinje razumijevanjem ljudi koji će koristiti prostor.",
+    dobijate: "Jasno definisane potrebe prije donošenja bilo kakvih odluka.",
+  },
+  {
+    naziv: "Mjerenje",
+    zasto: "Dobra rješenja počinju tačnim informacijama.",
+    dobijate: "Sigurnost da će svaki element odgovarati stvarnim dimenzijama prostora.",
+  },
+  {
+    naziv: "Prijedlog",
+    zasto: "Ideje postaju konkretno rješenje.",
+    dobijate: "Jasnu sliku projekta prije početka proizvodnje.",
+  },
+  {
+    naziv: "Potvrda",
+    zasto: "Sve važne odluke donosimo prije nego što počne izrada.",
+    dobijate: "Manje neizvjesnosti i manje mogućnosti za nesporazume.",
+  },
+  {
+    naziv: "Proizvodnja",
+    zasto: "Projekat prelazi iz plana u stvarnost.",
+    dobijate: "Izradu prema unaprijed potvrđenom rješenju.",
+  },
+  {
+    naziv: "Montaža",
+    zasto: "Posljednji korak nije kraj procesa, već početak korištenja prostora.",
+    dobijate: "Prostor spreman za svakodnevni život ili rad.",
+  },
 ];
 ---
 
 <PageLayout
   title="Proces saradnje"
-  description="Kako izgleda saradnja sa Ivertim — od prvog razgovora do montaže."
+  description="Kako izgleda saradnja sa Ivertim — za uslužno rezanje i za namještaj po mjeri, korak po korak."
 >
-  <h1>Proces saradnje</h1>
-  <ol class="timeline">
-    {steps.map((step) => (
-      <li>{step}</li>
-    ))}
-  </ol>
-  <p><!-- TODO: objašnjenje svakog koraka (zašto se mjeri, kada se odlučuje...) čeka copy --></p>
+  <section class="hero">
+    <h1>Dobar rezultat počinje mnogo prije proizvodnje.</h1>
+    <p class="lead">
+      Kvalitet namještaja zavisi od mnogo više od same izrade. Zato svaki projekat prolazi kroz jasno definisan proces u kojem svaki korak ima svoju svrhu. Kada je sve dobro isplanirano, rezultat nije samo lijep prostor, već i miran i predvidiv tok cijelog projekta.
+    </p>
+    <div class="hero-actions">
+      <a class="cta" href="/kontakt">Razgovarajmo</a>
+      <nav class="quick-nav" aria-label="Skoči na proces">
+        <a href="#rezanje">Rezanje →</a>
+        <a href="#namjestaj">Namještaj po mjeri →</a>
+      </nav>
+    </div>
+  </section>
+
+  <section class="why">
+    <h2>Proces postoji da bi neizvjesnost pretvorio u sigurnost.</h2>
+    <div class="why-body">
+      <p>Kada uređujete prostor, prirodno je da imate mnogo pitanja.</p>
+      <p>Da li će sve odgovarati prostoru?</p>
+      <p>Da li će nešto biti zaboravljeno?</p>
+      <p>Da li će završni rezultat izgledati onako kako ste zamislili?</p>
+      <p>Upravo zato ne preskačemo korake. Svaki od njih postoji kako bi odluke bile donesene na vrijeme, a cijeli projekat tekao jasno i bez nepotrebnih iznenađenja.</p>
+    </div>
+  </section>
+
+  <section id="rezanje" class="track">
+    <p class="eyebrow">Uslužno rezanje, kantovanje i bušenje</p>
+    <h2>Kraći proces, bez montaže</h2>
+    <ol class="steps steps-short">
+      {
+        skraceniProces.map((korak, index) => (
+          <li>
+            <span class="step-number">{String(index + 1).padStart(2, "0")}</span>
+            <div>
+              <p class="step-name">{korak.naziv}</p>
+              <p class="step-label">Zašto postoji</p>
+              <p class="step-text">{korak.zasto}</p>
+              <p class="step-label">Šta dobijate</p>
+              <p class="step-text">{korak.dobijate}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section id="namjestaj" class="track">
+    <p class="eyebrow">Izrada namještaja po mjeri</p>
+    <h2>Šest koraka</h2>
+    <ol class="steps">
+      {
+        sestKoraka.map((korak, index) => (
+          <li>
+            <span class="step-number">{String(index + 1).padStart(2, "0")}</span>
+            <div>
+              <p class="step-name">{korak.naziv}</p>
+              <p class="step-label">Zašto postoji</p>
+              <p class="step-text">{korak.zasto}</p>
+              <p class="step-label">Šta dobijate</p>
+              <p class="step-text">{korak.dobijate}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="meaning">
+    <h2>Šta ovakav način rada znači za vas?</h2>
+    <div class="meaning-body">
+      <p>Jasna očekivanja.</p>
+      <p>Bez preskakanja koraka.</p>
+      <p>Manje neizvjesnosti.</p>
+      <p>Više sigurnosti pri donošenju odluka.</p>
+      <p>Prostor koji odgovara onome što je dogovoreno.</p>
+      <p>To je razlog zbog kojeg svaki projekat prolazi kroz isti proces.</p>
+    </div>
+  </section>
+
+  <section class="closing">
+    <h2>Prvi korak je razgovor.</h2>
+    <p class="lead">
+      Svaki projekat počinje razumijevanjem prostora, potreba i očekivanja. Razgovarajmo o tome šta želite da napravite i kojim putem možemo doći do najboljeg rješenja.
+    </p>
+    <a class="cta" href="/kontakt">Razgovarajmo</a>
+  </section>
 </PageLayout>
 
 <style>
+  section {
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-3xl);
+    border-top: var(--border-1) solid var(--border-subtle);
+  }
+
+  .hero {
+    padding-top: 0;
+    border-top: none;
+  }
+
   h1 {
     font-size: var(--text-h1-size-fluid);
     line-height: var(--text-h1-leading);
     font-weight: var(--text-h1-weight);
+    letter-spacing: var(--text-h1-tracking);
+    max-width: var(--content-max);
   }
 
-  .timeline {
+  .lead {
+    margin-top: var(--space-lg);
+    max-width: var(--content-max);
+    font-size: var(--text-body-lg-size);
+    line-height: var(--text-body-lg-leading);
+    color: var(--text-secondary);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xl);
+    margin-top: var(--space-xl);
+  }
+
+  .cta {
+    display: inline-flex;
+    padding: var(--space-sm) var(--space-xl);
+    background: var(--action-primary);
+    color: var(--action-primary-text);
+    border-radius: var(--radius-2);
+    text-decoration: none;
+    font-weight: var(--text-label-lg-weight);
+  }
+
+  .cta:hover {
+    background: var(--action-primary-hover);
+  }
+
+  .quick-nav {
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .quick-nav a {
+    color: var(--text-accent);
+    text-decoration: none;
+    font-size: var(--text-label-md-size);
+    font-weight: var(--text-label-md-weight);
+  }
+
+  .quick-nav a:hover {
+    color: var(--link-hover);
+  }
+
+  h2 {
+    font-size: var(--text-h2-size-fluid);
+    line-height: var(--text-h2-leading);
+    font-weight: var(--text-h2-weight);
+    max-width: var(--content-max);
+  }
+
+  .why-body,
+  .meaning-body {
+    margin-top: var(--space-md);
+    max-width: var(--content-max);
     display: grid;
-    gap: var(--space-md);
-    margin: var(--space-xl) 0;
-    padding-left: var(--space-lg);
+    gap: var(--space-xs);
+  }
+
+  .why-body p,
+  .meaning-body p {
+    font-size: var(--text-body-lg-size);
+    line-height: var(--text-body-lg-leading);
+    color: var(--text-secondary);
+  }
+
+  .eyebrow {
+    font-size: var(--text-overline-size);
+    font-weight: var(--text-overline-weight);
+    letter-spacing: var(--text-overline-tracking);
+    text-transform: uppercase;
+    color: var(--text-accent);
+    margin-bottom: var(--space-sm);
+  }
+
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-lg);
+    display: grid;
+    gap: var(--space-lg);
+    max-width: var(--container-lg);
+  }
+
+  .steps li {
+    display: flex;
+    gap: var(--space-lg);
+    padding: var(--space-lg);
+    background: var(--surface-1);
+    border: var(--border-1) solid var(--border-subtle);
+    border-radius: var(--radius-3);
+  }
+
+  .step-number {
+    flex-shrink: 0;
+    font-size: var(--text-h4-size);
+    font-weight: var(--text-h4-weight);
+    color: var(--border-strong);
+  }
+
+  .step-name {
+    font-size: var(--text-h6-size);
+    font-weight: var(--text-h6-weight);
+    color: var(--text-primary);
+  }
+
+  .step-label {
+    margin-top: var(--space-sm);
+    font-size: var(--text-caption-size);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-tertiary);
+  }
+
+  .step-text {
+    margin-top: 2px;
+    color: var(--text-secondary);
+    font-size: var(--text-body-sm-size);
+    line-height: var(--text-body-sm-leading);
+  }
+
+  .closing .cta {
+    margin-top: var(--space-xl);
+  }
+
+  @media (min-width: 768px) {
+    .steps-short {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .steps-short li {
+      flex-direction: column;
+    }
   }
 </style>

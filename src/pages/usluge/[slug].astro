@@ -15,7 +15,7 @@ const { Content } = await render(usluga);
 ---
 
 <PageLayout title={usluga.data.title} description={usluga.data.description}>
-  <article>
+  <article class="prose">
     <h1>{usluga.data.title}</h1>
     <Content />
   </article>
@@ -26,9 +26,56 @@ const { Content } = await render(usluga);
     font-size: var(--text-h1-size-fluid);
     line-height: var(--text-h1-leading);
     font-weight: var(--text-h1-weight);
+    letter-spacing: var(--text-h1-tracking);
+    max-width: var(--content-max);
   }
 
-  article {
+  .prose {
     max-width: var(--content-max);
+  }
+
+  .prose :global(h2) {
+    margin-top: var(--space-3xl);
+    font-size: var(--text-h3-size-fluid);
+    line-height: var(--text-h3-leading);
+    font-weight: var(--text-h3-weight);
+    letter-spacing: var(--text-h3-tracking);
+  }
+
+  .prose :global(h3) {
+    margin-top: var(--space-2xl);
+    font-size: var(--text-h5-size);
+    line-height: var(--text-h5-leading);
+    font-weight: var(--text-h5-weight);
+  }
+
+  .prose :global(p) {
+    margin-top: var(--space-md);
+    font-size: var(--text-body-lg-size);
+    line-height: var(--text-body-lg-leading);
+    color: var(--text-secondary);
+  }
+
+  .prose :global(p:first-of-type) {
+    margin-top: var(--space-lg);
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-top: var(--space-md);
+    padding-left: var(--space-lg);
+    display: grid;
+    gap: var(--space-xs);
+    color: var(--text-secondary);
+    font-size: var(--text-body-md-size);
+    line-height: var(--text-body-md-leading);
+  }
+
+  .prose :global(strong) {
+    color: var(--text-primary);
+  }
+
+  .prose :global(a) {
+    font-weight: var(--text-label-md-weight);
   }
 </style>

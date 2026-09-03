@@ -8,61 +8,64 @@ const navItems = [
 ---
 
 <header class="site-header">
-  <a class="logo" href="/">Ivertim</a>
-  <nav aria-label="Glavna navigacija">
-    <ul>
-      {
-        navItems.map((item) => (
-          <li>
-            <a href={item.href}>{item.label}</a>
-          </li>
-        ))
-      }
-    </ul>
-  </nav>
-  <a class="cta" href="/kontakt">Razgovarajmo</a>
+  <a class="logo" href="/" aria-label="Ivertim — početna">
+    <img src="/images/logo-horizontal.svg" alt="Ivertim" width="140" height="21" />
+  </a>
+
+  <a class="cta cta-desktop" href="/kontakt">Razgovarajmo</a>
+
+  <details class="nav-disclosure">
+    <summary aria-label="Otvori meni">
+      <svg class="icon-open" viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+      <svg class="icon-close" viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </summary>
+
+    <nav aria-label="Glavna navigacija">
+      <ul>
+        {
+          navItems.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+      <a class="cta cta-mobile" href="/kontakt">Razgovarajmo</a>
+    </nav>
+  </details>
 </header>
 
 <style>
   .site-header {
+    position: relative;
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-md) var(--space-lg);
+    gap: var(--space-md);
     padding: var(--space-md) var(--container-padding);
     border-bottom: var(--border-1) solid var(--border-subtle);
+    background: var(--bg-primary);
   }
 
   .logo {
-    font-weight: var(--text-h6-weight);
-    font-size: var(--text-h6-size);
-    color: var(--text-primary);
-    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
   }
 
-  nav ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-xs) var(--space-lg);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  nav a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: var(--text-body-sm-size);
-  }
-
-  nav a:hover {
-    color: var(--text-accent);
+  .logo img {
+    height: 22px;
+    width: auto;
   }
 
   .cta {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     padding: var(--space-sm) var(--space-lg);
     background: var(--action-primary);
     color: var(--action-primary-text);
@@ -85,5 +88,124 @@ const navItems = [
   .cta:focus-visible {
     outline: none;
     box-shadow: var(--focus-default);
+  }
+
+  /* Desktop: plain nav row, no disclosure chrome. */
+  nav[aria-label="Glavna navigacija"] {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: var(--text-body-sm-size);
+  }
+
+  nav a:hover {
+    color: var(--text-accent);
+  }
+
+  .nav-disclosure summary {
+    list-style: none;
+  }
+
+  .nav-disclosure summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .icon-close {
+    display: none;
+  }
+
+  .nav-disclosure[open] .icon-open {
+    display: none;
+  }
+
+  .nav-disclosure[open] .icon-close {
+    display: block;
+  }
+
+  /* Desktop: nav is a plain always-visible row; disclosure chrome and
+     mobile-only CTA are hidden; the toggle summary is hidden. */
+  .nav-disclosure {
+    display: contents;
+  }
+
+  .cta-mobile {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .nav-disclosure summary {
+      display: none;
+    }
+  }
+
+  /* Mobile: logo + toggle in the bar, full nav panel opens below it. */
+  @media (max-width: 767px) {
+    .cta-desktop {
+      display: none;
+    }
+
+    .nav-disclosure {
+      display: block;
+    }
+
+    .nav-disclosure summary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      color: var(--icon-primary);
+      cursor: pointer;
+      border-radius: var(--radius-2);
+    }
+
+    .nav-disclosure summary:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-default);
+    }
+
+    .nav-disclosure[open] summary {
+      position: absolute;
+      top: var(--space-md);
+      right: var(--container-padding);
+    }
+
+    nav[aria-label="Glavna navigacija"] {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-lg);
+      padding: var(--space-lg) var(--container-padding) var(--space-xl);
+      background: var(--surface-1);
+      border-bottom: var(--border-1) solid var(--border-subtle);
+      box-shadow: var(--shadow-2);
+    }
+
+    nav ul {
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .cta-mobile {
+      display: inline-flex;
+      justify-content: center;
+    }
   }
 </style>

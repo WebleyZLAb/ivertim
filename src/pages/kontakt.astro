@@ -17,64 +17,221 @@ const statusMessages: Record<string, { text: string; kind: "success" | "error" }
 };
 
 const feedback = status ? statusMessages[status] : undefined;
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "Ivertim",
+  legalName: "Zajednička zanatska radnja IVER TIM Nenad Crnogorac Bojan Jeftić s.p Prijedor",
+  telephone: "+38765748943",
+  email: "namjestajivertim@gmail.com",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Svale bb",
+    postalCode: "79101",
+    addressLocality: "Prijedor",
+    addressCountry: "BA",
+  },
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "07:00",
+    closes: "16:00",
+  },
+};
 ---
 
 <PageLayout
   title="Kontakt"
   description="Pošalji upit Ivertim timu — javljamo se sa jasnim sljedećim korakom."
 >
-  <h1>Kontakt</h1>
-  <p><!-- TODO: uvodni tekst + kontakt podaci (telefon, adresa, radno vrijeme) čekaju od vlasnika --></p>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
-  {
-    feedback && (
-      <p role="status" class:list={["feedback", feedback.kind]}>
-        {feedback.text}
-      </p>
-    )
-  }
+  <section class="hero">
+    <h1>Počnimo razgovor.</h1>
+    <p class="lead">
+      Svaki projekat počinje pitanjem, idejom ili potrebom. Recite nam šta želite da uredite, a zajedno ćemo pronaći najbolje rješenje za vaš prostor.
+    </p>
+  </section>
 
-  <form method="POST" action="/api/contact" class="contact-form">
-    <div class="field honeypot" aria-hidden="true">
-      <label for="company">Kompanija</label>
-      <input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
+  <section class="expect">
+    <h2>Šta možete očekivati nakon što nam se javite?</h2>
+    <div class="expect-body">
+      <p>Prvi razgovor služi da razumijemo vaš prostor, potrebe i očekivanja.</p>
+      <p>Ako procijenimo da možemo pomoći, dogovorićemo naredne korake i odgovoriti na sva pitanja koja imate.</p>
+      <p>Bez pritiska. Bez obaveze. Samo razgovor koji će vam pomoći da lakše donesete odluku.</p>
+    </div>
+  </section>
+
+  <section class="info-and-form">
+    <div class="contact-info">
+      <h2>Kontakt informacije</h2>
+      <dl>
+        <div>
+          <dt>Telefon</dt>
+          <dd><a href="tel:+38765748943">+387 65 748 943</a> — za brza pitanja i dogovor.</dd>
+        </div>
+        <div>
+          <dt>E-mail</dt>
+          <dd><a href="mailto:namjestajivertim@gmail.com">namjestajivertim@gmail.com</a> — za planove, fotografije i dokumentaciju.</dd>
+        </div>
+        <div>
+          <dt>Adresa</dt>
+          <dd>Svale bb, 79101 Prijedor</dd>
+        </div>
+        <div>
+          <dt>Radno vrijeme</dt>
+          <dd>Radnim danima 7–16h. Vikendom ne radimo.</dd>
+        </div>
+      </dl>
     </div>
 
-    <div class="field">
-      <label for="name">Ime i prezime</label>
-      <input type="text" id="name" name="name" required />
-    </div>
+    <div class="form-wrap">
+      {
+        feedback && (
+          <p role="status" class:list={["feedback", feedback.kind]}>
+            {feedback.text}
+          </p>
+        )
+      }
 
-    <div class="field">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required />
-    </div>
+      <form method="POST" action="/api/contact" class="contact-form">
+        <h2>Recite nam nešto o svom prostoru.</h2>
 
-    <div class="field">
-      <label for="phone">Telefon (opciono)</label>
-      <input type="tel" id="phone" name="phone" />
-    </div>
+        <div class="field honeypot" aria-hidden="true">
+          <label for="company">Kompanija</label>
+          <input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
+        </div>
 
-    <div class="field">
-      <label for="message">Poruka</label>
-      <textarea id="message" name="message" rows="6" required></textarea>
-    </div>
+        <div class="field">
+          <label for="name">Ime i prezime</label>
+          <input type="text" id="name" name="name" required />
+        </div>
 
-    <button type="submit">Pošalji upit</button>
-  </form>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="field">
+          <label for="phone">Telefon (opciono)</label>
+          <input type="tel" id="phone" name="phone" />
+        </div>
+
+        <div class="field">
+          <label for="message">Poruka</label>
+          <textarea id="message" name="message" rows="6" required></textarea>
+        </div>
+
+        <button type="submit">Razgovarajmo</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="faq">
+    <h2>Česta pitanja</h2>
+    <dl>
+      <div>
+        <dt>Koliko brzo odgovarate?</dt>
+        <dd>Trudimo se da odgovorimo u što kraćem roku, obično istog ili narednog radnog dana.</dd>
+      </div>
+      <div>
+        <dt>Da li prvi razgovor obavezuje?</dt>
+        <dd>Ne. Prvi razgovor služi da razumijemo vaš prostor i potrebe — odluku donosite tek nakon toga.</dd>
+      </div>
+      <div>
+        <dt>Dolazite li na mjerenje?</dt>
+        <dd>Za namještaj po mjeri, da — mjerenje je dio procesa. Za uslužno rezanje dovoljno je da pošaljete nacrt ili mjere.</dd>
+      </div>
+    </dl>
+  </section>
 </PageLayout>
 
 <style>
+  section {
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-3xl);
+    border-top: var(--border-1) solid var(--border-subtle);
+  }
+
+  .hero {
+    padding-top: 0;
+    border-top: none;
+  }
+
   h1 {
     font-size: var(--text-h1-size-fluid);
     line-height: var(--text-h1-leading);
     font-weight: var(--text-h1-weight);
+    letter-spacing: var(--text-h1-tracking);
+    max-width: var(--content-max);
+  }
+
+  .lead {
+    margin-top: var(--space-lg);
+    max-width: var(--content-max);
+    font-size: var(--text-body-lg-size);
+    line-height: var(--text-body-lg-leading);
+    color: var(--text-secondary);
+  }
+
+  h2 {
+    font-size: var(--text-h3-size-fluid);
+    line-height: var(--text-h3-leading);
+    font-weight: var(--text-h3-weight);
+  }
+
+  .expect-body {
+    margin-top: var(--space-md);
+    max-width: var(--content-max);
+    display: grid;
+    gap: var(--space-xs);
+  }
+
+  .expect-body p {
+    font-size: var(--text-body-lg-size);
+    line-height: var(--text-body-lg-leading);
+    color: var(--text-secondary);
+  }
+
+  .info-and-form {
+    display: grid;
+    gap: var(--space-3xl);
+  }
+
+  .contact-info dl,
+  .faq dl {
+    margin-top: var(--space-lg);
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .contact-info dt,
+  .faq dt {
+    font-size: var(--text-label-md-size);
+    font-weight: var(--text-label-md-weight);
+    color: var(--text-secondary);
+  }
+
+  .contact-info dd,
+  .faq dd {
+    margin: var(--space-xs) 0 0;
+    color: var(--text-primary);
+  }
+
+  .contact-info a {
+    color: var(--text-accent);
+  }
+
+  .form-wrap h2 {
+    margin-bottom: var(--space-lg);
   }
 
   .feedback {
     padding: var(--space-md) var(--space-lg);
     border-radius: var(--radius-2);
     font-size: var(--text-body-sm-size);
+    margin-bottom: var(--space-lg);
   }
 
   .feedback.success {
@@ -93,7 +250,6 @@ const feedback = status ? statusMessages[status] : undefined;
     display: grid;
     gap: var(--space-lg);
     max-width: var(--content-max);
-    margin-top: var(--space-xl);
   }
 
   .honeypot {
@@ -159,5 +315,12 @@ const feedback = status ? statusMessages[status] : undefined;
   button:focus-visible {
     outline: none;
     box-shadow: var(--focus-default);
+  }
+
+  @media (min-width: 768px) {
+    .info-and-form {
+      grid-template-columns: 1fr 1.4fr;
+      gap: var(--space-2xl);
+    }
   }
 </style>

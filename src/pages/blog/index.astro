@@ -12,9 +12,12 @@ const posts = (await getCollection("blog")).sort(
   description="Savjeti o namještaju po mjeri, planiranju prostora i procesu proizvodnje."
 >
   <h1>Blog / Savjeti</h1>
+  <p class="lead">
+    Stranica Savjeti postoji da pomogne ljudima prije nego što donesu odluku.
+  </p>
   {
     posts.length === 0 ? (
-      <p><!-- TODO: blog sadržaj čeka copy (50% edukativno / 30% prodajno / 20% ostalo, dogovoreno u docs/07-marketing.md) --></p>
+      <p class="empty">Prvi članci stižu uskoro.</p>
     ) : (
       <ul class="post-list">
         {posts.map((post) => (
@@ -33,6 +36,20 @@ const posts = (await getCollection("blog")).sort(
     font-size: var(--text-h1-size-fluid);
     line-height: var(--text-h1-leading);
     font-weight: var(--text-h1-weight);
+    max-width: var(--content-max);
+  }
+
+  .lead {
+    margin-top: var(--space-lg);
+    max-width: var(--content-max);
+    font-size: var(--text-body-lg-size);
+    line-height: var(--text-body-lg-leading);
+    color: var(--text-secondary);
+  }
+
+  .empty {
+    margin-top: var(--space-xl);
+    color: var(--text-tertiary);
   }
 
   .post-list {

@@ -12,9 +12,12 @@ const projekti = (await getCollection("projekti")).sort(
   description="Realizovani projekti Ivertim — problem, proces i rješenje za svaki prostor."
 >
   <h1>Projekti</h1>
+  <p class="lead">
+    Ne prikazujemo namještaj. Prikazujemo riješene prostore.
+  </p>
   {
     projekti.length === 0 ? (
-      <p><!-- TODO: lista projekata čeka sadržaj i fotografije --></p>
+      <p class="empty">Prvi projekti stižu uskoro.</p>
     ) : (
       <ul class="project-list">
         {projekti.map((projekat) => (
@@ -33,6 +36,20 @@ const projekti = (await getCollection("projekti")).sort(
     font-size: var(--text-h1-size-fluid);
     line-height: var(--text-h1-leading);
     font-weight: var(--text-h1-weight);
+    max-width: var(--content-max);
+  }
+
+  .lead {
+    margin-top: var(--space-lg);
+    max-width: var(--content-max);
+    font-size: var(--text-body-lg-size);
+    line-height: var(--text-body-lg-leading);
+    color: var(--text-secondary);
+  }
+
+  .empty {
+    margin-top: var(--space-xl);
+    color: var(--text-tertiary);
   }
 
   .project-list {
