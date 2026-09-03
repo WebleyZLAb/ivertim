@@ -2,8 +2,10 @@
 # PROCESS BLUEPRINT
 
 **Project:** Ivertim  
-**Version:** 1.0  
-**Status:** Approved
+**Version:** 1.1  
+**Status:** Approved — dopunjeno 2026-09-03 za pivot usluga (vidi `CLAUDE.md`)
+
+> **Napomena uz reviziju 2026-09-03:** ova stranica je opisivala jedan proces koji se završava montažom — tačno za namještaj po mjeri, ali ne i za uslužno rezanje (koje nema montažu, vidi `Cutting-Service-Blueprint-v1.0.md` §11). Pošto je "Proces saradnje" jedina zajednička stranica za obje usluge, §10 sada eksplicitno predstavlja namještaj po mjeri, a dodat je §10a sa skraćenim tokom za uslužno rezanje. **Vizuelni prikaz odlučen 2026-09-03: obje sekcije ostaju statično vidljive jedna ispod druge (redom: uslužno rezanje pa namještaj po mjeri, prati poslovni prioritet), sa kratkom navigacijom odmah ispod Hero-a koja skroluje do odgovarajuće sekcije — isti princip kao `Services-Landing-Blueprint-v1.0.md` (plain kartice, bez tabova/JS zavisnosti). Provizorno dok Nešo ne potvrdi, ali vlasnik očekuje saglasnost — vidi `CLAUDE.md`.**
 
 ---
 
@@ -73,11 +75,13 @@ Korisnik nakon čitanja treba da pomisli:
 # 7. Struktura stranice
 
 1. Hero
-2. Zašto proces postoji
-3. Šest koraka
-4. Završna fotografija
-5. Šta ovakav način rada znači za vas
-6. Završni CTA
+2. Kratka navigacija — "Rezanje →" / "Namještaj po mjeri →" (skroluje do odgovarajuće sekcije, ne mijenja prikaz — vidi napomenu uz reviziju 2026-09-03 na vrhu dokumenta)
+3. Zašto proces postoji
+4. Skraćeni proces — uslužno rezanje (§10a, prikazan prvi, prati poslovni prioritet)
+5. Šest koraka — namještaj po mjeri (§10)
+6. Završna fotografija
+7. Šta ovakav način rada znači za vas
+8. Završni CTA
 
 ---
 
@@ -171,7 +175,9 @@ Svaki od njih postoji kako bi odluke bile donesene na vrijeme, a cijeli projekat
 
 ---
 
-# 10. ŠEST KORAKA
+# 10. ŠEST KORAKA — namještaj po mjeri
+
+*(Naslov dopunjen 2026-09-03 — ovi koraci opisuju namještaj po mjeri; skraćena varijanta za uslužno rezanje je u §10a.)*
 
 ## Cilj sekcije
 
@@ -280,6 +286,62 @@ Posljednji korak nije kraj procesa, već početak korištenja prostora.
 **Šta dobijate**
 
 Prostor spreman za svakodnevni život ili rad.
+
+---
+
+# 10a. SKRAĆENI PROCES — uslužno rezanje, kantovanje i bušenje
+
+*(Dodano 2026-09-03 — vidi napomenu uz reviziju na vrhu dokumenta.)*
+
+## Cilj sekcije
+
+Pokazati da uslužno rezanje ima svoj, kraći tok — bez montaže — umjesto da se šest koraka namještaja po mjeri predstavi kao jedini proces na stranici.
+
+## Vizuelna logika
+
+**Odlučeno 2026-09-03 (provizorno, čeka potvrdu Neše):** ova sekcija se prikazuje statično, prije §10 na stranici (prati poslovni prioritet — rezanje prvo). Nema taba ni prekidača — oba procesa su vidljiva bez interakcije, bez zavisnosti od JS-a, dosljedno sa pristupom na `Services-Landing-Blueprint-v1.0.md`. Jasno odvojeno od §10 kroz naslov sekcije i vizuelnu pauzu (whitespace/section-gap token), tako da korisnik odmah prepozna da gleda drugi proces, ne skraćenu verziju istog. Kratka navigacija u Hero-u (§7 stavka 2) omogućava direktan skok do željene sekcije bez skrolovanja pored one koja mu ne treba.
+
+## Komponente
+
+Iste kao §10: broj koraka, naziv, razlog zašto korak postoji, korist za korisnika.
+
+## Final copy
+
+Sadržaj preuzet iz `Cutting-Service-Blueprint-v1.0.md` §11, u istom "Zašto postoji / Šta dobijate" formatu radi dosljednosti sa §10.
+
+### 01 — Nacrt ili mjere
+
+**Zašto postoji**
+
+Precizan rezultat počinje tačnim ulaznim podatkom.
+
+**Šta dobijate**
+
+Sigurnost da će obrada odgovarati vašem nacrtu ili mjerama.
+
+---
+
+### 02 — Potvrda materijala, formata i roka
+
+**Zašto postoji**
+
+Jasan dogovor prije obrade sprječava nesporazume i kašnjenje.
+
+**Šta dobijate**
+
+Potvrđen materijal, format i rok prije nego što obrada počne.
+
+---
+
+### 03 — Obrada i preuzimanje ili dostava
+
+**Zašto postoji**
+
+Rezultat mora biti gotov za montažu na vašoj strani, bez dodatne dorade.
+
+**Šta dobijate**
+
+Materijal isječen, okantovan i, po potrebi, izbušen prema dogovoru — spreman za preuzimanje ili dostavu.
 
 ---
 
@@ -401,10 +463,19 @@ Svaki projekat počinje razumijevanjem prostora, potreba i očekivanja. Razgovar
 - Provjeriti da li se koraci procesa mijenjaju nakon razgovora sa Nešom.
 - Potvrditi ponašanje na mobilnim uređajima.
 - Testirati reduced motion varijantu.
+- ~~Odlučiti vizuelni prikaz dva toka procesa.~~ — riješeno 2026-09-03: statične sekcije + kratka navigacija (vidi §10a, §7). Provizorno, čeka konačnu potvrdu Neše.
+- Potvrditi tekst i pozicioniranje kratke navigacije u Hero-u ("Rezanje →" / "Namještaj po mjeri →") sa vlasnikom/Nešom.
 
 ---
 
 # 17. Changelog
+
+## v1.1 — 2026-09-03
+
+- Dodat §10a: skraćeni proces za uslužno rezanje, kantovanje i bušenje (bez montaže), jer je §10 opisivao isključivo namještaj po mjeri iako je stranica zajednička za obje usluge. Sadržaj preuzet iz `Cutting-Service-Blueprint-v1.0.md` §11.
+- §10 preimenovan u "ŠEST KORAKA — namještaj po mjeri" radi jasnoće.
+- §7 Struktura stranice i TODO ažurirani u skladu s tim.
+- Odlučen vizuelni prikaz dva toka: statične sekcije jedna ispod druge (rezanje prvo), plus kratka navigacija u Hero-u za direktan skok — bez tabova/JS zavisnosti, dosljedno sa `Services-Landing-Blueprint-v1.0.md`. Provizorno, čeka potvrdu Neše.
 
 ## v1.0
 

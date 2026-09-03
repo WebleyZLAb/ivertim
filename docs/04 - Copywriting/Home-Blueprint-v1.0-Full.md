@@ -1,8 +1,8 @@
 # HOME BLUEPRINT
 
 **Project:** Ivertim\
-**Version:** 1.0\
-**Status:** Approved
+**Version:** 1.1\
+**Status:** Approved — Hero revidiran 2026-09-02, §5 usklađeno 2026-09-03, za service pivot (vidi `CLAUDE.md`)
 
 ------------------------------------------------------------------------
 
@@ -70,10 +70,12 @@ Primarni cilj nije prodaja, već povjerenje.
 -   Animacija podržava emociju i nikada nije sama sebi cilj.
 -   WOW efekti su nagrada, a ne svrha.
 -   Prvo čovjek.
--   Zatim prostor.
--   Tek onda namještaj.
+-   Zatim potreba — rezanje ili namještaj po mjeri.
+-   Tek onda rješenje.
 -   Ne prodajemo proizvode. Rješavamo probleme.
 -   CTA je uvijek "Razgovarajmo". Kontekst se mijenja, CTA ostaje.
+
+*(Redoslijed dopunjen 2026-09-03: originalno "Zatim prostor. Tek onda namještaj." opisivalo je samo namještaj po mjeri, u kontradikciji sa §8 USLUGE ispod. Vidi `00 - Communication System.md` §7 i `CLAUDE.md`.)*
 
 ------------------------------------------------------------------------
 
@@ -122,13 +124,19 @@ povlači kako bi tekst preuzeo glavnu ulogu.
 
 ### H1
 
-**Namještaj po mjeri, planiran za vaš prostor i način života.**
+**Precizna obrada pločastog materijala — od uslužnog rezanja do namještaja po mjeri.**
 
 ### Lead
 
-Svaki prostor ima svoje mogućnosti, ograničenja i način na koji se
-koristi. Zato ne počinjemo od namještaja, već od razumijevanja prostora
-i ljudi koji će u njemu živjeti ili raditi.
+Nekome treba samo precizno isječen i okantovan materijal, nekome kompletno
+rješenje po mjeri prostora. Zato ne počinjemo od gotovog proizvoda, već od
+razumijevanja onoga što vam zaista treba.
+
+*(Napomena uz reviziju 2026-09-02: raniji H1/Lead vodio je isključivo sa
+namještajem po mjeri kao identitetom — u kontradikciji sa §8 USLUGE ispod,
+koja je već tada revidirana za dvije usluge. Usklađeno sa istim redoslijedom
+prioriteta — uslužno rezanje prvo — i istom terminologijom kao
+`Cutting-Service-Blueprint-v1.0.md`. Vidi `CLAUDE.md`.)*
 
 ### CTA
 
@@ -182,7 +190,7 @@ vam treba, zatim izmjerimo, pa tek onda predlažemo najbolje rješenje.
 *(Napomena uz reviziju 2026-09-02: kopija revidirana da odražava dvije
 stvarne usluge — uslužno rezanje/kantovanje/bušenje kao primarna,
 namještaj po mjeri kao sekundarna — umjesto ranije formulacije okrenute
-oko tipova prostora. Vidi `Services-Landing-Blueprint-v1.1` i
+oko tipova prostora. Vidi `Services-Landing-Blueprint-v1.0.md` (interno v1.1) i
 `CLAUDE.md`.)*
 
 CTA: Istražite usluge
@@ -325,6 +333,16 @@ CTA: Razgovarajmo
 ------------------------------------------------------------------------
 
 # 14. Changelog
+
+## 1.1 — 2026-09-02 / 2026-09-03
+
+-   2026-09-02: Ispravljena kontradikcija: Hero H1/Lead (§7) i dalje je vodio sa
+    namještajem po mjeri kao primarnim identitetom iako je USLUGE sekcija
+    (§8) već revidirana za dvije usluge u istoj reviziji od 2026-09-02.
+    Hero sada koristi isti redoslijed prioriteta i terminologiju.
+-   2026-09-03: §5 Globalna pravila ("Prvo čovjek. Zatim prostor. Tek onda
+    namještaj.") imalo je istu furniture-only pretpostavku — usklađeno sa
+    §8 i sa `00 - Communication System.md` §7.
 
 ## 1.0
 

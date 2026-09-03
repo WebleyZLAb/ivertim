@@ -2,8 +2,8 @@
 
 > Jedinstveni izvor istine za strategiju, brend, korisničko iskustvo, vizuelni sistem i budući razvoj Ivertim digitalnog proizvoda.
 
-**Status:** dokumentacija zaključana (v1.0.0) + početni tehnički scaffold (Astro), sadržaj i vizuelni brandbook u izradi  
-**Verzija:** 1.0.0  
+**Status:** dokumentacija zaključana (v2.0.0, uključuje 2026-09-02 pivot na uslužno rezanje kao primarnu uslugu) + početni tehnički scaffold (Astro), sadržaj i vizuelni brandbook u izradi  
+**Verzija:** 2.0.0  
 **Primarni vlasnik projekta:** Ivertim  
 **Primarni način rada:** Claude Design / Claude Code / GitHub
 
@@ -139,7 +139,7 @@ Vizuelni karakter:
 
 Asset fajlovi: [`public/images/logo-horizontal.png`](public/images/logo-horizontal.png), [`public/images/logo-vertical.png`](public/images/logo-vertical.png), [`public/images/logo-mark.png`](public/images/logo-mark.png) — trenutno PNG, finalni SVG fajlovi stižu naknadno.
 
-Detalji: [`docs/02-logo-identity.md`](docs/02-logo-identity.md) i [`docs/04-visual-experience.md`](docs/04-visual-experience.md).
+Detalji: [`docs/02-logo-identity.md`](docs/02-logo-identity.md) i [`docs/05-visual-experience.md`](docs/05-visual-experience.md).
 
 ---
 
@@ -200,7 +200,7 @@ Zabranjeni pravci:
 - proizvoljne animacije;
 - dekorativna kompleksnost.
 
-Detalji: [`docs/04-visual-experience.md`](docs/04-visual-experience.md).
+Detalji: [`docs/05-visual-experience.md`](docs/05-visual-experience.md).
 
 ---
 
@@ -221,13 +221,7 @@ Obavezna pravila:
 
 **Machine-ready izvor:** `design-system/tokens.css` sadrži sve konkretne implementacione vrijednosti (HEX, px, rem, ms, clamp formule). To je jedini izvor istine za implementaciju — `design-system/IMPLEMENTATION_TOKENS.md` objašnjava fluid formule i breakpointe. Ostali dokumenti u `/design-system` (colors.md, spacing.md, typography.md...) ostaju konceptualno objašnjenje i ne smiju se koristiti za izvođenje vrijednosti kad `tokens.css` već ima konkretan odgovor.
 
-Početna tačka: [`design-system/README.md`](https://github.com/WebleyZLAb/ivertim/blob/main/design-system/README.md).
-
-Typography
-
-Official typeface: Instrument Sans Variable.
-
-The entire interface uses a single font family. Hierarchy is created through the typography scale, weight, spacing and layout—not by introducing additional font families.
+Početna tačka: [`design-system/README.md`](design-system/README.md).
 
 Typography
 
@@ -386,7 +380,7 @@ Nove vrijednosti se ne uvode bez dokumentovane potrebe i odobrenja.
 
 ### Copywriting
 
-Kompletni copywriting blueprintovi (glasovni sistem, template i pojedinačne stranice) nalaze se u [`docs/04 - Copywriting/`](<docs/04 - Copywriting>). Status po fajlu: "Approved" (vidi header svakog dokumenta); sadržaj treba revidirati u skladu sa aktuelnom listom usluga prije implementacije — vidi `CLAUDE.md`.
+Kompletni copywriting blueprintovi (glasovni sistem, template i pojedinačne stranice) nalaze se u [`docs/04 - Copywriting/`](<docs/04 - Copywriting>). Status po fajlu: "Approved" (vidi header svakog dokumenta); set je revidiran 2026-09-02 u skladu sa aktuelnom listom usluga (vidi §2 iznad i `CHANGELOG.md`) — vidi `CLAUDE.md` za detalje po fajlu.
 
 ### Design System
 

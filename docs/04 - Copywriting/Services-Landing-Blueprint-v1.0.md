@@ -187,7 +187,7 @@ CTA: Razgovarajmo
 -   ~~Potvrditi konačan spisak usluga sa Nešom~~ — riješeno 2026-09-02 (vidi Changelog v1.1).
 -   Potvrditi fotografije.
 -   Potvrditi ikonografiju (ako bude korištena).
--   Odlučiti da li kategorije unutar "Izrada namještaja po mjeri" dobijaju svoje URL-ove/anchor sekcije ili ostaju samo kartice bez dubljeg linka.
+-   ~~Odlučiti da li kategorije unutar "Izrada namještaja po mjeri" dobijaju svoje URL-ove/anchor sekcije ili ostaju samo kartice bez dubljeg linka.~~ — riješeno 2026-09-02: **ostaju samo kartice, bez zasebnih URL-ova/anchor sekcija.** Vlasnik je prepustio odluku Claude Code-u ("ti odluči"); u duhu pojednostavljenja (usluge stranica ima tačno 2 vrha IA-e, ne 2+6) kartice ostaju plain, bez dubljeg linka u ovoj fazi. Sadržaj mini blueprintova ostaje raspoloživ za Projekti filtere ili kasnije dodavanje dubljih sekcija ako se pokaže potreba — nije zaključano trajno, samo je početni izbor.
 
 ------------------------------------------------------------------------
 

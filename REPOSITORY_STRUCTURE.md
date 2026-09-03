@@ -16,8 +16,8 @@ Ivertim/
 │   ├── 02-logo-identity.md         — logo direction and rules (see public/images/ for actual asset files)
 │   ├── 03-web-experience.md        — information architecture, UX principles
 │   ├── 04 - Copywriting/           — full copywriting blueprint set (communication system + per-page
-│   │                                  blueprints); "Approved" status per file, needs revision against
-│   │                                  the current service list — see CLAUDE.md
+│   │                                  blueprints); "Approved" status per file, revised 2026-09-02/03
+│   │                                  for the service pivot — see CLAUDE.md
 │   ├── 05-visual-experience.md     — visual direction, photography, color direction
 │   ├── 06-design-tokens.md         — token architecture overview
 │   ├── 07-development-rules.md     — engineering priorities and rules

@@ -1,8 +1,8 @@
 # COMMUNICATION SYSTEM
 
 **Project:** Ivertim  
-**Version:** 1.0  
-**Status:** Approved
+**Version:** 1.1  
+**Status:** Approved — dopunjeno 2026-09-03 za pivot usluga (vidi `CLAUDE.md`)
 
 ---
 
@@ -97,6 +97,10 @@ Izbjegavamo:
 
 # 6. Šta prodajemo
 
+Ivertim opslužuje dvije publike. Princip je isti — ne prodajemo predmet, prodajemo ishod — ali ishod nije isti za obje.
+
+## Namještaj po mjeri
+
 Ne prodajemo:
 
 - kuhinje
@@ -111,6 +115,21 @@ Prodajemo:
 - organizaciju
 - kvalitet života
 - dobro planiran prostor
+
+## Uslužno rezanje, kantovanje i bušenje
+
+Ne prodajemo:
+
+- mašine
+- proces obrade
+
+Prodajemo:
+
+- precizan, pouzdan rezultat
+- poštovan rok
+- kapacitet koji radionica ne mora sama imati
+
+*(Dopunjeno 2026-09-03 uz pivot usluga — vidi `CLAUDE.md`. Formulacija za uslužno rezanje preuzeta iz `Cutting-Service-Blueprint-v1.0.md` §6, radi dosljednosti tona.)*
 
 ---
 
@@ -137,6 +156,12 @@ Rješenje
 Namještaj
 
 Nikada obrnuto.
+
+*(Dopunjeno 2026-09-03: ovaj redoslijed opisuje namještaj po mjeri. Za uslužno rezanje, kantovanje i bušenje sagovornik nije prostor nego projekat ili radionica kojoj treba gotov materijal — isti princip, drugačiji zadnji korak:*
+
+*Čovjek → Projekat/radionica → Problem → Rješenje → Materijal*
+
+*Nikada obrnuto.)*
 
 ---
 
@@ -232,6 +257,8 @@ Nikada ne pokušavamo izazvati deset emocija odjednom.
 
 Primjeri:
 
+Uslužno rezanje → pouzdanost
+
 Kuhinje → zajedništvo
 
 Plakari → red
@@ -243,6 +270,8 @@ Hoteli → iskustvo
 Proces → sigurnost
 
 Kontakt → povjerenje
+
+*(Dopunjen 2026-09-03 primjerom za uslužno rezanje — vidi `CLAUDE.md`.)*
 
 ---
 
@@ -303,6 +332,10 @@ Ako neka rečenica ne doprinosi toj svrsi, brišemo je.
 ---
 
 # 18. Changelog
+
+## v1.1 — 2026-09-03
+
+- Dopunjeno za pivot usluga (vidi `CLAUDE.md`): §6 "Šta prodajemo", §7 "Redoslijed razmišljanja" i §13 "Emocije" prije su opisivali isključivo namještaj po mjeri, iako je uslužno rezanje sada primarna usluga. Dodata paralelna formulacija za uslužno rezanje u sva tri odjeljka; postojeći tekst za namještaj po mjeri nije mijenjan.
 
 ## v1.0
 
