@@ -48,9 +48,8 @@ Ivertim/
 │       ├── logo-wordmark-inverse.svg    — final standalone wordmark (dark bg)
 │       ├── signature-shape.svg          — vector source for the Signature System shape (light)
 │       ├── signature-shape-inverse.svg  — Signature Shape (dark bg)
-│       ├── logo-horizontal.png          — superseded by logo-horizontal.svg, kept pending cleanup decision
-│       ├── logo-mark.png                — superseded by logo-mark.svg, kept pending cleanup decision
 │       └── logo-vertical.png            — still the only vertical lockup; no SVG delivered yet
+│                                           (logo-horizontal.png / logo-mark.png removed 2026-09-03, superseded by SVG)
 │
 └── src/                          ← Astro technical scaffold (see CLAUDE.md for current build status)
     ├── content.config.ts             — Content Collections schemas (usluge, projekti, blog)

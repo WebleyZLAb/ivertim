@@ -2,6 +2,18 @@
 
 All notable changes to the project documentation and Design System are documented here.
 
+## [2.1.1] - Remove superseded PNG logos (2026-09-03)
+
+PATCH per §15 semver rule — asset cleanup, no decision change.
+
+### Removed
+
+- `public/images/logo-horizontal.png`, `public/images/logo-mark.png` — superseded by the SVG versions added in `[2.1.0]`; owner confirmed removal.
+
+### Changed
+
+- `docs/02-logo-identity.md`, `REPOSITORY_STRUCTURE.md`, `CLAUDE.md` — updated to reflect the removal.
+
 ## [2.1.0] - Final SVG logo assets (2026-09-03)
 
 MINOR per §15 semver rule — new assets resolve a documented gap, no locked decision changes.
