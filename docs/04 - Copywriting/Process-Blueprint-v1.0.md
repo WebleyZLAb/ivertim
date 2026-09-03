@@ -5,7 +5,7 @@
 **Version:** 1.1  
 **Status:** Approved — dopunjeno 2026-09-03 za pivot usluga (vidi `CLAUDE.md`)
 
-> **Napomena uz reviziju 2026-09-03:** ova stranica je opisivala jedan proces koji se završava montažom — tačno za namještaj po mjeri, ali ne i za uslužno rezanje (koje nema montažu, vidi `Cutting-Service-Blueprint-v1.0.md` §11). Pošto je "Proces saradnje" jedina zajednička stranica za obje usluge, §10 sada eksplicitno predstavlja namještaj po mjeri, a dodat je §10a sa skraćenim tokom za uslužno rezanje. **Vizuelni prikaz odlučen 2026-09-03: obje sekcije ostaju statično vidljive jedna ispod druge (redom: uslužno rezanje pa namještaj po mjeri, prati poslovni prioritet), sa kratkom navigacijom odmah ispod Hero-a koja skroluje do odgovarajuće sekcije — isti princip kao `Services-Landing-Blueprint-v1.0.md` (plain kartice, bez tabova/JS zavisnosti). Provizorno dok Nešo ne potvrdi, ali vlasnik očekuje saglasnost — vidi `CLAUDE.md`.**
+> **Napomena uz reviziju 2026-09-03:** ova stranica je opisivala jedan proces koji se završava montažom — tačno za namještaj po mjeri, ali ne i za uslužno rezanje (koje nema montažu, vidi `Cutting-Service-Blueprint-v1.0.md` §11). Pošto je "Proces saradnje" jedina zajednička stranica za obje usluge, §10 sada eksplicitno predstavlja namještaj po mjeri, a dodat je §10a sa skraćenim tokom za uslužno rezanje. **Vizuelni prikaz odlučen 2026-09-03: obje sekcije ostaju statično vidljive jedna ispod druge (redom: uslužno rezanje pa namještaj po mjeri, prati poslovni prioritet), sa kratkom navigacijom odmah ispod Hero-a koja skroluje do odgovarajuće sekcije — isti princip kao `Services-Landing-Blueprint-v1.0.md` (plain kartice, bez tabova/JS zavisnosti). Potvrđeno od vlasnika (u ime Neše) 2026-09-03 — vidi `CLAUDE.md`.**
 
 ---
 
@@ -299,7 +299,7 @@ Pokazati da uslužno rezanje ima svoj, kraći tok — bez montaže — umjesto d
 
 ## Vizuelna logika
 
-**Odlučeno 2026-09-03 (provizorno, čeka potvrdu Neše):** ova sekcija se prikazuje statično, prije §10 na stranici (prati poslovni prioritet — rezanje prvo). Nema taba ni prekidača — oba procesa su vidljiva bez interakcije, bez zavisnosti od JS-a, dosljedno sa pristupom na `Services-Landing-Blueprint-v1.0.md`. Jasno odvojeno od §10 kroz naslov sekcije i vizuelnu pauzu (whitespace/section-gap token), tako da korisnik odmah prepozna da gleda drugi proces, ne skraćenu verziju istog. Kratka navigacija u Hero-u (§7 stavka 2) omogućava direktan skok do željene sekcije bez skrolovanja pored one koja mu ne treba.
+**Odlučeno 2026-09-03, potvrđeno od vlasnika (u ime Neše):** ova sekcija se prikazuje statično, prije §10 na stranici (prati poslovni prioritet — rezanje prvo). Nema taba ni prekidača — oba procesa su vidljiva bez interakcije, bez zavisnosti od JS-a, dosljedno sa pristupom na `Services-Landing-Blueprint-v1.0.md`. Jasno odvojeno od §10 kroz naslov sekcije i vizuelnu pauzu (whitespace/section-gap token), tako da korisnik odmah prepozna da gleda drugi proces, ne skraćenu verziju istog. Kratka navigacija u Hero-u (§7 stavka 2) omogućava direktan skok do željene sekcije bez skrolovanja pored one koja mu ne treba.
 
 ## Komponente
 
@@ -463,7 +463,7 @@ Svaki projekat počinje razumijevanjem prostora, potreba i očekivanja. Razgovar
 - Provjeriti da li se koraci procesa mijenjaju nakon razgovora sa Nešom.
 - Potvrditi ponašanje na mobilnim uređajima.
 - Testirati reduced motion varijantu.
-- ~~Odlučiti vizuelni prikaz dva toka procesa.~~ — riješeno 2026-09-03: statične sekcije + kratka navigacija (vidi §10a, §7). Provizorno, čeka konačnu potvrdu Neše.
+- ~~Odlučiti vizuelni prikaz dva toka procesa.~~ — riješeno 2026-09-03: statične sekcije + kratka navigacija (vidi §10a, §7). Potvrđeno od vlasnika (u ime Neše) isti dan.
 - Potvrditi tekst i pozicioniranje kratke navigacije u Hero-u ("Rezanje →" / "Namještaj po mjeri →") sa vlasnikom/Nešom.
 
 ---
@@ -475,7 +475,7 @@ Svaki projekat počinje razumijevanjem prostora, potreba i očekivanja. Razgovar
 - Dodat §10a: skraćeni proces za uslužno rezanje, kantovanje i bušenje (bez montaže), jer je §10 opisivao isključivo namještaj po mjeri iako je stranica zajednička za obje usluge. Sadržaj preuzet iz `Cutting-Service-Blueprint-v1.0.md` §11.
 - §10 preimenovan u "ŠEST KORAKA — namještaj po mjeri" radi jasnoće.
 - §7 Struktura stranice i TODO ažurirani u skladu s tim.
-- Odlučen vizuelni prikaz dva toka: statične sekcije jedna ispod druge (rezanje prvo), plus kratka navigacija u Hero-u za direktan skok — bez tabova/JS zavisnosti, dosljedno sa `Services-Landing-Blueprint-v1.0.md`. Provizorno, čeka potvrdu Neše.
+- Odlučen vizuelni prikaz dva toka: statične sekcije jedna ispod druge (rezanje prvo), plus kratka navigacija u Hero-u za direktan skok — bez tabova/JS zavisnosti, dosljedno sa `Services-Landing-Blueprint-v1.0.md`. Potvrđeno od vlasnika (u ime Neše) 2026-09-03.
 
 ## v1.0
 

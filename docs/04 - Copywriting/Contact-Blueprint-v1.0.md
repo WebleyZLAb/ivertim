@@ -205,9 +205,10 @@ Preporučena pitanja:
 
 # 15. TODO
 
--   Potvrditi radno vrijeme.
--   Potvrditi adresu showrooma.
--   Potvrditi kontakt podatke.
+-   ~~Potvrditi radno vrijeme.~~ — riješeno 2026-09-03: radnim danima 7–16h, vikendom ne radi. Vidi `CLAUDE.md`.
+-   ~~Potvrditi adresu.~~ — riješeno 2026-09-03: Svale bb, 79101 Prijedor. Napomena: ova sekcija (§10) pretpostavlja "Showroom" kao kategoriju — nije potvrđeno da adresa funkcioniše kao showroom u maloprodajnom smislu (firma je "Zajednička zanatska radnja", ne prodavnica); provjeriti sa vlasnikom kako se adresa treba predstaviti (radionica/adresa/showroom) prije nego copy ide u produkciju.
+-   Potvrditi telefon — vlasnik je poslao kontekst (Nenadov broj, ne Bojanov) ali ne i same cifre; još nedostaje.
+-   ~~Potvrditi kontakt podatke.~~ — email potvrđen 2026-09-03: namjestajivertim@gmail.com (privremen, bez domena — vidi `CLAUDE.md`). Telefon i dalje nedostaje (vidi red iznad).
 -   Definisati tekst automatskog odgovora.
 
 ------------------------------------------------------------------------
