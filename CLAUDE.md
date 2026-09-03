@@ -81,10 +81,10 @@ Process page dual-track visual decision (resolved 2026-09-03, was the one open T
 
 Room-category URL decision (resolved 2026-09-03, was previously open): categories under "Izrada namještaja po mjeri" stay as **plain cards, no dedicated URLs/anchor sections** — simplest option, matches the two-service IA depth, not a permanent lock (mini blueprint content stays available for Projekti filters or deeper sections later if needed).
 
-Still blocked on Copywriting + brandbook completion for the rest — do not start these until the owner explicitly resumes page/component/layout work:
+Still blocked on brandbook completion for the rest — do not start these until the owner explicitly resumes page/component/layout work:
 
-1. Once ChatGPT copywriting work is finished, build a dedicated Claude Code skill from it (voice, structure, content rules).
-2. Once real Usluge/Projekti/Blog content arrives, add it as markdown/MDX files in `src/content/*` (schemas already defined in `src/content.config.ts`) and build out the actual section components/visual layouts around it.
+1. ~~Once ChatGPT copywriting work is finished, build a dedicated Claude Code skill from it (voice, structure, content rules).~~ — done 2026-09-03: `.claude/skills/ivertim-copywriting/SKILL.md`. Operational summary of `docs/04 - Copywriting/` — voice rules, CTA system, banned phrasing, per-page final-copy file map, pattern for writing new content (blog/savjeti, microcopy) not yet covered by a blueprint, and a checklist for reviewing incoming copy from the owner/ChatGPT. Explicitly defers to `00 - Communication System.md` as source of truth and explicitly does not apply the `balkan-direct-response-master` register (see below) to site content.
+2. Once real Usluge/Projekti/Blog content arrives, add it as markdown/MDX files in `src/content/*` (schemas already defined in `src/content.config.ts`) and build out the actual section components/visual layouts around it. The `ivertim-copywriting` skill above should be used to write anything not already finalized in a blueprint.
 3. Once business contact details are confirmed, fill in the Kontakt page intro + add LocalBusiness structured data.
 4. Visually validate the fluid typography clamp() values and color contrast in-browser once real copy/images exist — these are explicitly **temporary, not a final design decision** (owner reconfirmed 2026-07-11).
 5. Build a proper mobile navigation pattern for `Header.astro` — current mobile nav just wraps the links rather than a dedicated menu/toggle.
@@ -151,6 +151,7 @@ Locked product/brand/design decisions (must not change without explicit owner ap
 
 ## Session Notes
 
+- **2026-09-03 (continued):** Owner asked what the next phase should be. Proposed building the copywriting skill (unblocked now that the pivot revision is content-complete, and doesn't touch the dev hold since it's tooling, not page work) — owner agreed. Built `.claude/skills/ivertim-copywriting/SKILL.md`: a compact operational reference (not a duplicate of the full blueprint set) covering voice/tone, the two-audience selling logic, CTA system, banned phrasing, a file map pointing to where final copy already exists per page, a pattern for writing new content the blueprints don't cover yet (blog/savjeti, microcopy), and a checklist for vetting copy that arrives from the owner or ChatGPT. It explicitly defers to `00 - Communication System.md` and explicitly excludes itself from ad/funnel/sales-script work (that's `balkan-direct-response-master`'s job, kept separate per the earlier decision this session). Committed to `main`.
 - **2026-07-11:** Initial full documentation read-through; created this `CLAUDE.md`. No implementation work done. Next session should open with a proposed stack/architecture for approval before writing any code.
 - **2026-07-11:** Locked Instrument Sans Variable as the official typeface. Updated `design-system/typography.md`, `README.md`, and `CHANGELOG.md` per explicit owner instruction.
 - **2026-07-11:** Reorganized this file into the fixed section structure (Project Summary / Current Architecture / Current Progress / Completed / Current Task / Next Task / Open Questions / Technical Decisions / Known Issues / Session Notes) per owner instruction.
