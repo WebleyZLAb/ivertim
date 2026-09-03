@@ -22,7 +22,9 @@ najbolje radimo.
 ### Lead
 
 Neki prostori ne mogu se svrstati u unaprijed definisane kategorije.
-Upravo tada izražaja dolazi projektovanje i izrada po mjeri.
+Upravo tada do izražaja dolazi projektovanje i izrada po mjeri.
+
+*(Ispravljena tipografska greška 2026-09-03 — nedostajala riječ "do". Vidi `CLAUDE.md`.)*
 
 ## Problem
 
