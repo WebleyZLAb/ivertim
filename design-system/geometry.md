@@ -14,10 +14,10 @@
 Suggested mapping:
 
 - `radius-1`: badge, tooltip, smallest controls;
-- `radius-2`: buttons, inputs, compact cards;
+- `radius-2`: inputs, compact cards;
 - `radius-3`: standard cards and panels;
 - `radius-4`: large media blocks and prominent surfaces;
-- `radius-full`: pill, avatar and status dot.
+- `radius-full`: pill, avatar, status dot — **and, as of 2026-09-05 (explicit owner decision, following the floating pill navbar), all filled buttons.** Pill radius is self-symmetric by construction (it always resolves to exactly half the element's height, however padding changes), which is why it's the correct choice here rather than a fixed px bump. Icon-only toggle controls (e.g. the mobile menu button) are unaffected — this applies to labelled action buttons.
 
 ## Border width
 

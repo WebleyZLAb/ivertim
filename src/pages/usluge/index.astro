@@ -78,13 +78,16 @@ const usluge = (await getCollection("usluge")).sort(
     border-radius: var(--radius-3);
   }
 
+  /* Bottom-left corner, fully visible, height pinned to exactly half the
+     card — see the matching comment on .usluga-band--accent::after in
+     src/pages/index.astro for the full rationale (2026-09-05). */
   .service-card--accent::after {
     content: "";
     position: absolute;
-    right: -28px;
-    bottom: -28px;
-    width: 110px;
-    height: 110px;
+    left: 0;
+    bottom: 0;
+    top: 50%;
+    aspect-ratio: 169.44 / 179.65;
     background: url("/images/signature-shape.svg") no-repeat center / contain;
     opacity: 0.06;
     pointer-events: none;
@@ -149,14 +152,14 @@ const usluge = (await getCollection("usluge")).sort(
     display: inline-flex;
     margin-top: var(--space-lg);
     padding: var(--space-sm) var(--space-xl);
-    background: var(--action-primary);
+    background: var(--gradient-button);
     color: var(--action-primary-text);
-    border-radius: var(--radius-2);
+    border-radius: var(--radius-full);
     text-decoration: none;
     font-weight: var(--text-label-lg-weight);
   }
 
   .cta:hover {
-    background: var(--action-primary-hover);
+    background: var(--gradient-button-hover);
   }
 </style>

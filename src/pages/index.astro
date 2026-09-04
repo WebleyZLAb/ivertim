@@ -271,15 +271,15 @@ const heroSlides = [
   .cta {
     display: inline-flex;
     padding: var(--space-sm) var(--space-xl);
-    background: var(--action-primary);
+    background: var(--gradient-button);
     color: var(--action-primary-text);
-    border-radius: var(--radius-2);
+    border-radius: var(--radius-full);
     text-decoration: none;
     font-weight: var(--text-label-lg-weight);
   }
 
   .cta:hover {
-    background: var(--action-primary-hover);
+    background: var(--gradient-button-hover);
   }
 
   .cta-secondary {
@@ -341,13 +341,18 @@ const heroSlides = [
     max-width: var(--content-max);
   }
 
+  /* Bottom-left corner, fully visible (no negative offset — it touches
+     the left and bottom edges instead of hanging off them), height
+     pinned to exactly half the card via top:50%+bottom:0 with width
+     following the shape's own aspect ratio (2026-09-05, owner-specified
+     placement — supersedes the previous bottom-right partial-crop). */
   .usluga-band--accent::after {
     content: "";
     position: absolute;
-    right: -40px;
-    bottom: -40px;
-    width: 160px;
-    height: 160px;
+    left: 0;
+    bottom: 0;
+    top: 50%;
+    aspect-ratio: 169.44 / 179.65;
     background: url("/images/signature-shape.svg") no-repeat center / contain;
     opacity: 0.06;
     pointer-events: none;

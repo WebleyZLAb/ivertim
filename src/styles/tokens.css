@@ -152,6 +152,13 @@
   --gradient-brand: linear-gradient(135deg, var(--accent-700), var(--accent-500), var(--accent-900), var(--accent-600));
   --gradient-motion-duration: 10s;
 
+  /* Static (non-animated) button gradient, added 2026-09-05 — a subtle
+     two-stop shade shift, distinct from --gradient-brand's animated
+     4-stop cycle which stays scoped to CTA/closing sections only. */
+  --gradient-button: linear-gradient(135deg, var(--accent-500), var(--accent-700));
+  --gradient-button-hover: linear-gradient(135deg, var(--accent-600), var(--accent-800));
+  --gradient-button-active: linear-gradient(135deg, var(--accent-700), var(--accent-900));
+
   /* ---------- Spacing: base scale ---------- */
   --space-0: 0px;
   --space-1: 4px;

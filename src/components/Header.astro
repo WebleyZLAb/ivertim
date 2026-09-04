@@ -14,12 +14,8 @@ const navItems = [
 
   <details class="nav-disclosure">
     <summary aria-label="Otvori meni">
-      <svg class="icon-open" viewBox="0 0 174.79 168.95" width="22" height="22" fill="currentColor" aria-hidden="true">
-        <path d="M101.53,160.33c-.29-12.65.69-24.16-.33-36.72-2.31-28.52-25.08-52.38-53.58-54.66-11.79-.94-22.45-.07-34.18-.33-1.97-.04-3.84-2.16-3.84-4.17V23.21c0-8.57,6.53-17.98,16.33-17.99l116.48-.05c15.5,0,25.49,13.34,25.47,27.79l-.13,109.78c-.02,12.78-10.46,21.09-22.56,21.05l-40.2-.12c-1.54,0-3.43-1.84-3.46-3.33Z" />
-        <path d="M75.45,163.71l-50.37-.31c-8.97-.05-15.45-8.75-15.45-17l-.03-51.65c0-1.33,2.55-3.57,3.77-3.52,9.75.37,18.45-.61,28.14.4,19.76,2.05,35.54,19.13,37.11,38.91.81,10.28.11,19.44.34,29.82.03,1.39-2.04,3.36-3.5,3.35Z" />
-      </svg>
-      <svg class="icon-close" viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
-        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      <svg class="menu-shape" viewBox="0 0 169.44 179.65" width="22" height="22" fill="currentColor" aria-hidden="true">
+        <path d="M166.28,176.36v.04h-42.56c-.43-19.55.89-36.82-.65-56.2-2.94-37.28-32.7-69.48-69.95-73.34-18.21-1.9-34.58-.07-52.91-.75V3.48c22.12.49,42.22-1.16,64.44.62,53.74,4.3,96.65,49.29,101.01,103.04,1.91,23.67.08,45.37.62,69.22Z" />
       </svg>
     </summary>
   </details>
@@ -77,9 +73,9 @@ const navItems = [
     align-items: center;
     justify-content: center;
     padding: var(--space-sm) var(--space-lg);
-    background: var(--action-primary);
+    background: var(--gradient-button);
     color: var(--action-primary-text);
-    border-radius: var(--radius-2);
+    border-radius: var(--radius-full);
     text-decoration: none;
     font-size: var(--text-label-md-size);
     font-weight: var(--text-label-md-weight);
@@ -87,12 +83,12 @@ const navItems = [
   }
 
   .cta:hover {
-    background: var(--action-primary-hover);
+    background: var(--gradient-button-hover);
     color: var(--action-primary-text);
   }
 
   .cta:active {
-    background: var(--action-primary-active);
+    background: var(--gradient-button-active);
   }
 
   .cta:focus-visible {
@@ -134,29 +130,17 @@ const navItems = [
     display: none;
   }
 
-  .icon-open,
-  .icon-close {
-    position: absolute;
-    inset: 0;
-    margin: auto;
-    transition:
-      opacity var(--motion-fast) var(--ease-out),
-      transform var(--motion-fast) var(--ease-out);
+  /* Single Signature Shape mark, no open/close icon swap — it just turns
+     180° in place on toggle (2026-09-05, owner-specified). Was previously
+     the logo mark (two paths) cross-fading to an X, a mismatch from the
+     Signature-Shape intent recorded in CLAUDE.md's 2026-09-04 session
+     notes — corrected here to the actual signature-shape.svg path. */
+  .menu-shape {
+    transition: transform var(--motion-slow) var(--ease-emphasized);
   }
 
-  .icon-close {
-    opacity: 0;
-    transform: rotate(-45deg) scale(0.6);
-  }
-
-  .nav-disclosure[open] .icon-open {
-    opacity: 0;
-    transform: rotate(45deg) scale(0.6);
-  }
-
-  .nav-disclosure[open] .icon-close {
-    opacity: 1;
-    transform: rotate(0deg) scale(1);
+  .nav-disclosure[open] .menu-shape {
+    transform: rotate(180deg);
   }
 
   /* <nav> used to live *inside* <details>, relying on the browser's native

@@ -215,7 +215,15 @@ Future dark mode should remap semantic tokens rather than rename component token
 | `gradient-brand` | `linear-gradient(135deg, accent-700, accent-500, accent-900, accent-600)` |
 | `gradient-motion-duration` | `10s`, ease-in-out, infinite alternate — slow and ambient, not a flicker |
 
-No arbitrary, rainbow or neon gradients. No gradient outside this one approved token and its scoped use.
+No arbitrary, rainbow or neon gradients. No gradient outside the approved tokens on this page and their scoped use.
+
+**Added 2026-09-05 — explicit owner decision, extends the exception above.** Primary buttons site-wide now use a small, *static* (non-animated) two-stop gradient instead of a flat fill — a subtle shade shift, not the ambient motion of `gradient-brand`, which stays reserved for CTA/closing "hero moment" surfaces only.
+
+| Token | Value |
+|---|---|
+| `gradient-button` | `linear-gradient(135deg, accent-500, accent-700)` — resting state |
+| `gradient-button-hover` | `linear-gradient(135deg, accent-600, accent-800)` |
+| `gradient-button-active` | `linear-gradient(135deg, accent-700, accent-900)` |
 
 ## Rules
 
@@ -226,4 +234,4 @@ No arbitrary, rainbow or neon gradients. No gradient outside this one approved t
 - Do not use color as the only indicator of state.
 - No hardcoded HEX values inside components.
 - If a missing color role is discovered, propose a new semantic role before using a base color directly.
-- Gradients are limited to `gradient-brand` above (see §Gradients) — no other gradients.
+- Gradients are limited to `gradient-brand`, `gradient-button`, `gradient-button-hover` and `gradient-button-active` above (see §Gradients) — no other gradients.
