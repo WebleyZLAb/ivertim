@@ -280,7 +280,9 @@ const sestKoraka = [
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: var(--text-tertiary);
+    /* text-secondary, not text-tertiary — at 12px, text-tertiary (neutral-500) only
+       reaches ~3.1:1 contrast on this background, below WCAG AA's 4.5:1 for normal text. */
+    color: var(--text-secondary);
   }
 
   .step-text {

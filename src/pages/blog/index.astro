@@ -127,7 +127,9 @@ const highlighted = (featuredPosts.length > 0 ? featuredPosts : posts).slice(0, 
 
   .empty {
     margin-top: var(--space-xl);
-    color: var(--text-tertiary);
+    /* text-secondary, not text-tertiary — text-tertiary (neutral-500) fails WCAG AA
+       contrast (~3.1:1) for normal-size text on this background. */
+    color: var(--text-secondary);
   }
 
   .post-list {
@@ -175,7 +177,8 @@ const highlighted = (featuredPosts.length > 0 ? featuredPosts : posts).slice(0, 
   .post-meta {
     margin-top: var(--space-md);
     font-size: var(--text-body-sm-size);
-    color: var(--text-tertiary);
+    /* text-secondary, not text-tertiary — see .empty above for why. */
+    color: var(--text-secondary);
   }
 
   .topic-list {

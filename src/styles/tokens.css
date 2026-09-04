@@ -8,6 +8,19 @@
   These use viewport range 375px-1536px with mobile minimums chosen as a
   reasonable scale-down of the locked desktop sizes — flagged in CLAUDE.md
   for visual validation, not a locked design decision.
+
+  2026-09-04 visual-validation fix: the six display-lg/md/sm and H1-H3
+  "-leading" tokens below are unitless ratios, not the fixed px the static
+  desktop scale documents them as. A fixed px leading paired with a fluid
+  clamp() font-size doesn't scale down with it — on a small viewport the
+  line-height stayed at the desktop px value while the font shrank, so
+  headings got visibly loose (e.g. display-sm: 34px font / 64px leading =
+  1.88 ratio at the mobile minimum, instead of the intended ~1.14). A
+  unitless value scales proportionally with whatever font-size is applied,
+  so it now renders identically to the original desktop px pairing at the
+  clamp() maximum and scales correctly below it. H4-H6 and the body/label/
+  caption/overline tokens have no fluid size variant, so they keep px
+  leading unchanged.
 */
 
 :root {
@@ -261,32 +274,32 @@
 
   /* ---------- Typography: scale (desktop / static values) ---------- */
   --text-display-lg-size: 80px;
-  --text-display-lg-leading: 88px;
+  --text-display-lg-leading: 1.1; /* was 88px fixed — see file header note */
   --text-display-lg-weight: 700;
   --text-display-lg-tracking: -0.02em;
 
   --text-display-md-size: 64px;
-  --text-display-md-leading: 72px;
+  --text-display-md-leading: 1.125; /* was 72px fixed — see file header note */
   --text-display-md-weight: 700;
   --text-display-md-tracking: -0.02em;
 
   --text-display-sm-size: 56px;
-  --text-display-sm-leading: 64px;
+  --text-display-sm-leading: 1.143; /* was 64px fixed — see file header note */
   --text-display-sm-weight: 700;
   --text-display-sm-tracking: -0.02em;
 
   --text-h1-size: 48px;
-  --text-h1-leading: 56px;
+  --text-h1-leading: 1.167; /* was 56px fixed — see file header note */
   --text-h1-weight: 700;
   --text-h1-tracking: -0.02em;
 
   --text-h2-size: 40px;
-  --text-h2-leading: 48px;
+  --text-h2-leading: 1.2; /* was 48px fixed — see file header note */
   --text-h2-weight: 700;
   --text-h2-tracking: -0.015em;
 
   --text-h3-size: 32px;
-  --text-h3-leading: 40px;
+  --text-h3-leading: 1.25; /* was 40px fixed — see file header note */
   --text-h3-weight: 700;
   --text-h3-tracking: -0.01em;
 

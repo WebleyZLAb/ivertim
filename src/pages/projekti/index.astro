@@ -49,7 +49,9 @@ const projekti = (await getCollection("projekti")).sort(
 
   .empty {
     margin-top: var(--space-xl);
-    color: var(--text-tertiary);
+    /* text-secondary, not text-tertiary — text-tertiary (neutral-500) fails WCAG AA
+       contrast (~3.1:1) for normal-size text on this background. */
+    color: var(--text-secondary);
   }
 
   .project-list {
