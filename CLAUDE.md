@@ -72,6 +72,8 @@ Primary audience: new apartment/house owners, buyers wanting full fit-outs, smal
    - ✅ **Signature Shape corner accents on cards repositioned**: `.usluga-band--accent::after` (Home) and `.service-card--accent::after` (Usluge landing) moved from a partially-cropped bottom-right placement (negative offset, hung off the card edge) to bottom-left, fully visible, `left:0; bottom:0; top:50%` so the height is exactly half the card, with `aspect-ratio: 169.44/179.65` keeping the shape proportional — all per explicit owner geometry spec. RoomCategory's own shape placement (top-right, inside the image panel, a different pattern) was deliberately left untouched — the owner's ask was specifically about "kartice" (cards), and the room panels aren't styled as cards.
    - **Not yet done**: further fidelity pass against compatto.gr's polish level beyond the items above.
 
+**⏸ Session paused here 2026-09-05, to resume tomorrow.** Everything above is committed and pushed (`c891fd6`, `main`, working tree clean) — nothing local/uncommitted to pick back up. Tomorrow's session should start by asking the owner what to look at next: either continue the compatto.gr fidelity pass (item 8's "not yet done" line), or take direction on a different part of the site. No open technical blockers.
+
 Items 6–7 (GSAP Proces saradnje, room-category zigzag) are committed; item 8's sub-items above are also now committed (navbar restructure + pill/gradient buttons + Signature Shape fixes, 2026-09-05). See Session Notes for the full compatto.gr research findings if this needs re-deriving later.
 
 **Still true from the prior session, unresolved:**
