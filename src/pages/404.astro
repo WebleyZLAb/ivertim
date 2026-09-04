@@ -1,0 +1,80 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+---
+
+<PageLayout title="Stranica nije pronađena" description="Stranica koju tražite ne postoji ili je premještena.">
+  <section class="not-found" data-reveal>
+    <p class="eyebrow">404</p>
+    <h1>Ova stranica ne postoji.</h1>
+    <p class="lead">
+      Možda je link zastario ili je stranica premještena. Vratite se na početnu ili nam se javite ako tražite nešto konkretno.
+    </p>
+    <div class="actions">
+      <a class="cta" href="/">Nazad na početnu</a>
+      <a class="cta-secondary" href="/kontakt">Razgovarajmo</a>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .not-found {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-4xl);
+    max-width: var(--content-max);
+  }
+
+  .eyebrow {
+    font-size: var(--text-overline-size);
+    font-weight: var(--text-overline-weight);
+    letter-spacing: var(--text-overline-tracking);
+    text-transform: uppercase;
+    color: var(--text-accent);
+  }
+
+  h1 {
+    margin-top: var(--space-sm);
+    font-size: var(--text-h1-size-fluid);
+    line-height: var(--text-h1-leading);
+    font-weight: var(--text-h1-weight);
+    letter-spacing: var(--text-h1-tracking);
+  }
+
+  .lead {
+    margin-top: var(--space-lg);
+    font-size: var(--text-body-lg-size);
+    line-height: var(--text-body-lg-leading);
+    color: var(--text-secondary);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .cta {
+    display: inline-flex;
+    padding: var(--space-sm) var(--space-xl);
+    background: var(--action-primary);
+    color: var(--action-primary-text);
+    border-radius: var(--radius-2);
+    text-decoration: none;
+    font-weight: var(--text-label-lg-weight);
+  }
+
+  .cta:hover {
+    background: var(--action-primary-hover);
+  }
+
+  .cta-secondary {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: var(--text-label-lg-weight);
+  }
+
+  .cta-secondary:hover {
+    color: var(--text-accent);
+  }
+</style>
