@@ -7,6 +7,13 @@ import { getCollection } from "astro:content";
 const usluge = (await getCollection("usluge")).sort(
   (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99)
 );
+
+const heroSlides = [
+  { label: "Uslužno rezanje", tone: "tone-1" },
+  { label: "Kantovanje i bušenje", tone: "tone-2" },
+  { label: "Mjerenje i dogovor", tone: "tone-3" },
+  { label: "Namještaj po mjeri", tone: "tone-4" },
+];
 ---
 
 <BaseLayout
@@ -16,18 +23,33 @@ const usluge = (await getCollection("usluge")).sort(
   <Header />
   <main>
     <section class="section hero" aria-labelledby="hero-heading" data-reveal>
-      <img class="hero-signature" src="/images/signature-shape.svg" alt="" aria-hidden="true" />
-      <h1 id="hero-heading">Precizna obrada pločastog materijala — od uslužnog rezanja do namještaja po mjeri.</h1>
-      <p class="lead">
-        Nekome treba samo precizno isječen i okantovan materijal, nekome kompletno rješenje po mjeri prostora. Zato ne počinjemo od gotovog proizvoda, već od razumijevanja onoga što vam zaista treba.
-      </p>
-      <div class="hero-actions">
-        <a class="cta" href="/kontakt">Razgovarajmo</a>
-        <a class="cta-secondary" href="/proces-saradnje">Pogledajte kako radimo</a>
+      <div class="hero-text">
+        <h1 id="hero-heading">Precizna obrada pločastog materijala — od uslužnog rezanja do namještaja po mjeri.</h1>
+        <p class="lead">
+          Nekome treba samo precizno isječen i okantovan materijal, nekome kompletno rješenje po mjeri prostora. Zato ne počinjemo od gotovog proizvoda, već od razumijevanja onoga što vam zaista treba.
+        </p>
+        <div class="hero-actions">
+          <a class="cta" href="/kontakt">Razgovarajmo</a>
+          <a class="cta-secondary" href="/proces-saradnje">Pogledajte kako radimo</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-carousel" role="img" aria-label="Faze saradnje sa Ivertim-om — uslužno rezanje, kantovanje i bušenje, mjerenje i dogovor, namještaj po mjeri">
+          {
+            heroSlides.map((slide, index) => (
+              <div class:list={["hero-slide", slide.tone]} style={`animation-delay: ${index * 6}s`}>
+                <img class="hero-slide-shape" src="/images/signature-shape-inverse.svg" alt="" aria-hidden="true" />
+                <p class="hero-slide-label">{slide.label}</p>
+              </div>
+            ))
+          }
+        </div>
+        <p class="hero-carousel-note">Prikaz faza saradnje — prave fotografije procesa stižu uskoro.</p>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="usluge-heading" data-reveal>
+    <section class="section usluge" aria-labelledby="usluge-heading" data-reveal>
       <h2 id="usluge-heading">Dvije usluge. Jedan isti pristup preciznosti.</h2>
       <p class="section-lead">
         Bilo da vam treba precizno isječen i okantovan materijal ili kompletan namještaj po mjeri, pristupamo im na isti način — prvo razumijemo šta vam treba, zatim izmjerimo, pa tek onda predlažemo najbolje rješenje.
@@ -35,19 +57,43 @@ const usluge = (await getCollection("usluge")).sort(
 
       {
         usluge.length > 0 && (
-          <ul class="usluge-list">
+          <div class="usluge-full">
             {usluge.map((usluga, index) => (
-              <li class:list={["usluga-card", { "usluga-card--accent": index === 0 }]}>
-                <p class="eyebrow">{index === 0 ? "Primarna usluga" : "Sekundarna usluga"}</p>
-                <a class="usluga-title" href={`/usluge/${usluga.id}`}>{usluga.data.title}</a>
-                <p class="usluga-description">{usluga.data.description}</p>
-              </li>
+              <a class:list={["usluga-band", { "usluga-band--accent": index === 0 }]} href={`/usluge/${usluga.id}`}>
+                <div class="usluga-band-inner">
+                  <p class="eyebrow">{index === 0 ? "Primarna usluga" : "Sekundarna usluga"}</p>
+                  <p class="usluga-title">{usluga.data.title}</p>
+                  <p class="usluga-description">{usluga.data.description}</p>
+                  <span class="usluga-link">Saznajte više →</span>
+                </div>
+              </a>
             ))}
-          </ul>
+          </div>
         )
       }
+    </section>
 
-      <a class="link-cta" href="/usluge">Istražite usluge →</a>
+    <section class="section about" aria-labelledby="about-heading" data-reveal>
+      <div class="about-badges">
+        <div class="badge">
+          <img src="/images/logo-mark.svg" alt="" aria-hidden="true" />
+          <p class="badge-title">Sopstvena fabrika i CNC mašine</p>
+          <p class="badge-text">Svale bb, Prijedor</p>
+        </div>
+        <div class="badge">
+          <img src="/images/logo-mark.svg" alt="" aria-hidden="true" />
+          <p class="badge-title">Dvije usluge, jedan pristup</p>
+          <p class="badge-text">Uslužno rezanje i namještaj po mjeri</p>
+        </div>
+      </div>
+
+      <div class="about-text">
+        <p class="eyebrow">Ko smo mi</p>
+        <h2 id="about-heading">Preuzimamo odgovornost za cijeli proces</h2>
+        <p class="section-lead">
+          Ivertim nije samo proizvođač namještaja. Naša vrijednost je sposobnost da preuzmemo odgovornost za cijeli proces — od prvog razgovora i mjerenja, do prijedloga, proizvodnje i, gdje je potrebno, montaže i postprodajne brige.
+        </p>
+      </div>
     </section>
 
     <section class="section" aria-labelledby="process-heading" data-reveal>
@@ -66,13 +112,15 @@ const usluge = (await getCollection("usluge")).sort(
       <a class="link-cta" href="/projekti">Pogledajte projekte →</a>
     </section>
 
-    <section class="section closing" aria-labelledby="closing-heading" data-reveal>
-      <h2 id="closing-heading">Prvi korak je razgovor.</h2>
-      <p class="section-lead">
-        Svaki projekat počinje drugačije, ali uvijek istim prvim korakom. Razgovor nam pomaže da razumijemo vaš prostor, potrebe i očekivanja kako bismo zajedno pronašli najbolje rješenje.
-      </p>
-      <p class="reassurance">Nema obaveze.<br />Nema pritiska.<br />Samo razgovor.</p>
-      <a class="cta" href="/kontakt">Razgovarajmo</a>
+    <section class="section closing-wrap" aria-labelledby="closing-heading" data-reveal>
+      <div class="closing gradient-brand">
+        <h2 id="closing-heading">Prvi korak je razgovor.</h2>
+        <p class="section-lead closing-lead">
+          Svaki projekat počinje drugačije, ali uvijek istim prvim korakom. Razgovor nam pomaže da razumijemo vaš prostor, potrebe i očekivanja kako bismo zajedno pronašli najbolje rješenje.
+        </p>
+        <p class="reassurance">Nema obaveze. Nema pritiska. Samo razgovor.</p>
+        <a class="cta cta-on-gradient" href="/kontakt">Razgovarajmo</a>
+      </div>
     </section>
   </main>
   <Footer />
@@ -91,19 +139,14 @@ const usluge = (await getCollection("usluge")).sort(
 
   .hero {
     position: relative;
-    overflow: hidden;
     border-top: none;
     padding-top: var(--space-2xl);
+    display: grid;
+    gap: var(--space-2xl);
   }
 
-  .hero-signature {
-    position: absolute;
-    top: -10%;
-    right: -8%;
-    width: 340px;
-    height: 340px;
-    opacity: 0.05;
-    pointer-events: none;
+  .hero-text {
+    position: relative;
   }
 
   h1 {
@@ -128,6 +171,85 @@ const usluge = (await getCollection("usluge")).sort(
     align-items: center;
     gap: var(--space-lg);
     margin-top: var(--space-xl);
+  }
+
+  /* ---------- Hero carousel: pure CSS crossfade, no JS ---------- */
+  .hero-carousel {
+    position: relative;
+    height: 320px;
+    border-radius: var(--radius-4);
+    overflow: hidden;
+  }
+
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    padding: var(--space-lg);
+    opacity: 0;
+    animation: hero-slide-fade 24s infinite;
+  }
+
+  .hero-slide.tone-1 {
+    background: linear-gradient(135deg, var(--accent-500), var(--accent-700));
+  }
+  .hero-slide.tone-2 {
+    background: linear-gradient(135deg, var(--accent-600), var(--accent-800));
+  }
+  .hero-slide.tone-3 {
+    background: linear-gradient(135deg, var(--accent-800), var(--accent-950));
+  }
+  .hero-slide.tone-4 {
+    background: linear-gradient(135deg, var(--accent-700), var(--accent-900));
+  }
+
+  .hero-slide-shape {
+    position: absolute;
+    top: -15%;
+    right: -10%;
+    width: 65%;
+    height: auto;
+    opacity: 0.16;
+  }
+
+  .hero-slide-label {
+    position: relative;
+    color: var(--text-inverse);
+    font-size: var(--text-label-lg-size);
+    font-weight: var(--text-label-lg-weight);
+  }
+
+  @keyframes hero-slide-fade {
+    0%,
+    100% {
+      opacity: 0;
+    }
+    3%,
+    22% {
+      opacity: 1;
+    }
+    25% {
+      opacity: 0;
+    }
+  }
+
+  .hero-carousel-note {
+    margin-top: var(--space-sm);
+    font-size: var(--text-caption-size);
+    /* text-secondary, not text-tertiary — same WCAG AA contrast issue as
+       Footer.astro's labels; see the note there. */
+    color: var(--text-secondary);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-slide {
+      animation: none;
+      opacity: 0;
+    }
+    .hero-slide:first-child {
+      opacity: 1;
+    }
   }
 
   h2 {
@@ -182,14 +304,6 @@ const usluge = (await getCollection("usluge")).sort(
     color: var(--link-hover);
   }
 
-  .usluge-list {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    gap: var(--space-lg);
-    margin-top: var(--space-xl);
-  }
-
   .eyebrow {
     font-size: var(--text-overline-size);
     font-weight: var(--text-overline-weight);
@@ -199,64 +313,150 @@ const usluge = (await getCollection("usluge")).sort(
     margin-bottom: var(--space-xs);
   }
 
-  .usluga-card {
-    position: relative;
-    overflow: hidden;
-    padding: var(--space-xl);
-    background: var(--surface-1);
-    border: var(--border-1) solid var(--border-subtle);
-    border-radius: var(--radius-3);
+  /* ---------- Usluge: full-width stacked bands, not a card grid ---------- */
+  .usluge-full {
+    margin-top: var(--space-2xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
   }
 
-  .usluga-card--accent::after {
+  .usluga-band {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    padding: var(--space-2xl);
+    background: var(--surface-1);
+    border: var(--border-1) solid var(--border-subtle);
+    border-radius: var(--radius-4);
+    text-decoration: none;
+    transition: border-color var(--motion-fast) var(--ease-out);
+  }
+
+  .usluga-band:hover {
+    border-color: var(--border-accent);
+  }
+
+  .usluga-band-inner {
+    max-width: var(--content-max);
+  }
+
+  .usluga-band--accent::after {
     content: "";
     position: absolute;
-    right: -28px;
-    bottom: -28px;
-    width: 110px;
-    height: 110px;
+    right: -40px;
+    bottom: -40px;
+    width: 160px;
+    height: 160px;
     background: url("/images/signature-shape.svg") no-repeat center / contain;
     opacity: 0.06;
     pointer-events: none;
   }
 
   .usluga-title {
-    display: block;
-    font-size: var(--text-h4-size);
-    line-height: var(--text-h4-leading);
-    font-weight: var(--text-h4-weight);
+    font-size: var(--text-h3-size-fluid);
+    line-height: var(--text-h3-leading);
+    font-weight: var(--text-h3-weight);
     color: var(--text-primary);
-    text-decoration: none;
-  }
-
-  .usluga-title:hover {
-    color: var(--text-accent);
   }
 
   .usluga-description {
     margin-top: var(--space-sm);
     color: var(--text-secondary);
+    font-size: var(--text-body-lg-size);
+    line-height: var(--text-body-lg-leading);
   }
 
-  .closing {
-    text-align: left;
-  }
-
-  .reassurance {
+  .usluga-link {
+    display: inline-block;
     margin-top: var(--space-lg);
-    /* text-secondary, not text-tertiary — at 14px, text-tertiary (neutral-500) only
-       reaches ~3.1:1 contrast here, below WCAG AA's 4.5:1 for normal text. */
+    font-size: var(--text-label-md-size);
+    font-weight: var(--text-label-md-weight);
+    color: var(--text-accent);
+  }
+
+  /* ---------- About / trust badges ---------- */
+  .about {
+    display: grid;
+    gap: var(--space-2xl);
+  }
+
+  .about-badges {
+    display: grid;
+    gap: var(--space-lg);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .badge {
+    padding: var(--space-xl);
+    background: var(--surface-1);
+    border: var(--border-1) solid var(--border-subtle);
+    border-radius: var(--radius-3);
+  }
+
+  .badge img {
+    width: 28px;
+    height: 28px;
+    margin-bottom: var(--space-md);
+  }
+
+  .badge-title {
+    font-size: var(--text-h6-size);
+    font-weight: var(--text-h6-weight);
+    color: var(--text-primary);
+  }
+
+  .badge-text {
+    margin-top: var(--space-xs);
     color: var(--text-secondary);
     font-size: var(--text-body-sm-size);
   }
 
-  .closing .cta {
+  /* ---------- Closing: animated brand gradient ---------- */
+  .closing-wrap {
+    border-top: none;
+    padding-top: var(--space-lg);
+  }
+
+  .closing {
+    padding: var(--space-3xl) var(--space-2xl);
+    border-radius: var(--radius-4);
+    color: var(--text-inverse);
+  }
+
+  .closing h2 {
+    color: var(--text-inverse);
+  }
+
+  .closing-lead {
+    color: rgb(255 255 255 / 0.82);
+  }
+
+  .reassurance {
+    margin-top: var(--space-lg);
+    color: rgb(255 255 255 / 0.7);
+    font-size: var(--text-body-sm-size);
+  }
+
+  .cta-on-gradient {
     margin-top: var(--space-xl);
+    background: var(--neutral-0);
+    color: var(--accent-800);
+  }
+
+  .cta-on-gradient:hover {
+    background: var(--neutral-100);
   }
 
   @media (min-width: 768px) {
-    .usluge-list {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .hero {
+      grid-template-columns: 1.1fr 1fr;
+      align-items: center;
+    }
+
+    .about {
+      grid-template-columns: 1fr 1.3fr;
+      align-items: center;
     }
   }
 </style>

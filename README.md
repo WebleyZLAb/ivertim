@@ -194,9 +194,9 @@ Zabranjeni pravci:
 - neumorphism;
 - neon glow;
 - obojene sjene;
-- prenaglašeni gradijenti;
-- „wow“ efekti bez UX vrijednosti;
-- carousel kao podrazumijevani obrazac;
+- prenaglašeni gradijenti (izuzetak: odobreni `gradient-brand` na CTA/closing momentima — vidi `design-system/colors.md` §Gradients, odluka vlasnika 2026-09-04);
+- „wow” efekti bez UX vrijednosti;
+- carousel kao podrazumijevani obrazac za sadržaj/navigaciju (izuzetak: ambijentalne auto-rotirajuće hero fotografije bez dot-navigacije kao primarnog UX-a — ista odluka 2026-09-04);
 - proizvoljne animacije;
 - dekorativna kompleksnost.
 

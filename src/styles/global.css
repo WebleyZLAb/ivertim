@@ -80,6 +80,24 @@ a:active {
   transform: translateY(0);
 }
 
+/* Animated brand gradient — added 2026-09-04, see design-system/colors.md
+   §Gradients. Scoped utility class, not a global default: apply only to the
+   one or two CTA/closing-moment surfaces per page that call for it. */
+.gradient-brand {
+  background: var(--gradient-brand);
+  background-size: 220% 220%;
+  animation: gradient-shift var(--gradient-motion-duration) var(--ease-in-out) infinite alternate;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

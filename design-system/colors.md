@@ -206,6 +206,17 @@ Dark mode is not part of the first implementation, but semantic token names must
 
 Future dark mode should remap semantic tokens rather than rename component tokens.
 
+## Gradients
+
+**Added 2026-09-04 — explicit owner decision, supersedes the 2026-07-11 "no decorative gradients" rule for this one pattern.** A slow, ambient animated gradient built only from the existing accent scale is approved for high-emphasis CTA/closing moments — owner referenced compatto.gr's closing CTA card as the model. This is not a general license for gradients everywhere: it stays scoped to one or two clear "hero moment" surfaces per page (matches "one primary CTA per context"), and must never introduce hues outside the locked accent scale.
+
+| Token | Value |
+|---|---|
+| `gradient-brand` | `linear-gradient(135deg, accent-700, accent-500, accent-900, accent-600)` |
+| `gradient-motion-duration` | `10s`, ease-in-out, infinite alternate — slow and ambient, not a flicker |
+
+No arbitrary, rainbow or neon gradients. No gradient outside this one approved token and its scoped use.
+
 ## Rules
 
 - Components use semantic tokens, not direct HEX values.
@@ -215,3 +226,4 @@ Future dark mode should remap semantic tokens rather than rename component token
 - Do not use color as the only indicator of state.
 - No hardcoded HEX values inside components.
 - If a missing color role is discovered, propose a new semantic role before using a base color directly.
+- Gradients are limited to `gradient-brand` above (see §Gradients) — no other gradients.

@@ -148,6 +148,10 @@
   --progress-track: var(--neutral-200);
   --progress-fill: var(--accent-600);
 
+  /* ---------- Color: gradient (added 2026-09-04, see design-system/colors.md §Gradients) ---------- */
+  --gradient-brand: linear-gradient(135deg, var(--accent-700), var(--accent-500), var(--accent-900), var(--accent-600));
+  --gradient-motion-duration: 10s;
+
   /* ---------- Spacing: base scale ---------- */
   --space-0: 0px;
   --space-1: 4px;

@@ -17,7 +17,7 @@ Premium osjećaj dolazi iz:
 ## Ne dolazi iz
 
 - jakih sjena;
-- dekorativnih gradijenata;
+- dekorativnih gradijenata bez svrhe (izuzetak: odobreni `gradient-brand`, vidi `design-system/colors.md` §Gradients — eksplicitna odluka vlasnika 2026-09-04, ograničena na CTA/closing momente);
 - efekata;
 - glassmorphisma;
 - neon akcenata;
