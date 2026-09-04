@@ -12,6 +12,7 @@ const navItems = [
     <img src="/images/logo-horizontal.svg" alt="Ivertim" width="140" height="21" />
   </a>
 
+  <div class="nav-actions">
   <a class="cta cta-desktop" href="/kontakt">Razgovarajmo</a>
 
   <details class="nav-disclosure">
@@ -24,20 +25,21 @@ const navItems = [
         <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
       </svg>
     </summary>
-
-    <nav aria-label="Glavna navigacija">
-      <ul>
-        {
-          navItems.map((item) => (
-            <li>
-              <a href={item.href}>{item.label}</a>
-            </li>
-          ))
-        }
-      </ul>
-      <a class="cta cta-mobile" href="/kontakt">Razgovarajmo</a>
-    </nav>
   </details>
+
+  <nav aria-label="Glavna navigacija">
+    <ul>
+      {
+        navItems.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+    <a class="cta cta-mobile" href="/kontakt">Razgovarajmo</a>
+  </nav>
+  </div>
 </header>
 
 <script>
@@ -59,6 +61,16 @@ const navItems = [
     padding: var(--space-md) var(--container-padding);
     border-bottom: var(--border-1) solid var(--border-subtle);
     background: var(--bg-primary);
+  }
+
+  /* Groups the CTA, disclosure toggle and nav as one flex item so
+     `.site-header`'s justify-content: space-between only splits [logo] from
+     [everything else], instead of spacing 3 separate top-level items evenly
+     (which put the CTA in the middle of the header instead of next to nav). */
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
   }
 
   .logo {
@@ -159,10 +171,17 @@ const navItems = [
     transform: rotate(0deg) scale(1);
   }
 
-  /* Desktop: nav is a plain always-visible row; disclosure chrome and
-     mobile-only CTA are hidden; the toggle summary is hidden. */
+  /* <nav> used to live *inside* <details>, relying on the browser's native
+     open/closed behavior to show/hide it. Found via a Playwright test
+     failure (2026-09-04): a <nav> nested inside a <details> flex ancestor
+     computes a 0 max-content width in this browser's flexbox intrinsic-
+     sizing algorithm, regardless of the <details>'s own `display` value —
+     confirmed by moving <nav> out from under <details> as a plain sibling,
+     which fixed it immediately. <nav> is now a sibling of <details>, shown
+     on mobile via the `[open] + nav` selector below instead of natively. */
   .nav-disclosure {
-    display: contents;
+    display: inline-flex;
+    align-items: center;
   }
 
   .cta-mobile {
@@ -170,7 +189,7 @@ const navItems = [
   }
 
   @media (min-width: 768px) {
-    .nav-disclosure summary {
+    .nav-disclosure {
       display: none;
     }
   }
@@ -179,10 +198,6 @@ const navItems = [
   @media (max-width: 767px) {
     .cta-desktop {
       display: none;
-    }
-
-    .nav-disclosure {
-      display: block;
     }
 
     .nav-disclosure summary {
@@ -209,10 +224,12 @@ const navItems = [
     }
 
     nav[aria-label="Glavna navigacija"] {
+      display: none;
       position: absolute;
       top: 100%;
       left: 0;
       right: 0;
+      z-index: var(--z-dropdown);
       flex-direction: column;
       align-items: stretch;
       gap: var(--space-lg);
@@ -220,6 +237,10 @@ const navItems = [
       background: var(--surface-1);
       border-bottom: var(--border-1) solid var(--border-subtle);
       box-shadow: var(--shadow-2);
+    }
+
+    .nav-disclosure[open] + nav[aria-label="Glavna navigacija"] {
+      display: flex;
     }
 
     nav ul {
