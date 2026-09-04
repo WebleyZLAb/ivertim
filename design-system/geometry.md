@@ -14,9 +14,9 @@
 Suggested mapping:
 
 - `radius-1`: badge, tooltip, smallest controls;
-- `radius-2`: inputs, compact cards;
+- `radius-2`: inputs, compact cards — **also, as of 2026-09-05 (explicit owner decision), all filled buttons.** Buttons went through two revisions the same day: `radius-full` (pill) first, then a rounded-rectangle "echoes the logo mark" look at `radius-4`, then the owner asked to reduce the radius again — settled back at `radius-2`, the original pre-redesign button value, alongside a Signature Shape watermark now in the bottom-*left* corner (was briefly bottom-right). Icon-only toggle controls (e.g. the mobile menu button) are unaffected — this applies to labelled action buttons.
 - `radius-3`: standard cards and panels;
-- `radius-4`: large media blocks and prominent surfaces — **also, as of 2026-09-05 (explicit owner decision, superseding the pill-button choice made earlier the same day), all filled buttons.** Owner asked for a rounded-rectangle treatment that echoes the logo mark instead of a full pill. Icon-only toggle controls (e.g. the mobile menu button) are unaffected — this applies to labelled action buttons.
+- `radius-4`: large media blocks and prominent surfaces;
 - `radius-full`: pill, avatar, status dot.
 
 ## Border width
