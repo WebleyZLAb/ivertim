@@ -20,5 +20,11 @@ coverage/
 .astro/
 .vercel/
 
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
 # Claude operational memory may be committed or ignored by project choice.
 # CLAUDE.md
