@@ -48,9 +48,17 @@ Neki prostori ne mogu se svrstati u unaprijed definisane kategorije. Upravo tada
 
 ## Često se pitaju
 
-- Dolazite li na mjerenje?
-- Mogu li birati unutrašnju organizaciju?
-- Radite li prema skicama i idejama?
+### Dolazite li na mjerenje?
+
+Da — mjerenje je dio procesa. Dolazimo na lice mjesta i uzimamo tačne mjere prije nego što predložimo rješenje.
+
+### Mogu li birati unutrašnju organizaciju?
+
+Da. Fioke, police i pregrade prilagođavamo vašim navikama i onome što želite da imate pri ruci.
+
+### Radite li prema skicama i idejama?
+
+Da. Ako imate skicu, ideju ili primjer koji vam se dopada, to je odličan početak razgovora — na osnovu toga predlažemo rješenje.
 
 ## Recite nam nešto o svom prostoru
 

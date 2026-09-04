@@ -1,7 +1,7 @@
 # USLUŽNO REZANJE, KANTOVANJE I BUŠENJE --- BLUEPRINT
 
 **Project:** Ivertim\
-**Version:** 1.0\
+**Version:** 1.1\
 **Status:** Approved\
 **Dodano:** 2026-09-02, kao dio revizije za pivot usluga (vidi `CLAUDE.md`)
 
@@ -149,11 +149,22 @@ Ne obećavati konkretne rokove u copy-ju dok se ne potvrdi realan kapacitet sa v
 
 # 12. FAQ
 
--   Koje materijale rezete?
--   Mogu li poslati svoj nacrt za bušenje?
--   Kolika je minimalna/maksimalna količina za narudžbu?
--   Koliko traje izrada?
--   Nudite li dostavu?
+**Koje materijale režete?**\
+Obrađujemo pločaste materijale koji se standardno koriste u izradi namještaja i enterijera. Javite se sa detaljima materijala koji imate ili planirate — potvrdit ćemo mogućnost obrade prije narudžbe.
+
+**Mogu li poslati svoj nacrt za bušenje?**\
+Da. Pošaljite nacrt ili tehničku skicu s tačnim pozicijama i mjerama, i bušenje uskladimo s vašim planom prije obrade.
+
+**Kolika je minimalna/maksimalna količina za narudžbu?**\
+Nemamo fiksno pravilo — zavisi od trenutnog kapaciteta. Javite se sa vašom narudžbom i odmah ćemo vam reći da li i kada je možemo primiti.
+
+**Koliko traje izrada?**\
+Rok zavisi od obima narudžbe i trenutnog kapaciteta. Dogovaramo ga prilikom potvrde narudžbe, tako da tačno znate kada materijal preuzimate.
+
+**Nudite li dostavu?**\
+Da. Materijal možete preuzeti kod nas ili dogovoriti dostavu — recite nam šta vam više odgovara.
+
+> Odgovori su namjerno generički za pitanja o materijalima, količinama i rokovima — vidi §15 TODO. Kad vlasnik potvrdi tačne brojke/listu, odgovori se mogu precizirati.
 
 ------------------------------------------------------------------------
 
@@ -189,6 +200,10 @@ Ne obećavati konkretne rokove u copy-ju dok se ne potvrdi realan kapacitet sa v
 ------------------------------------------------------------------------
 
 # 16. Changelog
+
+## v1.1 — 2026-09-04
+
+-   Dodani odgovori na FAQ pitanja u §12 (ranije samo pitanja, bez odgovora) — namjerno generički gdje tačna činjenica (materijali, količine, rokovi) još nije potvrđena od vlasnika, u skladu sa §15 TODO. Isti odgovori uneseni u `src/content/usluge/usluzno-rezanje-kantovanje-busenje.md`.
 
 ## v1.0 — 2026-09-02
 
