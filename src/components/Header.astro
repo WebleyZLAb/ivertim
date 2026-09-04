@@ -12,9 +12,6 @@ const navItems = [
     <img src="/images/logo-horizontal.svg" alt="Ivertim" width="140" height="21" />
   </a>
 
-  <div class="nav-actions">
-  <a class="cta cta-desktop" href="/kontakt">Razgovarajmo</a>
-
   <details class="nav-disclosure">
     <summary aria-label="Otvori meni">
       <svg class="icon-open" viewBox="0 0 174.79 168.95" width="22" height="22" fill="currentColor" aria-hidden="true">
@@ -39,7 +36,8 @@ const navItems = [
     </ul>
     <a class="cta cta-mobile" href="/kontakt">Razgovarajmo</a>
   </nav>
-  </div>
+
+  <a class="cta cta-desktop" href="/kontakt">Razgovarajmo</a>
 </header>
 
 <script>
@@ -61,16 +59,6 @@ const navItems = [
     padding: var(--space-md) var(--container-padding);
     border-bottom: var(--border-1) solid var(--border-subtle);
     background: var(--bg-primary);
-  }
-
-  /* Groups the CTA, disclosure toggle and nav as one flex item so
-     `.site-header`'s justify-content: space-between only splits [logo] from
-     [everything else], instead of spacing 3 separate top-level items evenly
-     (which put the CTA in the middle of the header instead of next to nav). */
-  .nav-actions {
-    display: flex;
-    align-items: center;
-    gap: var(--space-xl);
   }
 
   .logo {
@@ -198,12 +186,32 @@ const navItems = [
        as lifted/floating above the page (compatto's own doesn't have
        one — this is a deliberate addition, per owner request). */
     .site-header {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       margin: var(--space-lg) var(--space-xl) 0;
       padding: var(--space-sm) var(--space-lg) var(--space-sm) var(--space-xl);
       background: var(--surface-1);
       border-bottom: none;
       border-radius: var(--radius-full);
       box-shadow: var(--shadow-2);
+    }
+
+    /* Logo left, nav links centered independently of the CTA, CTA pinned
+       to the far right edge — three distinct zones instead of grouping
+       the nav and CTA together on the right. */
+    .logo {
+      grid-column: 1;
+      justify-self: start;
+    }
+
+    nav[aria-label="Glavna navigacija"] {
+      grid-column: 2;
+      justify-self: center;
+    }
+
+    .cta-desktop {
+      grid-column: 3;
+      justify-self: end;
     }
   }
 
