@@ -40,7 +40,9 @@ export const POST: APIRoute = async ({ request }) => {
 
   try {
     await sendContactEmail({ name, email, phone: phone || undefined, message });
-  } catch {
+  } catch (err) {
+    // Logged so a real failure is diagnosable from Vercel function logs, not just a silent redirect.
+    console.error("Contact form email send failed:", err);
     return redirect("/kontakt?status=error");
   }
 
