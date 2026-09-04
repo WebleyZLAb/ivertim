@@ -68,18 +68,37 @@ const navItems = [
     width: auto;
   }
 
+  /* Rounded-rectangle "mark" treatment (2026-09-05, owner-specified):
+     same button colors as before, but shaped to echo the logo mark —
+     a generous rounded-rect instead of a full pill, a subtle lift
+     shadow, and a faint Signature Shape watermark in the corner. */
   .cta {
+    position: relative;
+    overflow: hidden;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: var(--space-sm) var(--space-lg);
     background: var(--gradient-button);
     color: var(--action-primary-text);
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-4);
+    box-shadow: var(--shadow-1);
     text-decoration: none;
     font-size: var(--text-label-md-size);
     font-weight: var(--text-label-md-weight);
     transition: background var(--motion-fast) var(--ease-out);
+  }
+
+  .cta::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 30%;
+    aspect-ratio: 169.44 / 179.65;
+    background: url("/images/signature-shape-inverse.svg") no-repeat center / contain;
+    opacity: 0.22;
+    pointer-events: none;
   }
 
   .cta:hover {

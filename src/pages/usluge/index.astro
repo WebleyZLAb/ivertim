@@ -148,15 +148,32 @@ const usluge = (await getCollection("usluge")).sort(
     color: var(--text-secondary);
   }
 
+  /* Rounded-rectangle "mark" treatment — see Header.astro's .cta for the
+     full rationale (2026-09-05, owner-specified: echo the logo mark). */
   .cta {
+    position: relative;
+    overflow: hidden;
     display: inline-flex;
     margin-top: var(--space-lg);
     padding: var(--space-sm) var(--space-xl);
     background: var(--gradient-button);
     color: var(--action-primary-text);
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-4);
+    box-shadow: var(--shadow-1);
     text-decoration: none;
     font-weight: var(--text-label-lg-weight);
+  }
+
+  .cta::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 30%;
+    aspect-ratio: 169.44 / 179.65;
+    background: url("/images/signature-shape-inverse.svg") no-repeat center / contain;
+    opacity: 0.22;
+    pointer-events: none;
   }
 
   .cta:hover {

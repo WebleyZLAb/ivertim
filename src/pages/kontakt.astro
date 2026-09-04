@@ -291,17 +291,34 @@ const structuredData = {
     box-shadow: var(--focus-default);
   }
 
+  /* Rounded-rectangle "mark" treatment — see Header.astro's .cta for the
+     full rationale (2026-09-05, owner-specified: echo the logo mark). */
   button {
+    position: relative;
+    overflow: hidden;
     justify-self: start;
     padding: var(--space-sm) var(--space-xl);
     background: var(--gradient-button);
     color: var(--action-primary-text);
     border: none;
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-4);
+    box-shadow: var(--shadow-1);
     font-size: var(--text-label-lg-size);
     font-weight: var(--text-label-lg-weight);
     cursor: pointer;
     transition: background var(--motion-fast) var(--ease-out);
+  }
+
+  button::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 30%;
+    aspect-ratio: 169.44 / 179.65;
+    background: url("/images/signature-shape-inverse.svg") no-repeat center / contain;
+    opacity: 0.22;
+    pointer-events: none;
   }
 
   button:hover {
