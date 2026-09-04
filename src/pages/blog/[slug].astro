@@ -1,6 +1,11 @@
 ---
+// Article template per docs/04 - Copywriting/Advice-Template-Blueprint-v1.0.md (Approved, v1.0).
+// The closing CTA (§13) is identical, fixed copy on every article, so it's hardcoded in this
+// template rather than authored per post — see the <section class="closing"> block below.
 import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
 import PageLayout from "../../layouts/PageLayout.astro";
+import { blogTopicLabel, estimateReadingMinutes } from "../../lib/blog";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -12,23 +17,150 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const topic = blogTopicLabel(post.data.topic);
+const minutes = estimateReadingMinutes(post.body);
 ---
 
 <PageLayout title={post.data.title} description={post.data.description}>
-  <article>
-    <h1>{post.data.title}</h1>
-    <Content />
+  <article data-reveal>
+    <header class="hero">
+      <p class="meta">
+        {minutes} min čitanja{topic && <> · {topic}</>}
+      </p>
+      <h1>{post.data.title}</h1>
+      <p class="lead">{post.data.description}</p>
+      {
+        post.data.heroImage && (
+          <Image class="hero-image" src={post.data.heroImage} alt="" width={1200} height={675} />
+        )
+      }
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <section class="closing" aria-labelledby="closing-heading">
+      <h2 id="closing-heading">Svaki prostor ima svoje specifičnosti.</h2>
+      <p>
+        Savjeti mogu pomoći da bolje razumijete mogućnosti, ali nijedan članak ne može zamijeniti razgovor o konkretnom prostoru.
+      </p>
+      <a class="cta" href="/kontakt">Razgovarajmo</a>
+    </section>
   </article>
 </PageLayout>
 
 <style>
+  article {
+    max-width: var(--content-max);
+  }
+
+  .meta {
+    font-size: var(--text-overline-size);
+    font-weight: var(--text-overline-weight);
+    letter-spacing: var(--text-overline-tracking);
+    text-transform: uppercase;
+    color: var(--text-accent);
+  }
+
   h1 {
+    margin-top: var(--space-sm);
     font-size: var(--text-h1-size-fluid);
     line-height: var(--text-h1-leading);
     font-weight: var(--text-h1-weight);
+    letter-spacing: var(--text-h1-tracking);
   }
 
-  article {
+  .lead {
+    margin-top: var(--space-lg);
+    font-size: var(--text-body-lg-size);
+    line-height: var(--text-body-lg-leading);
+    color: var(--text-secondary);
+  }
+
+  .hero-image {
+    margin-top: var(--space-xl);
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-3);
+  }
+
+  .prose :global(h2) {
+    margin-top: var(--space-3xl);
+    font-size: var(--text-h3-size-fluid);
+    line-height: var(--text-h3-leading);
+    font-weight: var(--text-h3-weight);
+    letter-spacing: var(--text-h3-tracking);
+  }
+
+  .prose :global(h3) {
+    margin-top: var(--space-2xl);
+    font-size: var(--text-h5-size);
+    line-height: var(--text-h5-leading);
+    font-weight: var(--text-h5-weight);
+  }
+
+  .prose :global(p) {
+    margin-top: var(--space-md);
+    font-size: var(--text-body-lg-size);
+    line-height: var(--text-body-lg-leading);
+    color: var(--text-secondary);
+  }
+
+  .prose :global(p:first-of-type) {
+    margin-top: var(--space-lg);
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-top: var(--space-md);
+    padding-left: var(--space-lg);
+    display: grid;
+    gap: var(--space-xs);
+    color: var(--text-secondary);
+    font-size: var(--text-body-md-size);
+    line-height: var(--text-body-md-leading);
+  }
+
+  .prose :global(strong) {
+    color: var(--text-primary);
+  }
+
+  .prose :global(a) {
+    font-weight: var(--text-label-md-weight);
+  }
+
+  .closing {
+    margin-top: var(--space-4xl);
+    padding-top: var(--space-2xl);
+    border-top: var(--border-1) solid var(--border-subtle);
+  }
+
+  .closing h2 {
+    font-size: var(--text-h3-size-fluid);
+    line-height: var(--text-h3-leading);
+    font-weight: var(--text-h3-weight);
     max-width: var(--content-max);
+  }
+
+  .closing p {
+    margin-top: var(--space-md);
+    max-width: var(--content-max);
+    color: var(--text-secondary);
+  }
+
+  .cta {
+    display: inline-flex;
+    margin-top: var(--space-lg);
+    padding: var(--space-sm) var(--space-xl);
+    background: var(--action-primary);
+    color: var(--action-primary-text);
+    border-radius: var(--radius-2);
+    text-decoration: none;
+    font-weight: var(--text-label-lg-weight);
+  }
+
+  .cta:hover {
+    background: var(--action-primary-hover);
   }
 </style>
