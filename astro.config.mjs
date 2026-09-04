@@ -4,6 +4,8 @@ import { defineConfig } from 'astro/config';
 import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
 
+import mdx from '@astrojs/mdx';
+
 // Vercel's stable project alias — update once a custom domain is connected
 // (see CLAUDE.md Open Questions: deliberately deferred, not urgent yet).
 const SITE_URL = 'https://ivertim.vercel.app';
@@ -12,5 +14,5 @@ const SITE_URL = 'https://ivertim.vercel.app';
 export default defineConfig({
   site: SITE_URL,
   adapter: vercel(),
-  integrations: [sitemap()]
+  integrations: [sitemap(), mdx()]
 });
