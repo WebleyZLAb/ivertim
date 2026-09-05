@@ -78,9 +78,10 @@ const usluge = (await getCollection("usluge")).sort(
     border-radius: var(--radius-3);
   }
 
-  /* Bottom-left corner, fully visible, height pinned to exactly half the
-     card — see the matching comment on .usluga-band--accent::after in
-     src/pages/index.astro for the full rationale (2026-09-05). */
+  /* Bottom-left corner, height pinned to exactly half the card, 115%
+     background-size so it bleeds across the card's own edge — see the
+     matching comment on .usluga-band--accent::after in src/pages/index.astro
+     for the full rationale (2026-09-05). */
   .service-card--accent::after {
     content: "";
     position: absolute;
@@ -88,7 +89,7 @@ const usluge = (await getCollection("usluge")).sort(
     bottom: 0;
     top: 50%;
     aspect-ratio: 169.44 / 179.65;
-    background: url("/images/signature-shape.svg") no-repeat center / contain;
+    background: url("/images/signature-shape.svg") no-repeat center / 115%;
     opacity: 0.06;
     pointer-events: none;
   }

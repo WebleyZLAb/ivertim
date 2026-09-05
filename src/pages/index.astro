@@ -204,10 +204,15 @@ const heroSlides = [
     background: linear-gradient(135deg, var(--accent-700), var(--accent-900));
   }
 
+  /* Signature Shape corner accents always sit bottom-left, bleeding
+     across the edge rather than staying fully inset — locked rule,
+     2026-09-05 (see docs/09 - Signature System.md §Cards). Was
+     top-right; mirrored in place (top/right → bottom/left, same
+     magnitudes) rather than re-deriving new offsets. */
   .hero-slide-shape {
     position: absolute;
-    top: -15%;
-    right: -10%;
+    bottom: -15%;
+    left: -10%;
     width: 65%;
     height: auto;
     opacity: 0.16;
@@ -421,11 +426,12 @@ const heroSlides = [
     max-width: var(--content-max);
   }
 
-  /* Bottom-left corner, fully visible (no negative offset — it touches
-     the left and bottom edges instead of hanging off them), height
-     pinned to exactly half the card via top:50%+bottom:0 with width
-     following the shape's own aspect ratio (2026-09-05, owner-specified
-     placement — supersedes the previous bottom-right partial-crop). */
+  /* Bottom-left corner, height pinned to exactly half the card via
+     top:50%+bottom:0 with width following the shape's own aspect ratio.
+     115% background-size (not contain) makes it bleed slightly across
+     the card's own border/edge instead of stopping flush inside it —
+     locked rule as of 2026-09-05, applies to every Signature Shape
+     corner accent site-wide (see docs/09 - Signature System.md §Cards). */
   .usluga-band--accent::after {
     content: "";
     position: absolute;
@@ -433,7 +439,7 @@ const heroSlides = [
     bottom: 0;
     top: 50%;
     aspect-ratio: 169.44 / 179.65;
-    background: url("/images/signature-shape.svg") no-repeat center / contain;
+    background: url("/images/signature-shape.svg") no-repeat center / 115%;
     opacity: 0.06;
     pointer-events: none;
   }

@@ -492,6 +492,8 @@ Never apply it to every card inside the same grid.
 
 Variation is preferred.
 
+**Concrete placement rule, locked 2026-09-05 (explicit owner decision — this is the one exception to the abstract "one corner, varies by context" guidance above):** wherever the Signature Shape appears as a corner accent — on a card, a colored panel, a button, anywhere the shape sits in a single corner of a container — it always goes in the **bottom-left** corner, and it always **bleeds across the container's own edge** (extends slightly past where the container visually ends, clipped by the container's own rounding/overflow) rather than sitting fully inset. Never top-right, never top-left, never fully contained with a visible gap from the edge. This applies uniformly across every implementation of the pattern: the button watermark cutout (`.cta::before`'s mask), card corner accents (`.usluga-band--accent`, `.service-card--accent`), and decorative shapes on colored panels (Home hero carousel slides, `RoomCategory`'s image panels). If a new corner-accent use case is added later, follow this same rule rather than picking a fresh position.
+
 ---
 
 ## Hover Details
