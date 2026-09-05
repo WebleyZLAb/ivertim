@@ -767,6 +767,8 @@ Random rotation weakens recognition.
 
 **Confirmed 2026-09-05:** this applies even to a purely technical, implementation-level fit problem — a Claude Code session tried creating a 180°-rotated derivative of the mark purely to make it reach a corner's exact pixel in CSS, and the owner ruled it out on sight. If a placement doesn't fit the mark's own orientation, solve it with cropping/positioning (or accept an imperfect fit), not by rotating or mirroring the source art — regardless of how small or "just technical" the reason seems.
 
+**Also confirmed the same day: aggressive cropping isn't a safe fallback either.** The same session then tried an aggressive crop (oversizing the mark ~165% and repositioning) to close that same corner gap without rotating — the owner rejected this too, on sight, because it turned the recognizable curve into a flat, blocky rectangle. A mark that no longer reads as itself is not an acceptable trade-off for a tighter fit. When the source art genuinely doesn't reach a corner in a given orientation, a small visible gap is preferable to either rotating it or cropping it into an unrecognizable shape.
+
 ---
 
 ## Do NOT replace the logo
