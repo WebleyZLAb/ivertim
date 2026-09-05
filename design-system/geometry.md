@@ -15,7 +15,7 @@ Suggested mapping:
 
 - `radius-1`: badge, tooltip, smallest controls;
 - `radius-2`: inputs, compact cards — **also, as of 2026-09-05 (explicit owner decision), all filled buttons.** Buttons went through two revisions the same day: `radius-full` (pill) first, then a rounded-rectangle "echoes the logo mark" look at `radius-4`, then the owner asked to reduce the radius again — settled back at `radius-2`, the original pre-redesign button value, alongside a Signature Shape watermark now in the bottom-*left* corner (was briefly bottom-right). Icon-only toggle controls (e.g. the mobile menu button) are unaffected — this applies to labelled action buttons.
-- `radius-3`: standard cards and panels;
+- `radius-3`: standard cards and panels — **also, as of 2026-09-05, the desktop floating navbar shell.** Previously `radius-full` (a full pill); owner asked it to echo the `.cta` button's roundedness instead of being its own shape. Matched by *ratio*, not by copying the button's raw pixel value: `radius-2` (8px) on the button's ~52px height is an 8/52 ≈ 0.154 radius-to-height ratio — applying that same ratio to the navbar's own ~76px height gives ≈11.7px, which lands almost exactly on `radius-3` (12px). Use this same ratio-matching approach (not a flat token copy) whenever a new element needs to "echo" the button's corner feel at a different size;
 - `radius-4`: large media blocks and prominent surfaces;
 - `radius-full`: pill, avatar, status dot.
 
