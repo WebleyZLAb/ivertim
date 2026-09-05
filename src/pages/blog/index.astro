@@ -205,7 +205,7 @@ const highlighted = (featuredPosts.length > 0 ? featuredPosts : posts).slice(0, 
     position: relative;
     overflow: hidden;
     display: inline-flex;
-    padding: var(--space-sm) calc(var(--space-xl) * 2) var(--space-sm) var(--space-xl);
+    padding: var(--space-sm) calc(var(--space-xl) * 2);
     background: var(--gradient-button);
     color: var(--action-primary-text);
     border-radius: var(--radius-2);
@@ -221,8 +221,13 @@ const highlighted = (featuredPosts.length > 0 ? featuredPosts : posts).slice(0, 
      — matching aspect-ratio + an oversized background-size crops the
      source file's own internal margin so the mark bleeds flush to/past
      the button's edge instead of sitting inset from it. Shrunk slightly
-     (top 30%→38%) and the button's right padding grew by one space-xl to
-     rebalance the label against the mark's visual weight on the left. */
+     (top 30%→38%). The button's padding grew by one space-xl on BOTH
+     sides (not just the shape side) — inline-flex with a single item
+     shrink-wraps its box exactly to padding+content, so justify-content
+     has no slack to center into; asymmetric-only padding just left the
+     label pinned near the mark with dead space after it. Symmetric
+     padding keeps the label naturally centered while still widening the
+     left side enough to give the mark real room. */
   .cta::after {
     content: "";
     position: absolute;
