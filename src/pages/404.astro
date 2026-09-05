@@ -85,13 +85,27 @@ import PageLayout from "../layouts/PageLayout.astro";
     background: var(--gradient-button-hover);
   }
 
+  /* Outline treatment, 2026-09-05 — see index.astro's .cta-secondary for
+     the full rationale (gradient border via the two-layer background trick). */
   .cta-secondary {
-    color: var(--text-secondary);
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-sm) var(--space-xl);
+    border: 2px solid transparent;
+    border-radius: var(--radius-2);
+    background:
+      linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box,
+      var(--gradient-button) border-box;
+    color: var(--action-primary);
     text-decoration: none;
     font-weight: var(--text-label-lg-weight);
+    transition: background var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out);
   }
 
   .cta-secondary:hover {
-    color: var(--text-accent);
+    background:
+      linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box,
+      var(--gradient-button-hover) border-box;
+    color: var(--action-primary-hover);
   }
 </style>
