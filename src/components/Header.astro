@@ -108,7 +108,23 @@ const navItems = [
      corner (mask-size 90%, position left top) — reverted; it turned the
      recognizable curve into a flat, blocky rectangle (owner: "ne valja"),
      worse than the small gap it was meant to fix. Back to auto 62%/left
-     bottom, which keeps the shape looking like itself. */
+     bottom, which keeps the shape looking like itself.
+
+     Bottom-edge bleed, 2026-09-05 (owner caught this on the live button,
+     zoomed in): even with auto 62%/left bottom, a thin sliver of the
+     button's own fill was visibly showing between the mark's lowest ink
+     and the button's true bottom edge — measured via canvas pixel
+     sampling of the actual render: the shape's ink there is only an
+     ~8px-wide foot (not the full width), and while it mathematically
+     reaches the last pixel row, the live mask rasterization still left a
+     visible seam, reading exactly like an unwanted border line. Same
+     "bleed past the edge" principle already locked for card corner
+     accents (docs/09 §Cards) — nudged the second mask layer's position
+     from `left bottom` to `0 calc(100% + 4px)` so the mark's existing
+     bottom ink is pushed a few px past the button's own edge instead of
+     landing exactly on it. This only crops an imperceptible sliver off
+     the mark's own anti-aliased tip — no resize, no distortion, no
+     rotation, source SVG untouched. */
   .cta::before {
     content: "";
     position: absolute;
@@ -119,12 +135,12 @@ const navItems = [
     transition: background var(--motion-fast) var(--ease-out);
     -webkit-mask-image: linear-gradient(#000 0 0), url("/images/signature-shape.svg");
     -webkit-mask-repeat: no-repeat, no-repeat;
-    -webkit-mask-position: 0 0, left bottom;
+    -webkit-mask-position: 0 0, 0 calc(100% + 4px);
     -webkit-mask-size: 100% 100%, auto 62%;
     -webkit-mask-composite: xor;
     mask-image: linear-gradient(#000 0 0), url("/images/signature-shape.svg");
     mask-repeat: no-repeat, no-repeat;
-    mask-position: 0 0, left bottom;
+    mask-position: 0 0, 0 calc(100% + 4px);
     mask-size: 100% 100%, auto 62%;
     mask-composite: exclude;
   }

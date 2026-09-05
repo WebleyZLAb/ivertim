@@ -226,7 +226,13 @@ const highlighted = (featuredPosts.length > 0 ? featuredPosts : posts).slice(0, 
      corner (mask-size 90%, position left top) — reverted; it turned the
      recognizable curve into a flat, blocky rectangle (owner: "ne valja"),
      worse than the small gap it was meant to fix. Back to auto 62%/left
-     bottom, which keeps the shape looking like itself. */
+     bottom, which keeps the shape looking like itself.
+
+     Bottom-edge bleed, 2026-09-05: see Header.astro's .cta::before for
+     the full story — nudged this layer's mask-position from `left bottom`
+     to `0 calc(100% + 4px)` so the mark's existing ink bleeds a few px
+     past the button's true bottom edge instead of landing exactly on it,
+     closing a visible seam the live mask rasterization left behind. */
   .cta::before {
     content: "";
     position: absolute;
@@ -237,12 +243,12 @@ const highlighted = (featuredPosts.length > 0 ? featuredPosts : posts).slice(0, 
     transition: background var(--motion-fast) var(--ease-out);
     -webkit-mask-image: linear-gradient(#000 0 0), url("/images/signature-shape.svg");
     -webkit-mask-repeat: no-repeat, no-repeat;
-    -webkit-mask-position: 0 0, left bottom;
+    -webkit-mask-position: 0 0, 0 calc(100% + 4px);
     -webkit-mask-size: 100% 100%, auto 62%;
     -webkit-mask-composite: xor;
     mask-image: linear-gradient(#000 0 0), url("/images/signature-shape.svg");
     mask-repeat: no-repeat, no-repeat;
-    mask-position: 0 0, left bottom;
+    mask-position: 0 0, 0 calc(100% + 4px);
     mask-size: 100% 100%, auto 62%;
     mask-composite: exclude;
   }
