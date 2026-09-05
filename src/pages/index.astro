@@ -307,16 +307,11 @@ const heroSlides = [
      hole through this ::before's own fill, revealing whatever's actually
      behind the button.
 
-     Corner touch, same day: the mark's own ink only reaches this box's
-     left edge in its upper portion and never touches the exact
-     bottom-left corner point — confirmed by sampling rendered pixels,
-     not guessed. No rotation/flip (owner ruled that out) — cropped from
-     the top instead (mask-size 90% vs. the un-cropped default, position
-     left top vs. left bottom), stretching that ink-bearing upper-left
-     region down across more of the box so it reaches further toward
-     the corner than the original plain fit did. A little gap remains
-     right at the corner pixel; closing it fully needs a mirrored/rotated
-     source asset. */
+     Corner touch, same day: tried cropping the mark further toward the
+     corner (mask-size 90%, position left top) — reverted; it turned the
+     recognizable curve into a flat, blocky rectangle (owner: "ne valja"),
+     worse than the small gap it was meant to fix. Back to auto 62%/left
+     bottom, which keeps the shape looking like itself. */
   .cta::before {
     content: "";
     position: absolute;
@@ -327,13 +322,13 @@ const heroSlides = [
     transition: background var(--motion-fast) var(--ease-out);
     -webkit-mask-image: linear-gradient(#000 0 0), url("/images/signature-shape.svg");
     -webkit-mask-repeat: no-repeat, no-repeat;
-    -webkit-mask-position: 0 0, left top;
-    -webkit-mask-size: 100% 100%, auto 90%;
+    -webkit-mask-position: 0 0, left bottom;
+    -webkit-mask-size: 100% 100%, auto 62%;
     -webkit-mask-composite: xor;
     mask-image: linear-gradient(#000 0 0), url("/images/signature-shape.svg");
     mask-repeat: no-repeat, no-repeat;
-    mask-position: 0 0, left top;
-    mask-size: 100% 100%, auto 90%;
+    mask-position: 0 0, left bottom;
+    mask-size: 100% 100%, auto 62%;
     mask-composite: exclude;
   }
 
@@ -450,16 +445,13 @@ const heroSlides = [
 
   /* Bottom-left corner, height pinned to exactly half the card via
      top:50%+bottom:0 with width following the shape's own aspect ratio.
-     No rotation/flip (2026-09-05, owner ruled that out) — the mark's own
-     ink only touches this box's left edge in its upper ~25% (confirmed
-     by rendering the path against a marked viewBox and sampling pixels),
-     so a plain `contain` fit leaves a visible gap at the true corner no
-     matter how it's centered. Cropped from the top instead (155% size,
-     top-left position): stretches that same ink-bearing upper-left
-     region down across the full box height, reaching much closer to the
-     bottom-left corner while keeping the curve recognizable. Some small
-     gap remains at the exact corner pixel — closing it fully would need
-     a mirror/rotation of the source art, which is off the table. */
+     No rotation/flip (2026-09-05, owner ruled that out). Cropping the
+     mark to reach the true corner further was tried (165% size, top-left
+     position) and reverted the same day — owner: "ne valja", it turned
+     the recognizable curve into a flat, blocky rectangle, which read as
+     worse than the small gap it was meant to fix. Plain `contain` (a
+     small gap at the exact corner pixel, but the shape still looks like
+     itself) is the better trade-off between the two. */
   .usluga-band--accent::after {
     content: "";
     position: absolute;
@@ -467,7 +459,7 @@ const heroSlides = [
     bottom: 0;
     top: 50%;
     aspect-ratio: 169.44 / 179.65;
-    background: url("/images/signature-shape.svg") no-repeat left top / 165%;
+    background: url("/images/signature-shape.svg") no-repeat center / contain;
     opacity: 0.06;
     pointer-events: none;
   }

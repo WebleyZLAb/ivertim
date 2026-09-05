@@ -80,10 +80,11 @@ const usluge = (await getCollection("usluge")).sort(
 
   /* Bottom-left corner, height pinned to exactly half the card — see
      the matching comment on .usluga-band--accent::after in
-     src/pages/index.astro for the full rationale (2026-09-05): cropped
-     from the top (155%, top-left position) instead of rotating/flipping
-     the source art, so the ink-bearing part of the mark reaches further
-     down the left edge than a plain `contain` fit did. */
+     src/pages/index.astro for the full rationale (2026-09-05). Cropping
+     the mark to reach the corner further was tried and reverted — it
+     turned the recognizable curve into a flat, blocky rectangle, which
+     read as worse than the small gap it was meant to fix. Plain
+     `contain` keeps the shape looking like itself. */
   .service-card--accent::after {
     content: "";
     position: absolute;
@@ -91,7 +92,7 @@ const usluge = (await getCollection("usluge")).sort(
     bottom: 0;
     top: 50%;
     aspect-ratio: 169.44 / 179.65;
-    background: url("/images/signature-shape.svg") no-repeat left top / 165%;
+    background: url("/images/signature-shape.svg") no-repeat center / contain;
     opacity: 0.06;
     pointer-events: none;
   }
@@ -184,13 +185,13 @@ const usluge = (await getCollection("usluge")).sort(
     transition: background var(--motion-fast) var(--ease-out);
     -webkit-mask-image: linear-gradient(#000 0 0), url("/images/signature-shape.svg");
     -webkit-mask-repeat: no-repeat, no-repeat;
-    -webkit-mask-position: 0 0, left top;
-    -webkit-mask-size: 100% 100%, auto 90%;
+    -webkit-mask-position: 0 0, left bottom;
+    -webkit-mask-size: 100% 100%, auto 62%;
     -webkit-mask-composite: xor;
     mask-image: linear-gradient(#000 0 0), url("/images/signature-shape.svg");
     mask-repeat: no-repeat, no-repeat;
-    mask-position: 0 0, left top;
-    mask-size: 100% 100%, auto 90%;
+    mask-position: 0 0, left bottom;
+    mask-size: 100% 100%, auto 62%;
     mask-composite: exclude;
   }
 

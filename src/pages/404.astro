@@ -77,16 +77,11 @@ import PageLayout from "../layouts/PageLayout.astro";
      hole through this ::before's own fill, revealing whatever's actually
      behind the button.
 
-     Corner touch, same day: the mark's own ink only reaches this box's
-     left edge in its upper portion and never touches the exact
-     bottom-left corner point — confirmed by sampling rendered pixels,
-     not guessed. No rotation/flip (owner ruled that out) — cropped from
-     the top instead (mask-size 90% vs. the un-cropped default, position
-     left top vs. left bottom), stretching that ink-bearing upper-left
-     region down across more of the box so it reaches further toward
-     the corner than the original plain fit did. A little gap remains
-     right at the corner pixel; closing it fully needs a mirrored/rotated
-     source asset. */
+     Corner touch, same day: tried cropping the mark further toward the
+     corner (mask-size 90%, position left top) — reverted; it turned the
+     recognizable curve into a flat, blocky rectangle (owner: "ne valja"),
+     worse than the small gap it was meant to fix. Back to auto 62%/left
+     bottom, which keeps the shape looking like itself. */
   .cta::before {
     content: "";
     position: absolute;
@@ -97,13 +92,13 @@ import PageLayout from "../layouts/PageLayout.astro";
     transition: background var(--motion-fast) var(--ease-out);
     -webkit-mask-image: linear-gradient(#000 0 0), url("/images/signature-shape.svg");
     -webkit-mask-repeat: no-repeat, no-repeat;
-    -webkit-mask-position: 0 0, left top;
-    -webkit-mask-size: 100% 100%, auto 90%;
+    -webkit-mask-position: 0 0, left bottom;
+    -webkit-mask-size: 100% 100%, auto 62%;
     -webkit-mask-composite: xor;
     mask-image: linear-gradient(#000 0 0), url("/images/signature-shape.svg");
     mask-repeat: no-repeat, no-repeat;
-    mask-position: 0 0, left top;
-    mask-size: 100% 100%, auto 90%;
+    mask-position: 0 0, left bottom;
+    mask-size: 100% 100%, auto 62%;
     mask-composite: exclude;
   }
 
