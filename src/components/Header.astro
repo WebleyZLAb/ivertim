@@ -74,52 +74,59 @@ const navItems = [
      shadow, and a faint Signature Shape watermark in the corner. */
   .cta {
     position: relative;
+    z-index: 0;
     overflow: hidden;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: var(--space-sm) calc(var(--space-lg) + var(--space-xl));
-    background: var(--gradient-button);
     color: var(--action-primary-text);
     border-radius: var(--radius-2);
     box-shadow: var(--shadow-1);
     text-decoration: none;
     font-size: var(--text-label-md-size);
     font-weight: var(--text-label-md-weight);
-    transition: background var(--motion-fast) var(--ease-out);
   }
 
-  /* Shape sized/cropped to the actual signature-shape-inverse.svg viewBox
-     (188.16 / 193.02, not the non-inverse file's 169.44 / 179.65 — the two
-     files' canvases aren't the same size even though the mark itself is)
-     — matching aspect-ratio + an oversized background-size crops the
-     source file's own internal margin so the mark bleeds flush to/past
-     the button's edge instead of sitting inset from it. Shrunk slightly
-     (top 30%→38%). The button's padding grew by one space-xl on BOTH
-     sides (not just the shape side) — inline-flex with a single item
-     shrink-wraps its box exactly to padding+content, so justify-content
-     has no slack to center into; asymmetric-only padding just left the
-     label pinned near the mark with dead space after it. Symmetric
-     padding keeps the label naturally centered while still widening the
-     left side enough to give the mark real room. */
-  .cta::after {
+  /* Signature Shape as a genuine cutout, 2026-09-05 (owner-specified) —
+     mirrors how the shape actually works inside the logo mark itself:
+     it's negative space, not an inked overlay, so whatever sits behind
+     the mark shows through. The gradient fill lives on this ::before
+     (not on .cta directly) so a two-layer mask can cut a shape-sized
+     hole through JUST the fill — `exclude`/`xor` is the standard
+     two-mask XOR trick (a full opaque rect + the shape, cancelled where
+     they overlap) — leaving the real page background visible through
+     the hole. `z-index:-1` keeps it behind the label; `.cta`'s own
+     `z-index:0` gives it a local stacking context to be scoped to
+     instead of leaking into the page's. Uses the plain (non-inverse)
+     signature-shape.svg — its viewBox is already tightly cropped to the
+     mark with no internal margin to fight, unlike the inverse file used
+     for the old opaque-watermark version. */
+  .cta::before {
     content: "";
     position: absolute;
-    left: 0;
-    bottom: 0;
-    top: 38%;
-    aspect-ratio: 188.16 / 193.02;
-    background: url("/images/signature-shape-inverse.svg") no-repeat center / 115%;
-    opacity: 0.22;
-    pointer-events: none;
+    z-index: -1;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--gradient-button);
+    transition: background var(--motion-fast) var(--ease-out);
+    -webkit-mask-image: linear-gradient(#000 0 0), url("/images/signature-shape.svg");
+    -webkit-mask-repeat: no-repeat, no-repeat;
+    -webkit-mask-position: 0 0, left bottom;
+    -webkit-mask-size: 100% 100%, auto 62%;
+    -webkit-mask-composite: xor;
+    mask-image: linear-gradient(#000 0 0), url("/images/signature-shape.svg");
+    mask-repeat: no-repeat, no-repeat;
+    mask-position: 0 0, left bottom;
+    mask-size: 100% 100%, auto 62%;
+    mask-composite: exclude;
   }
 
-  .cta:hover {
+  .cta:hover::before {
     background: var(--gradient-button-hover);
-    color: var(--action-primary-text);
   }
 
-  .cta:active {
+  .cta:active::before {
     background: var(--gradient-button-active);
   }
 
