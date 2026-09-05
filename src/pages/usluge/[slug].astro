@@ -30,11 +30,16 @@ const { Content } = await render(usluga);
     max-width: var(--content-max);
   }
 
-  .prose {
-    max-width: var(--content-max);
-  }
+  /* No max-width here (was --content-max, 720px) — that width is meant
+     for long-form reading (see design-system/layout.md §Content width),
+     not for the RoomCategory zigzag sections MDX content renders inside
+     .prose, which want the fuller `main` width to give the image panel
+     and its text room to breathe. Applied directly to the actual
+     long-form elements (h2/h3/p/ul/ol) below instead, so paragraphs stay
+     readable while RoomCategory stretches to the full container. */
 
   .prose :global(h2) {
+    max-width: var(--content-max);
     margin-top: var(--space-3xl);
     font-size: var(--text-h3-size-fluid);
     line-height: var(--text-h3-leading);
@@ -43,6 +48,7 @@ const { Content } = await render(usluga);
   }
 
   .prose :global(h3) {
+    max-width: var(--content-max);
     margin-top: var(--space-2xl);
     font-size: var(--text-h5-size);
     line-height: var(--text-h5-leading);
@@ -50,6 +56,7 @@ const { Content } = await render(usluga);
   }
 
   .prose :global(p) {
+    max-width: var(--content-max);
     margin-top: var(--space-md);
     font-size: var(--text-body-lg-size);
     line-height: var(--text-body-lg-leading);
@@ -62,6 +69,7 @@ const { Content } = await render(usluga);
 
   .prose :global(ul),
   .prose :global(ol) {
+    max-width: var(--content-max);
     margin-top: var(--space-md);
     padding-left: var(--space-lg);
     display: grid;
