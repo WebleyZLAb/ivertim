@@ -212,6 +212,7 @@ const highlighted = (featuredPosts.length > 0 ? featuredPosts : posts).slice(0, 
     box-shadow: var(--shadow-1);
     text-decoration: none;
     font-weight: var(--text-label-lg-weight);
+    transition: background var(--motion-fast) var(--ease-out);
   }
 
   .cta::after {
@@ -228,6 +229,10 @@ const highlighted = (featuredPosts.length > 0 ? featuredPosts : posts).slice(0, 
 
   .cta:hover {
     background: var(--gradient-button-hover);
+  }
+
+  .cta:active {
+    background: var(--gradient-button-active);
   }
 
   .closing .cta {

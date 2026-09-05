@@ -258,6 +258,7 @@ const sestKoraka = [
     box-shadow: var(--shadow-1);
     text-decoration: none;
     font-weight: var(--text-label-lg-weight);
+    transition: background var(--motion-fast) var(--ease-out);
   }
 
   .cta::after {
@@ -274,6 +275,10 @@ const sestKoraka = [
 
   .cta:hover {
     background: var(--gradient-button-hover);
+  }
+
+  .cta:active {
+    background: var(--gradient-button-active);
   }
 
   .quick-nav {
@@ -438,5 +443,9 @@ const sestKoraka = [
 
   .cta-on-gradient:hover {
     background: var(--neutral-100);
+  }
+
+  .cta-on-gradient:active {
+    background: var(--neutral-200);
   }
 </style>

@@ -281,6 +281,7 @@ const heroSlides = [
     box-shadow: var(--shadow-1);
     text-decoration: none;
     font-weight: var(--text-label-lg-weight);
+    transition: background var(--motion-fast) var(--ease-out);
   }
 
   .cta::after {
@@ -297,6 +298,10 @@ const heroSlides = [
 
   .cta:hover {
     background: var(--gradient-button-hover);
+  }
+
+  .cta:active {
+    background: var(--gradient-button-active);
   }
 
   /* Outline treatment, 2026-09-05 — border carries the same gradient as
@@ -324,6 +329,13 @@ const heroSlides = [
       linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box,
       var(--gradient-button-hover) border-box;
     color: var(--action-primary-hover);
+  }
+
+  .cta-secondary:active {
+    background:
+      linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box,
+      var(--gradient-button-active) border-box;
+    color: var(--action-primary-active);
   }
 
   .link-cta {
@@ -485,6 +497,10 @@ const heroSlides = [
 
   .cta-on-gradient:hover {
     background: var(--neutral-100);
+  }
+
+  .cta-on-gradient:active {
+    background: var(--neutral-200);
   }
 
   @media (min-width: 768px) {

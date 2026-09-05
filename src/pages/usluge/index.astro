@@ -162,6 +162,7 @@ const usluge = (await getCollection("usluge")).sort(
     box-shadow: var(--shadow-1);
     text-decoration: none;
     font-weight: var(--text-label-lg-weight);
+    transition: background var(--motion-fast) var(--ease-out);
   }
 
   .cta::after {
@@ -178,5 +179,9 @@ const usluge = (await getCollection("usluge")).sort(
 
   .cta:hover {
     background: var(--gradient-button-hover);
+  }
+
+  .cta:active {
+    background: var(--gradient-button-active);
   }
 </style>
