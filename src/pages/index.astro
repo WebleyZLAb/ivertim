@@ -208,13 +208,24 @@ const heroSlides = [
      across the edge rather than staying fully inset — locked rule,
      2026-09-05 (see docs/09 - Signature System.md §Cards). Was
      top-right; mirrored in place (top/right → bottom/left, same
-     magnitudes) rather than re-deriving new offsets. */
+     magnitudes) rather than re-deriving new offsets.
+
+     Sized off height, not width (fixed same day) — .hero-carousel has
+     a fixed 320px height but a fluid width (full-width single-column
+     below 768px, narrower grid column above it), so a width-relative
+     size made the image's own rendered size swing wildly with viewport
+     width. At ~700px wide specifically, width:65% produced an image
+     taller than the 320px box, clipping straight through the middle of
+     the swirl instead of bleeding cleanly off one edge — confirmed by
+     measuring the image's rendered box at several widths. Tying the
+     size to the container's stable height keeps the shape's own size
+     constant regardless of viewport width. */
   .hero-slide-shape {
     position: absolute;
     bottom: -15%;
     left: -10%;
-    width: 65%;
-    height: auto;
+    height: 65%;
+    width: auto;
     opacity: 0.16;
   }
 
@@ -428,10 +439,13 @@ const heroSlides = [
 
   /* Bottom-left corner, height pinned to exactly half the card via
      top:50%+bottom:0 with width following the shape's own aspect ratio.
-     115% background-size (not contain) makes it bleed slightly across
-     the card's own border/edge instead of stopping flush inside it —
-     locked rule as of 2026-09-05, applies to every Signature Shape
-     corner accent site-wide (see docs/09 - Signature System.md §Cards). */
+     Reverted same-day 115%-background-size experiment (2026-09-05):
+     unlike the inverse file the button cutout uses, signature-shape.svg's
+     own viewBox is already tightly cropped to the mark (~1-2% margin,
+     confirmed via getBBox()) — oversizing it doesn't reveal more edge,
+     it just zooms into and crops through the middle of the curve, which
+     read as a broken/cut-off shape rather than a clean bleed. Plain
+     `contain` already renders it flush to the box edges correctly. */
   .usluga-band--accent::after {
     content: "";
     position: absolute;
@@ -439,7 +453,7 @@ const heroSlides = [
     bottom: 0;
     top: 50%;
     aspect-ratio: 169.44 / 179.65;
-    background: url("/images/signature-shape.svg") no-repeat center / 115%;
+    background: url("/images/signature-shape.svg") no-repeat center / contain;
     opacity: 0.06;
     pointer-events: none;
   }
