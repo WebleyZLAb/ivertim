@@ -281,6 +281,7 @@ const heroSlides = [
     box-shadow: var(--shadow-1);
     text-decoration: none;
     font-weight: var(--text-label-lg-weight);
+    transition: transform var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out);
   }
 
   /* Signature Shape as a genuine cutout — see Header.astro's .cta::before
@@ -317,6 +318,21 @@ const heroSlides = [
     background: var(--gradient-button-active);
   }
 
+  /* Lift on hover, press back down on active — a neutral (uncolored)
+     shadow step-up + a small upward nudge, not a color change, so it
+     reads clearly without touching the locked no-colored-shadows rule.
+     Same treatment on .cta-secondary for consistency (2026-09-05,
+     owner-specified). */
+  .cta:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-2);
+  }
+
+  .cta:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-1);
+  }
+
   /* Outline treatment, 2026-09-05 — border carries the same gradient as
      the primary button (--gradient-button), via the standard two-layer
      background trick: an opaque page-bg fill clipped to the padding-box
@@ -334,7 +350,8 @@ const heroSlides = [
     color: var(--action-primary);
     text-decoration: none;
     font-weight: var(--text-label-lg-weight);
-    transition: background var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out);
+    transition: background var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out),
+      transform var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out);
   }
 
   .cta-secondary:hover {
@@ -342,6 +359,8 @@ const heroSlides = [
       linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box,
       var(--gradient-button-glow) border-box;
     color: var(--action-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-2);
   }
 
   .cta-secondary:active {
@@ -349,6 +368,8 @@ const heroSlides = [
       linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box,
       var(--gradient-button-active) border-box;
     color: var(--action-primary-active);
+    transform: translateY(0);
+    box-shadow: var(--shadow-0);
   }
 
   .link-cta {

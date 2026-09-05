@@ -162,6 +162,7 @@ const usluge = (await getCollection("usluge")).sort(
     box-shadow: var(--shadow-1);
     text-decoration: none;
     font-weight: var(--text-label-lg-weight);
+    transition: transform var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out);
   }
 
   /* Signature Shape as a genuine cutout — see Header.astro's .cta::before
@@ -196,5 +197,20 @@ const usluge = (await getCollection("usluge")).sort(
 
   .cta:active::before {
     background: var(--gradient-button-active);
+  }
+
+  /* Lift on hover, press back down on active — a neutral (uncolored)
+     shadow step-up + a small upward nudge, not a color change, so it
+     reads clearly without touching the locked no-colored-shadows rule.
+     Same treatment on .cta-secondary for consistency (2026-09-05,
+     owner-specified). */
+  .cta:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-2);
+  }
+
+  .cta:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-1);
   }
 </style>

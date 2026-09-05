@@ -310,6 +310,7 @@ const structuredData = {
     font-size: var(--text-label-lg-size);
     font-weight: var(--text-label-lg-weight);
     cursor: pointer;
+    transition: transform var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out);
   }
 
   /* Signature Shape as a genuine cutout — see Header.astro's .cta::before
@@ -344,6 +345,21 @@ const structuredData = {
 
   button:active::before {
     background: var(--gradient-button-active);
+  }
+
+  /* Lift on hover, press back down on active — a neutral (uncolored)
+     shadow step-up + a small upward nudge, not a color change, so it
+     reads clearly without touching the locked no-colored-shadows rule.
+     Same treatment on .cta-secondary elsewhere for consistency
+     (2026-09-05, owner-specified). */
+  button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-2);
+  }
+
+  button:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-1);
   }
 
   button:focus-visible {
