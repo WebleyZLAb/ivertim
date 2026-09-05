@@ -160,7 +160,7 @@ const minutes = estimateReadingMinutes(post.body);
     overflow: hidden;
     display: inline-flex;
     margin-top: var(--space-lg);
-    padding: var(--space-sm) var(--space-xl);
+    padding: var(--space-sm) calc(var(--space-xl) * 2) var(--space-sm) var(--space-xl);
     background: var(--gradient-button);
     color: var(--action-primary-text);
     border-radius: var(--radius-2);
@@ -170,14 +170,22 @@ const minutes = estimateReadingMinutes(post.body);
     transition: background var(--motion-fast) var(--ease-out);
   }
 
+  /* Shape sized/cropped to the actual signature-shape-inverse.svg viewBox
+     (188.16 / 193.02, not the non-inverse file's 169.44 / 179.65 — the two
+     files' canvases aren't the same size even though the mark itself is)
+     — matching aspect-ratio + an oversized background-size crops the
+     source file's own internal margin so the mark bleeds flush to/past
+     the button's edge instead of sitting inset from it. Shrunk slightly
+     (top 30%→38%) and the button's right padding grew by one space-xl to
+     rebalance the label against the mark's visual weight on the left. */
   .cta::after {
     content: "";
     position: absolute;
     left: 0;
     bottom: 0;
-    top: 30%;
-    aspect-ratio: 169.44 / 179.65;
-    background: url("/images/signature-shape-inverse.svg") no-repeat center / contain;
+    top: 38%;
+    aspect-ratio: 188.16 / 193.02;
+    background: url("/images/signature-shape-inverse.svg") no-repeat center / 115%;
     opacity: 0.22;
     pointer-events: none;
   }
