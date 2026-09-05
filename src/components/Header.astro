@@ -197,10 +197,17 @@ const navItems = [
       display: none;
     }
 
-    /* Floating pill navbar — referenced from compatto.gr's shape (full
-       rounded capsule, white surface), with an added shadow so it reads
-       as lifted/floating above the page (compatto's own doesn't have
-       one — this is a deliberate addition, per owner request). */
+    /* Floating navbar — referenced from compatto.gr's shape, with an
+       added shadow so it reads as lifted/floating above the page
+       (compatto's own doesn't have one — this is a deliberate addition,
+       per owner request). Radius, 2026-09-05: no longer a full pill —
+       owner asked it to echo the .cta button's roundedness instead of
+       being its own shape. Matched by ratio, not by copying the
+       button's raw 8px: radius-2 (8px) on a ~52px button is an 8/52
+       ≈ 0.154 radius-to-height ratio; applying that same ratio to this
+       bar's own ~76px height gives 0.154 × 76 ≈ 11.7px, which lands
+       almost exactly on radius-3 (12px) — an existing token, not a new
+       value. */
     .site-header {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
@@ -208,7 +215,7 @@ const navItems = [
       padding: var(--space-sm) var(--space-lg) var(--space-sm) var(--space-xl);
       background: var(--surface-1);
       border-bottom: none;
-      border-radius: var(--radius-full);
+      border-radius: var(--radius-3);
       box-shadow: var(--shadow-2);
     }
 
