@@ -42,6 +42,7 @@ figure {
 
 a {
   color: var(--link-default);
+  text-decoration: none;
 }
 
 a:hover {
