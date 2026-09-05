@@ -377,6 +377,7 @@ Nove vrijednosti se ne uvode bez dokumentovane potrebe i odobrenja.
 - [`docs/07-development-rules.md`](docs/07-development-rules.md)
 - [`docs/08-marketing.md`](docs/08-marketing.md)
 - [`docs/09 - Signature System.md`](<docs/09 - Signature System.md>)
+- [`docs/10 - Photo Prompts.md`](<docs/10 - Photo Prompts.md>) — **not strategic truth like the files above**, a working tool only: AI-image prompts + exact container sizes/ratios for every real-photo slot on the site, so the owner can test sizing before real photography exists. The "real photography only" rule (§7 below / `docs/05-visual-experience.md`) is unchanged — see the file's own intro.
 
 ### Copywriting
 
