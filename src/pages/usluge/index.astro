@@ -84,7 +84,13 @@ const usluge = (await getCollection("usluge")).sort(
      the mark to reach the corner further was tried and reverted — it
      turned the recognizable curve into a flat, blocky rectangle, which
      read as worse than the small gap it was meant to fix. Plain
-     `contain` keeps the shape looking like itself. */
+     `contain` keeps the shape looking like itself.
+
+     Bottom-edge bleed, 2026-09-05: same fix as the button watermark and
+     the Home card accent — see src/pages/index.astro for the full
+     rationale. `center` → `left calc(100% + 4px)`, nudging the image a
+     flat 4px past the box's true bottom edge (size/box already match
+     1:1, so the "100%" term contributes nothing). */
   .service-card--accent::after {
     content: "";
     position: absolute;
@@ -92,7 +98,7 @@ const usluge = (await getCollection("usluge")).sort(
     bottom: 0;
     top: 50%;
     aspect-ratio: 169.44 / 179.65;
-    background: url("/images/signature-shape.svg") no-repeat center / contain;
+    background: url("/images/signature-shape.svg") no-repeat left calc(100% + 4px) / contain;
     opacity: 0.06;
     pointer-events: none;
   }

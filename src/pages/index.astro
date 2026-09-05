@@ -457,7 +457,24 @@ const heroSlides = [
      the recognizable curve into a flat, blocky rectangle, which read as
      worse than the small gap it was meant to fix. Plain `contain` (a
      small gap at the exact corner pixel, but the shape still looks like
-     itself) is the better trade-off between the two. */
+     itself) is the better trade-off between the two.
+
+     Bottom-edge bleed, 2026-09-05: same fix as the button watermark
+     (see Header.astro's .cta::before) — measured the source file's own
+     ink bbox via getBBox() (viewBox 169.44×179.65; ink spans
+     x:0.21–166.55, y:3.25–176.40), confirmed a real ~1.8% margin below
+     the ink at the bottom, which `contain`+`center` renders as a literal
+     gap since this box's aspect ratio matches the file's viewBox
+     exactly. Shifted position from `center` to `left calc(100% + 4px)`
+     — since size/box already match 1:1, the "100%" term contributes
+     zero and only the flat 4px offset applies, nudging the image down
+     past the box's true bottom edge without rescaling anything (that's
+     what the reverted 115%/165% attempts got wrong — they scaled the
+     whole image outward from its center, over-correcting the almost-
+     zero left margin and cropping into the curve to fix the bottom
+     one). Verified via canvas alpha-sampling at the real rendered box
+     heights on both this page and Usluge (127px/181px) — 4px closes the
+     gap on both with a little safety margin to spare. */
   .usluga-band--accent::after {
     content: "";
     position: absolute;
@@ -465,7 +482,7 @@ const heroSlides = [
     bottom: 0;
     top: 50%;
     aspect-ratio: 169.44 / 179.65;
-    background: url("/images/signature-shape.svg") no-repeat center / contain;
+    background: url("/images/signature-shape.svg") no-repeat left calc(100% + 4px) / contain;
     opacity: 0.06;
     pointer-events: none;
   }
