@@ -277,6 +277,15 @@ const navItems = [
       justify-self: center;
     }
 
+    /* Owner's ask, 2026-09-05: desktop nav links felt too quiet — bumped
+       from --text-body-sm (14px/400) to --text-label-lg (16px/500), an
+       existing label-scale token pair (not a new value), scoped to
+       desktop only so mobile's own nav panel is untouched. */
+    nav[aria-label="Glavna navigacija"] a {
+      font-size: var(--text-label-lg-size);
+      font-weight: var(--text-label-lg-weight);
+    }
+
     .cta-desktop {
       grid-column: 3;
       justify-self: end;
