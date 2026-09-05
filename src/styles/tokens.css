@@ -159,6 +159,14 @@
   --gradient-button-hover: linear-gradient(135deg, var(--accent-600), var(--accent-800));
   --gradient-button-active: linear-gradient(135deg, var(--accent-700), var(--accent-900));
 
+  /* Lighter/warmer than --gradient-button — used only for the outline
+     secondary button's hover border (2026-09-05), so the ring itself
+     visibly brightens instead of darkening like the filled button does.
+     Reads as a "lit up" glow through color/contrast alone; no shadow
+     blur involved, so it doesn't cross the locked no-colored-shadows
+     rule. */
+  --gradient-button-glow: linear-gradient(135deg, var(--accent-400), var(--accent-600));
+
   /* ---------- Spacing: base scale ---------- */
   --space-0: 0px;
   --space-1: 4px;
