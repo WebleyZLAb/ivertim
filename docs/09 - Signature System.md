@@ -765,6 +765,8 @@ Rotation should only occur when defined by approved compositions.
 
 Random rotation weakens recognition.
 
+**Confirmed 2026-09-05:** this applies even to a purely technical, implementation-level fit problem — a Claude Code session tried creating a 180°-rotated derivative of the mark purely to make it reach a corner's exact pixel in CSS, and the owner ruled it out on sight. If a placement doesn't fit the mark's own orientation, solve it with cropping/positioning (or accept an imperfect fit), not by rotating or mirroring the source art — regardless of how small or "just technical" the reason seems.
+
 ---
 
 ## Do NOT replace the logo
