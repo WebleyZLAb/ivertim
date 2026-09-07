@@ -5,6 +5,9 @@ publishDate: 2026-09-04
 topic: "planiranje-prostora"
 category: "edukativno"
 featured: true
+# ⚠️ DRAFT — AI-generated placeholder photo, not real photography. See
+# docs/10 - Photo Prompts.md / CLAUDE.md 2026-09-07 session notes.
+heroImage: ./photos/namjestaj-po-mjeri-ili-gotova-rjesenja.png
 ---
 
 ## Zašto je ovo važno

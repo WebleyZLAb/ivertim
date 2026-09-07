@@ -2,6 +2,9 @@
 title: "Precizno rezanje, kantovanje i bušenje pločastih materijala."
 description: "Bilo da ste stolar, radionica ili vam je jednostavno potreban precizno obrađen materijal, radimo rezanje, kantovanje i bušenje po vašim mjerama — brzo, precizno i po dogovorenom roku."
 order: 1
+# ⚠️ DRAFT — AI-generated placeholder photo, not real photography. See
+# docs/10 - Photo Prompts.md / CLAUDE.md 2026-09-07 session notes.
+heroImage: ./photos/usluzno-rezanje-kantovanje-busenje.png
 ---
 
 Bilo da ste stolar, radionica ili vam je jednostavno potreban precizno obrađen materijal, radimo rezanje, kantovanje i bušenje po vašim mjerama — brzo, precizno i po dogovorenom roku.

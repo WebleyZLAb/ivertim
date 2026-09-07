@@ -5,6 +5,9 @@ publishDate: 2026-09-04
 topic: "materijali-i-odrzavanje"
 category: "edukativno"
 featured: true
+# ⚠️ DRAFT — AI-generated placeholder photo, not real photography. See
+# docs/10 - Photo Prompts.md / CLAUDE.md 2026-09-07 session notes.
+heroImage: ./photos/priprema-za-uslusno-rezanje.png
 ---
 
 ## Zašto je ovo važno
