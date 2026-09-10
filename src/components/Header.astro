@@ -357,9 +357,21 @@ const navItems = [
        after via .nav-logo's own margin-bottom (not the container gap,
        which would space every child evenly including before the CTA);
        the CTA is pushed down to the bottom edge with margin-top:auto
-       instead of living in the natural flow gap. */
+       instead of living in the natural flow gap.
+
+       Slide in/out, not an instant display:none/flex swap (owner's ask,
+       2026-09-10: "mnogo nježniji easy in i out") — display can't be
+       transitioned, so the panel now always renders (fixed, so it never
+       affects document flow either way) and is moved off-screen via
+       transform instead. `visibility` is transitioned alongside it with
+       a 0s duration + delay so the panel (and its links/CTA) drop out
+       of the tab order the instant it's fully off-screen on close, but
+       become interactive immediately on open — `pointer-events` mirrors
+       that so an off-screen click target can't be hit while hidden.
+       Durations/easing follow design-system/motion.md's own mapping:
+       drawer = motion-slow, entrance = ease-out, exit = ease-in. */
     nav[aria-label="Glavna navigacija"] {
-      display: none;
+      display: flex;
       position: fixed;
       top: 0;
       right: 0;
@@ -375,10 +387,27 @@ const navItems = [
       border-left: var(--border-1) solid var(--border-subtle);
       box-shadow: var(--shadow-2);
       overflow-y: auto;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateX(100%);
+      transition:
+        transform var(--motion-slow) var(--ease-in),
+        visibility 0s linear var(--motion-slow);
     }
 
     .nav-disclosure[open] + nav[aria-label="Glavna navigacija"] {
-      display: flex;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(0);
+      transition:
+        transform var(--motion-slow) var(--ease-out),
+        visibility 0s linear 0s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      nav[aria-label="Glavna navigacija"] {
+        transition: none;
+      }
     }
 
     .nav-logo {
