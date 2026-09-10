@@ -7,7 +7,7 @@ const navItems = [
 ];
 ---
 
-<header class="site-header">
+<header class="site-header" data-reveal>
   <a class="logo" href="/" aria-label="Ivertim — početna">
     <img src="/images/logo-horizontal.svg" alt="Ivertim" width="140" height="21" />
   </a>
@@ -49,8 +49,17 @@ const navItems = [
 </script>
 
 <style>
+  /* Sticky on both breakpoints (owner's ask, 2026-09-10) — stays pinned
+     to the viewport top on scroll instead of scrolling away with the
+     page. `[data-reveal]` (global.css) gives it the same gentle
+     fade+slide-up entrance every other major section already uses on
+     load ("lagano izađe") — it's the first thing on the page, so the
+     shared IntersectionObserver (BaseLayout.astro) fires for it almost
+     immediately rather than waiting for a scroll. */
   .site-header {
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -281,9 +290,15 @@ const navItems = [
        ≈ 0.154 radius-to-height ratio; applying that same ratio to this
        bar's own ~76px height gives 0.154 × 76 ≈ 11.7px, which lands
        almost exactly on radius-3 (12px) — an existing token, not a new
-       value. */
+       value.
+
+       Sticky top offset matches the pill's own top margin (space-lg) —
+       once scrolled far enough to stick, it keeps exactly the same gap
+       from the viewport edge it had at rest, so there's no visible jump
+       at the moment it starts sticking. */
     .site-header {
-      position: relative;
+      position: sticky;
+      top: var(--space-lg);
       z-index: var(--z-sticky);
       display: grid;
       grid-template-columns: 1fr auto 1fr;
