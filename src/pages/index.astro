@@ -2,7 +2,6 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 // ⚠️ DRAFT — AI-generated placeholder photos (GPT Image), not real photography.
 // Per docs/10 - Photo Prompts.md: these exist only to check real container
@@ -12,10 +11,6 @@ import hero1 from "../assets/hero/hero-1-usluzno-rezanje.png";
 import hero2 from "../assets/hero/hero-2-kantovanje-busenje.png";
 import hero3 from "../assets/hero/hero-3-mjerenje-dogovor.png";
 import hero4 from "../assets/hero/hero-4-namjestaj-po-mjeri.png";
-
-const usluge = (await getCollection("usluge")).sort(
-  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99)
-);
 
 const heroSlides = [
   { label: "Uslužno rezanje", tone: "tone-1", src: hero1 },
@@ -32,68 +27,49 @@ const heroSlides = [
   <Header />
   <main>
     <section class="section hero" aria-labelledby="hero-heading" data-reveal>
-      <div class="hero-text">
-        <h1 id="hero-heading">Precizna obrada pločastog materijala — od uslužnog rezanja do namještaja po mjeri.</h1>
-        <p class="lead">
-          Nekome treba samo precizno isječen i okantovan materijal, nekome kompletno rješenje po mjeri prostora. Zato ne počinjemo od gotovog proizvoda, već od razumijevanja onoga što vam zaista treba.
-        </p>
-        <div class="hero-actions">
-          <a class="cta" href="/kontakt">Razgovarajmo</a>
-          <a class="cta-secondary" href="/proces-saradnje">Pogledajte kako radimo</a>
-        </div>
+      <div class="hero-carousel" role="img" aria-label="Faze saradnje sa Ivertim-om — uslužno rezanje, kantovanje i bušenje, mjerenje i dogovor, namještaj po mjeri">
+        {
+          heroSlides.map((slide, index) => (
+            <div class:list={["hero-slide", slide.tone]} style={`animation-delay: ${index * 6}s`}>
+              <Image class="hero-slide-img" src={slide.src} alt="" width={1600} height={900} />
+              <img class="hero-slide-shape" src="/images/signature-shape-inverse.svg" alt="" aria-hidden="true" />
+            </div>
+          ))
+        }
       </div>
+      <div class="hero-scrim" aria-hidden="true"></div>
 
-      <div class="hero-visual">
-        <div class="hero-carousel" role="img" aria-label="Faze saradnje sa Ivertim-om — uslužno rezanje, kantovanje i bušenje, mjerenje i dogovor, namještaj po mjeri">
-          {
-            heroSlides.map((slide, index) => (
-              <div class:list={["hero-slide", slide.tone]} style={`animation-delay: ${index * 6}s`}>
-                <Image class="hero-slide-img" src={slide.src} alt="" width={1600} height={900} />
-                <img class="hero-slide-shape" src="/images/signature-shape-inverse.svg" alt="" aria-hidden="true" />
-                <p class="hero-slide-label">{slide.label}</p>
-              </div>
-            ))
-          }
-        </div>
-        <p class="hero-carousel-note">Prikaz faza saradnje — AI generisan nacrt dok ne budu spremne prave fotografije.</p>
-      </div>
-    </section>
-
-    <section class="section usluge" aria-labelledby="usluge-heading" data-reveal>
-      <h2 id="usluge-heading">Dvije usluge. Jedan isti pristup preciznosti.</h2>
-      <p class="section-lead">
-        Bilo da vam treba precizno isječen i okantovan materijal ili kompletan namještaj po mjeri, pristupamo im na isti način — prvo razumijemo šta vam treba, zatim izmjerimo, pa tek onda predlažemo najbolje rješenje.
-      </p>
-
-      {
-        usluge.length > 0 && (
-          <div class="usluge-full">
-            {usluge.map((usluga, index) => (
-              <a class:list={["usluga-band", { "usluga-band--accent": index === 0 }]} href={`/usluge/${usluga.id}`}>
-                <div class="usluga-band-inner">
-                  <p class="eyebrow">{index === 0 ? "Primarna usluga" : "Sekundarna usluga"}</p>
-                  <p class="usluga-title">{usluga.data.title}</p>
-                  <p class="usluga-description">{usluga.data.description}</p>
-                  <span class="usluga-link">Saznajte više →</span>
-                </div>
-              </a>
-            ))}
+      <div class="hero-content">
+        <div class="hero-bottom">
+          <h1 id="hero-heading" class="hero-heading">Precizna obrada pločastog materijala — od uslužnog rezanja do namještaja po mjeri.</h1>
+          <div class="hero-copy">
+            <p class="lead">
+              Nekome treba samo precizno isječen i okantovan materijal, nekome kompletno rješenje po mjeri prostora. Zato ne počinjemo od gotovog proizvoda, već od razumijevanja onoga što vam zaista treba.
+            </p>
+            <div class="hero-actions">
+              <a class="cta-secondary" href="/proces-saradnje">Pogledajte kako radimo</a>
+            </div>
           </div>
-        )
-      }
+        </div>
+      </div>
     </section>
 
     <section class="section about" aria-labelledby="about-heading" data-reveal>
-      <div class="about-badges">
-        <div class="badge">
-          <img src="/images/logo-mark.svg" alt="" aria-hidden="true" />
-          <p class="badge-title">Sopstvena fabrika i CNC mašine</p>
-          <p class="badge-text">Svale bb, Prijedor</p>
+      <div class="about-stats">
+        <div class="about-stats-header">
+          <img class="about-stats-mark" src="/images/logo-mark-inverse.svg" alt="" aria-hidden="true" />
+          <p class="about-stats-tagline">Kompetentnost kojoj vjeruješ</p>
         </div>
-        <div class="badge">
-          <img src="/images/logo-mark.svg" alt="" aria-hidden="true" />
-          <p class="badge-title">Dvije usluge, jedan pristup</p>
-          <p class="badge-text">Uslužno rezanje i namještaj po mjeri</p>
+
+        <div class="about-stats-counters">
+          <div class="counter">
+            <p class="counter-value" data-counter data-target="16" data-suffix="+">16+</p>
+            <p class="counter-label">Godina rada</p>
+          </div>
+          <div class="counter">
+            <p class="counter-value" data-counter data-target="500" data-suffix="+">500+</p>
+            <p class="counter-label">Zadovoljnih klijenata</p>
+          </div>
         </div>
       </div>
 
@@ -136,6 +112,53 @@ const heroSlides = [
   <Footer />
 </BaseLayout>
 
+<script>
+  // Count-up for the two business stats in the dark "about" card — starts
+  // once the card scrolls into view, not on page load, since it's well
+  // below the fold. HTML already carries the real final value (e.g.
+  // "16+") so a no-JS visitor still sees the correct number; JS only
+  // resets to "0" right before animating it back up.
+  const counters = document.querySelectorAll<HTMLElement>("[data-counter]");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function animateCounter(el: HTMLElement) {
+    const target = Number(el.dataset.target ?? "0");
+    const suffix = el.dataset.suffix ?? "";
+    const duration = 1400;
+    const start = performance.now();
+
+    function tick(now: number) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = `${Math.round(target * eased)}${suffix}`;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  if (counters.length && !prefersReducedMotion && "IntersectionObserver" in window) {
+    counters.forEach((el) => {
+      el.textContent = "0";
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target as HTMLElement);
+            observer.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.6 }
+    );
+    counters.forEach((el) => observer.observe(el));
+  }
+  // Reduced motion (or no IntersectionObserver support): leave the
+  // server-rendered final values in place, animate nothing.
+</script>
+
 <style>
   main {
     max-width: var(--container-xl);
@@ -147,16 +170,93 @@ const heroSlides = [
     border-top: var(--border-1) solid var(--border-subtle);
   }
 
+  /* Hero now IS the photo — text overlays it directly (owner's ask,
+     2026-09-08), instead of a separate image block below the text.
+     .hero-carousel/.hero-scrim are absolutely positioned (inset:0) so
+     they always cover whatever height .hero ends up being; .hero-content
+     stays in normal flow as the flex container's one real child, so
+     min-height is only a floor, never a cap — on mobile, where the H1
+     wraps to more lines, .hero grows taller instead of clipping text
+     against a fixed box (a real bug caught here: the first version made
+     .hero-content position:absolute + inset:0 too, which clipped the
+     heading's top line on narrow viewports once it wrapped past what
+     560px could fit). */
   .hero {
     position: relative;
     border-top: none;
-    padding-top: var(--space-2xl);
-    display: grid;
-    gap: var(--space-2xl);
+    padding: 0;
+    border-radius: var(--radius-4);
+    overflow: hidden;
+    min-height: 560px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
   }
 
-  .hero-text {
+  @media (min-width: 768px) {
+    .hero {
+      min-height: 680px;
+      /* Pull the hero up under the floating navbar pill so the photo
+         overlaps its bottom half — owner's ask, 2026-09-08. Header.astro
+         gives the pill z-index: var(--z-sticky) so it stays visually on
+         top of the (later-in-DOM, otherwise higher-painting) hero; this
+         negative margin is roughly half the pill's own rendered height
+         (~76px per Header.astro's own geometry comment) — verify against
+         the real measured height and adjust if it drifts. */
+      margin-top: -38px;
+    }
+  }
+
+  .hero-content {
     position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding: var(--space-2xl) var(--container-padding) var(--space-xl);
+  }
+
+  /* Heading bottom-left, description+CTAs as a narrower block bottom-
+     right — compatto.gr's own hero split (owner-referenced screenshots,
+     2026-09-08), stacked on mobile like every other two-column pattern
+     on this site. */
+  .hero-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  @media (min-width: 768px) {
+    .hero-bottom {
+      flex-direction: row;
+      /* Top-aligned, not bottom-aligned — the heading wraps to more
+         lines than the copy column, so bottom-aligning left their tops
+         mismatched (heading starting visibly lower). Owner's ask,
+         2026-09-08. */
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-2xl);
+    }
+
+    .hero-heading {
+      flex: 1 1 auto;
+    }
+
+    .hero-copy {
+      flex: 0 0 340px;
+      max-width: 340px;
+    }
+  }
+
+  /* Text now sits on a photo, not the page background — override the
+     default dark-on-light colors to light-on-dark, same pattern already
+     used for .closing-lead/.reassurance on the gradient CTA section. */
+  .hero-content h1 {
+    color: var(--text-inverse);
+  }
+
+  .hero-content .lead {
+    color: rgb(255 255 255 / 0.85);
   }
 
   h1 {
@@ -167,8 +267,10 @@ const heroSlides = [
     max-width: var(--content-max);
   }
 
+  /* No top margin here — .lead used to stack directly under the H1 in
+     one column; now it sits in its own .hero-copy column, bottom-aligned
+     alongside the heading rather than below it. */
   .lead {
-    margin-top: var(--space-lg);
     max-width: var(--content-max);
     font-size: var(--text-body-lg-size);
     line-height: var(--text-body-lg-leading);
@@ -183,20 +285,20 @@ const heroSlides = [
     margin-top: var(--space-xl);
   }
 
-  /* ---------- Hero carousel: pure CSS crossfade, no JS ---------- */
+  /* ---------- Hero carousel: pure CSS crossfade, no JS ----------
+     The carousel is now the hero's own background layer (owner's ask,
+     2026-09-08) — it fills .hero completely (inset:0) instead of being
+     its own sized box; .hero's min-height above is what actually sets
+     how tall the photo reads as. */
   .hero-carousel {
-    position: relative;
-    height: 320px;
-    border-radius: var(--radius-4);
-    overflow: hidden;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
   }
 
   .hero-slide {
     position: absolute;
     inset: 0;
-    display: flex;
-    align-items: flex-end;
-    padding: var(--space-lg);
     opacity: 0;
     animation: hero-slide-fade 24s infinite;
   }
@@ -226,18 +328,17 @@ const heroSlides = [
     object-fit: cover;
   }
 
-  /* Dark gradient scrim so the label stays readable over a photo of
-     varying brightness — same technique as any photo-caption overlay.
-     Explicit z-index on every layer below (image/scrim/shape/label) since
-     the image and scrim are new additions alongside the pre-existing
-     shape+label, and ::after would otherwise paint last (on top of
-     everything) per normal stacking order. */
-  .hero-slide::after {
-    content: "";
+  /* One static scrim for the whole hero, not a per-slide ::after — the
+     H1/lead/CTA block now needs to stay readable continuously, including
+     mid-crossfade when two photos briefly overlap, so this can't be tied
+     to any single slide's own opacity animation. Strongest at the bottom
+     where the text sits, fading out toward the top so the photo itself
+     still reads clearly higher up. */
+  .hero-scrim {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(to top, rgb(0 0 0 / 0.55), rgb(0 0 0 / 0) 55%);
+    background: linear-gradient(to top, rgb(0 0 0 / 0.8) 0%, rgb(0 0 0 / 0.35) 45%, rgb(0 0 0 / 0) 75%);
   }
 
   /* Signature Shape corner accents always sit bottom-left, bleeding
@@ -266,34 +367,28 @@ const heroSlides = [
     opacity: 0.16;
   }
 
-  .hero-slide-label {
-    position: relative;
-    z-index: 3;
-    color: var(--text-inverse);
-    font-size: var(--text-label-lg-size);
-    font-weight: var(--text-label-lg-weight);
-  }
-
+  /* True crossfade, not sequential fade-to-nothing-then-fade-in: each
+     slide's fade-out (20.83%–29.17% of its own 24s timeline = seconds
+     5–7) deliberately overlaps the next slide's fade-in (0%–4.17% =
+     seconds 0–1), since the next slide's delay lands its own 0% exactly
+     at second 6 of this slide's timeline. That shared 1s window is where
+     one slide is finishing its fade down while the next is finishing its
+     fade up, so there's always visible photo on screen — never a moment
+     where every slide is near-zero at once (the old 3%/22%/25% timing
+     ended this slide's fade-out exactly when the next one's fade-in
+     began, instead of overlapping it). */
   @keyframes hero-slide-fade {
     0%,
     100% {
       opacity: 0;
     }
-    3%,
-    22% {
+    4.17%,
+    20.83% {
       opacity: 1;
     }
-    25% {
+    29.17% {
       opacity: 0;
     }
-  }
-
-  .hero-carousel-note {
-    margin-top: var(--space-sm);
-    font-size: var(--text-caption-size);
-    /* text-secondary, not text-tertiary — same WCAG AA contrast issue as
-       Footer.astro's labels; see the note there. */
-    color: var(--text-secondary);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -459,129 +554,153 @@ const heroSlides = [
     margin-bottom: var(--space-xs);
   }
 
-  /* ---------- Usluge: full-width stacked bands, not a card grid ---------- */
-  .usluge-full {
-    margin-top: var(--space-2xl);
-    display: flex;
-    flex-direction: column;
+  /* ---------- About: dark stats panel + paired text card ----------
+     Echoes compatto.gr's "Who We Are" section (owner screenshot,
+     2026-09-08) — a dark card of facts beside a lighter card of text.
+     Skipped the bleeding photo circle since there's no photo asset
+     scoped for this section yet (docs/10 - Photo Prompts.md doesn't
+     cover one) — flag if that's wanted and a slot can be added.
+
+     Revised same day: dropped the "Sopstvena fabrika" fact entirely,
+     moved the small logo mark + "Dvije usluge, jedan pristup" tagline
+     to a compact header instead of a full stat block, and used the
+     freed space for two real business stats that count up on scroll
+     into view (script at the bottom of the page) — 16 years in
+     business and 500+ clients, both owner-confirmed numbers, not the
+     placeholder-style "150+ Suppliers" compatto shows. Card padding
+     tightened (owner: "cijeli kvadrat smanji") to match the lighter
+     content. */
+  .about {
+    display: grid;
     gap: var(--space-lg);
   }
 
-  .usluga-band {
+  /* Two zones only (header group, counters group) instead of three
+     separately-spaced items — space-between now reads as a deliberate
+     top/bottom split rather than an odd, uneven middle gap (owner:
+     "izjednači ovo", 2026-09-08). */
+  .about-stats {
     position: relative;
     overflow: hidden;
-    display: block;
-    padding: var(--space-2xl);
-    background: var(--surface-1);
-    border: var(--border-1) solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Floor for the gap between header/counters — on mobile the card
+       isn't stretched to match a taller sibling, so space-between alone
+       can collapse to near-zero once the tagline wraps to two lines. */
+    gap: var(--space-lg);
+    /* Top padding matches .about-text's own padding (--space-2xl) so the
+       logo mark lines up with the "KO SMO MI" eyebrow next to it — the
+       two cards otherwise had different top insets (--space-lg vs.
+       --space-2xl). Other sides stay at the tighter --space-lg. */
+    padding: var(--space-2xl) var(--space-lg) var(--space-lg);
+    background: var(--gradient-button-active);
     border-radius: var(--radius-4);
-    text-decoration: none;
-    transition: border-color var(--motion-fast) var(--ease-out);
   }
 
-  .usluga-band:hover {
-    border-color: var(--border-accent);
-  }
+  /* Fixed size, not the old top:50%-of-container — that scaled the mark
+     up with the card's own (stretched, now fairly tall) height and it
+     ended up oversized, bleeding into and behind the counters.
 
-  .usluga-band-inner {
-    max-width: var(--content-max);
-  }
-
-  /* Bottom-left corner, height pinned to exactly half the card via
-     top:50%+bottom:0 with width following the shape's own aspect ratio.
-     No rotation/flip (2026-09-05, owner ruled that out). Cropping the
-     mark to reach the true corner further was tried (165% size, top-left
-     position) and reverted the same day — owner: "ne valja", it turned
-     the recognizable curve into a flat, blocky rectangle, which read as
-     worse than the small gap it was meant to fix. Plain `contain` (a
-     small gap at the exact corner pixel, but the shape still looks like
-     itself) is the better trade-off between the two.
-
-     Bottom-edge bleed, 2026-09-05: same fix as the button watermark
-     (see Header.astro's .cta::before) — measured the source file's own
-     ink bbox via getBBox() (viewBox 169.44×179.65; ink spans
-     x:0.21–166.55, y:3.25–176.40), confirmed a real ~1.8% margin below
-     the ink at the bottom, which `contain`+`center` renders as a literal
-     gap since this box's aspect ratio matches the file's viewBox
-     exactly. Shifted position from `center` to `left calc(100% + 4px)`
-     — since size/box already match 1:1, the "100%" term contributes
-     zero and only the flat 4px offset applies, nudging the image down
-     past the box's true bottom edge without rescaling anything (that's
-     what the reverted 115%/165% attempts got wrong — they scaled the
-     whole image outward from its center, over-correcting the almost-
-     zero left margin and cropping into the curve to fix the bottom
-     one). Verified via canvas alpha-sampling at the real rendered box
-     heights on both this page and Usluge (127px/181px) — 4px closes the
-     gap on both with a little safety margin to spare. */
-  .usluga-band--accent::after {
+     Mask technique, not a background-image of the inverse file: an
+     earlier pass here used signature-shape-inverse.svg as a plain
+     background image oversized to 115% to crop its own internal canvas
+     padding — that's the exact approach the button watermarks USED TO
+     use and were later rebuilt away from (see Header.astro's .cta::before
+     comment) specifically because oversizing/cropping distorts the curve
+     into a flat, blocky shape once you push past a couple of percent.
+     Masking a solid color with the plain signature-shape.svg (tightly
+     cropped, no real margin to fight) is the same proven technique the
+     buttons use now — sidesteps the inverse file's padding problem
+     entirely instead of fighting it with a crop percentage. */
+  .about-stats::after {
     content: "";
     position: absolute;
     left: 0;
     bottom: 0;
-    top: 50%;
+    width: 108px;
     aspect-ratio: 169.44 / 179.65;
-    background: url("/images/signature-shape.svg") no-repeat left calc(100% + 4px) / contain;
-    opacity: 0.06;
+    background: rgb(255 255 255 / 0.18);
+    -webkit-mask-image: url("/images/signature-shape.svg");
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: left calc(100% + 4px);
+    -webkit-mask-size: contain;
+    mask-image: url("/images/signature-shape.svg");
+    mask-repeat: no-repeat;
+    mask-position: left calc(100% + 4px);
+    mask-size: contain;
     pointer-events: none;
   }
 
-  .usluga-title {
-    font-size: var(--text-h3-size-fluid);
-    line-height: var(--text-h3-leading);
-    font-weight: var(--text-h3-weight);
-    color: var(--text-primary);
+  .about-stats-header {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
   }
 
-  .usluga-description {
-    margin-top: var(--space-sm);
-    color: var(--text-secondary);
-    font-size: var(--text-body-lg-size);
-    line-height: var(--text-body-lg-leading);
+  .about-stats-mark {
+    width: 24px;
+    height: 24px;
   }
 
-  .usluga-link {
-    display: inline-block;
-    margin-top: var(--space-lg);
-    font-size: var(--text-label-md-size);
-    font-weight: var(--text-label-md-weight);
-    color: var(--text-accent);
+  /* Matches the h2 next door ("Preuzimamo odgovornost...") exactly, same
+     size/weight — owner: "ista veličina fonta". Text swapped 2026-09-08
+     from "Dvije usluge, jedan pristup" (owner: usluge get their own
+     treatment further down the page instead) to the locked brand essence
+     line "Kompetentnost kojoj vjeruješ" — no forced line break now, left
+     to wrap naturally. */
+  .about-stats-tagline {
+    color: var(--text-inverse);
+    font-size: var(--text-h2-size-fluid);
+    line-height: var(--text-h2-leading);
+    font-weight: var(--text-h2-weight);
   }
 
-  /* ---------- About / trust badges ---------- */
-  .about {
-    display: grid;
+  /* Bottom-right of the card, clear of the shape (fixed 108px + a little
+     breathing room) and vertically centered against the shape's own
+     height, so the two read as one balanced bottom row instead of the
+     numbers floating independently of it (owner: "brojeve ... centriraj"
+     relative to the shape). */
+  .about-stats-counters {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 114px;
     gap: var(--space-2xl);
+    padding-left: 132px;
   }
 
-  .about-badges {
-    display: grid;
-    gap: var(--space-lg);
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .counter-value {
+    /* Bumped up a step, owner: "neka budu upečatljivi" — same fluid
+       scale already used for the hero H1, so the numbers read as a real
+       focal point instead of a secondary label. */
+    font-size: var(--text-display-sm-size-fluid);
+    line-height: 1;
+    font-weight: var(--text-display-sm-weight);
+    color: var(--text-inverse);
+    /* Fixed-width tabular figures so the digits don't jitter/reflow
+       against their label while counting up. */
+    font-variant-numeric: tabular-nums;
   }
 
-  .badge {
-    padding: var(--space-xl);
+  .counter-label {
+    margin-top: var(--space-xs);
+    color: rgb(255 255 255 / 0.72);
+    font-size: var(--text-body-sm-size);
+  }
+
+  .about-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--space-2xl);
     background: var(--surface-1);
     border: var(--border-1) solid var(--border-subtle);
-    border-radius: var(--radius-3);
-  }
-
-  .badge img {
-    width: 28px;
-    height: 28px;
-    margin-bottom: var(--space-md);
-  }
-
-  .badge-title {
-    font-size: var(--text-h6-size);
-    font-weight: var(--text-h6-weight);
-    color: var(--text-primary);
-  }
-
-  .badge-text {
-    margin-top: var(--space-xs);
-    color: var(--text-secondary);
-    font-size: var(--text-body-sm-size);
+    border-radius: var(--radius-4);
   }
 
   /* ---------- Closing: animated brand gradient ---------- */
@@ -632,14 +751,11 @@ const heroSlides = [
   }
 
   @media (min-width: 768px) {
-    .hero {
-      grid-template-columns: 1.1fr 1fr;
-      align-items: center;
-    }
-
     .about {
       grid-template-columns: 1fr 1.3fr;
-      align-items: center;
+      /* stretch, not center — the two cards should read as a matched
+         pair (equal height), same as compatto's own paired cards. */
+      align-items: stretch;
     }
   }
 </style>
