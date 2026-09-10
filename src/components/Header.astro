@@ -21,6 +21,9 @@ const navItems = [
   </details>
 
   <nav aria-label="Glavna navigacija">
+    <a class="nav-logo" href="/" aria-label="Ivertim — početna">
+      <img src="/images/logo-horizontal.svg" alt="Ivertim" width="140" height="21" />
+    </a>
     <ul>
       {
         navItems.map((item) => (
@@ -65,6 +68,19 @@ const navItems = [
 
   .logo img {
     height: 22px;
+    width: auto;
+  }
+
+  /* Second logo lockup, mobile-sidebar-only (see the mobile media query
+     below) — the real header logo sits behind the sidebar once it's
+     open (fixed, full-height panel), so the sidebar carries its own
+     copy at its own top instead of relying on the one in the bar. */
+  .nav-logo {
+    display: none;
+  }
+
+  .nav-logo img {
+    height: 20px;
     width: auto;
   }
 
@@ -317,30 +333,57 @@ const navItems = [
       box-shadow: var(--focus-default);
     }
 
+    /* Fixed (not absolute) + a z-index above the sidebar's own
+       (--z-overlay), so the toggle stays visible/clickable pinned to
+       the viewport corner instead of getting covered by the full-height
+       sidebar panel opening beneath it. */
     .nav-disclosure[open] summary {
-      position: absolute;
+      position: fixed;
       top: var(--space-md);
       right: var(--container-padding);
+      z-index: var(--z-modal);
     }
 
+    /* Sidebar, not a full-width dropdown (owner's ask, 2026-09-10):
+       fixed + full viewport height (top:0 to bottom:0) so it always
+       spans the screen regardless of scroll position, sliding in from
+       the same edge as the toggle. Width is intrinsic (max-content,
+       capped at 85vw as a safety net on very narrow screens) rather
+       than stretched edge-to-edge — align-items:flex-start keeps every
+       child (logo, links, CTA) at its own natural width instead of
+       stretching to fill, so the panel's width ends up exactly as wide
+       as its widest piece of content plus the horizontal padding.
+       Logo sits right under the top padding; links follow immediately
+       after via .nav-logo's own margin-bottom (not the container gap,
+       which would space every child evenly including before the CTA);
+       the CTA is pushed down to the bottom edge with margin-top:auto
+       instead of living in the natural flow gap. */
     nav[aria-label="Glavna navigacija"] {
       display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
+      position: fixed;
+      top: 0;
       right: 0;
-      z-index: var(--z-dropdown);
+      bottom: 0;
+      width: max-content;
+      max-width: 85vw;
+      height: 100dvh;
+      z-index: var(--z-overlay);
       flex-direction: column;
-      align-items: stretch;
-      gap: var(--space-lg);
-      padding: var(--space-lg) var(--container-padding) var(--space-xl);
+      align-items: flex-start;
+      padding: var(--space-md) var(--space-lg) var(--space-xl);
       background: var(--surface-1);
-      border-bottom: var(--border-1) solid var(--border-subtle);
+      border-left: var(--border-1) solid var(--border-subtle);
       box-shadow: var(--shadow-2);
+      overflow-y: auto;
     }
 
     .nav-disclosure[open] + nav[aria-label="Glavna navigacija"] {
       display: flex;
+    }
+
+    .nav-logo {
+      display: inline-flex;
+      margin-bottom: var(--space-lg);
     }
 
     nav ul {
@@ -351,6 +394,7 @@ const navItems = [
     .cta-mobile {
       display: inline-flex;
       justify-content: center;
+      margin-top: auto;
     }
   }
 </style>
