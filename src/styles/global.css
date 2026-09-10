@@ -69,11 +69,16 @@ a:active {
    once — never re-hides, never loops. Skipped entirely under reduced motion
    (the script adds .is-revealed immediately in that case). */
 [data-reveal] {
-  opacity: 0;
-  transform: translateY(20px);
+  opacity: 1;
+  transform: none;
   transition:
     opacity var(--motion-slow) var(--ease-out),
     transform var(--motion-slow) var(--ease-out);
+}
+
+[data-reveal].reveal-pending {
+  opacity: 0;
+  transform: translateY(var(--space-5));
 }
 
 [data-reveal].is-revealed {

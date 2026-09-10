@@ -13,14 +13,14 @@ const navItems = [
   </a>
 
   <details class="nav-disclosure">
-    <summary aria-label="Otvori meni">
+    <summary aria-label="Otvori meni" aria-controls="primary-navigation">
       <svg class="menu-shape" viewBox="0 0 169.44 179.65" width="22" height="22" fill="currentColor" aria-hidden="true">
         <path d="M166.28,176.36v.04h-42.56c-.43-19.55.89-36.82-.65-56.2-2.94-37.28-32.7-69.48-69.95-73.34-18.21-1.9-34.58-.07-52.91-.75V3.48c22.12.49,42.22-1.16,64.44.62,53.74,4.3,96.65,49.29,101.01,103.04,1.91,23.67.08,45.37.62,69.22Z" />
       </svg>
     </summary>
   </details>
 
-  <nav aria-label="Glavna navigacija">
+  <nav id="primary-navigation" aria-label="Glavna navigacija">
     <ul>
       {
         navItems.map((item) => (
@@ -40,6 +40,10 @@ const navItems = [
   const disclosure = document.querySelector<HTMLDetailsElement>(".nav-disclosure");
   const summary = disclosure?.querySelector("summary");
 
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && disclosure?.open) { disclosure.open = false; summary?.focus(); }
+  });
+
   disclosure?.addEventListener("toggle", () => {
     summary?.setAttribute("aria-label", disclosure.open ? "Zatvori meni" : "Otvori meni");
   });
@@ -48,6 +52,7 @@ const navItems = [
 <style>
   .site-header {
     position: relative;
+    z-index: var(--z-sticky);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -199,6 +204,11 @@ const navItems = [
     color: var(--text-accent);
   }
 
+  nav a.cta-mobile,
+  nav a.cta-mobile:hover {
+    color: var(--action-primary-text);
+  }
+
   .nav-disclosure summary {
     list-style: none;
   }
@@ -237,7 +247,7 @@ const navItems = [
     display: none;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     .nav-disclosure {
       display: none;
     }
@@ -295,7 +305,7 @@ const navItems = [
   }
 
   /* Mobile: logo + toggle in the bar, full nav panel opens below it. */
-  @media (max-width: 767px) {
+  @media (max-width: 1023px) {
     .cta-desktop {
       display: none;
     }
@@ -342,6 +352,8 @@ const navItems = [
     .nav-disclosure[open] + nav[aria-label="Glavna navigacija"] {
       display: flex;
     }
+
+    nav ul a { display: flex; align-items: center; min-height: var(--space-8); }
 
     nav ul {
       flex-direction: column;

@@ -2,6 +2,13 @@
 
 All notable changes to the project documentation and Design System are documented here.
 
+## [Unreleased] — Homepage structure (2026-09-10)
+
+- Completed the homepage service/process/advice flow while preserving the approved hero/about composition. Improved responsive navigation, motion controls and no-JS visibility.
+- Reused approved content, tokens and temporary image assets; no Compatto code or assets copied.
+- Added homepage regression coverage. Scope, verification and outstanding real photography: `docs/11-homepage-compatto-structure.md`.
+- Auxiliary branch only: `astra/compatto-structure`; no production deployment or merge.
+
 ## [2.1.1] - Remove superseded PNG logos (2026-09-03)
 
 PATCH per §15 semver rule — asset cleanup, no decision change.

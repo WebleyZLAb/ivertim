@@ -3,6 +3,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import { blogTopicLabel, estimateReadingMinutes } from "../lib/blog";
 // ⚠️ DRAFT — AI-generated placeholder photos (GPT Image), not real photography.
 // Per docs/10 - Photo Prompts.md: these exist only to check real container
 // sizes/proportions before commissioning real photography. Not yet confirmed
@@ -12,6 +14,15 @@ import hero2 from "../assets/hero/hero-2-kantovanje-busenje.png";
 import hero3 from "../assets/hero/hero-3-mjerenje-dogovor.png";
 import hero4 from "../assets/hero/hero-4-namjestaj-po-mjeri.png";
 
+const services = (await getCollection("usluge")).sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+const articles = (await getCollection("blog")).sort((a, b) => Number(b.data.featured ?? false) - Number(a.data.featured ?? false) || b.data.publishDate.getTime() - a.data.publishDate.getTime()).slice(0, 3);
+const projects = (await getCollection("projekti")).sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99)).slice(0, 2);
+// Approved cutting-service process: Process Blueprint §10a.
+const steps = [
+  { title: "Nacrt ili mjere", text: "Precizan rezultat počinje tačnim ulaznim podatkom.", result: "Sigurnost da će obrada odgovarati vašem nacrtu ili mjerama." },
+  { title: "Potvrda materijala, formata i roka", text: "Jasan dogovor prije obrade sprječava nesporazume i kašnjenje.", result: "Potvrđen materijal, format i rok prije nego što obrada počne." },
+  { title: "Obrada i preuzimanje ili dostava", text: "Rezultat mora biti gotov za montažu na vašoj strani, bez dodatne dorade.", result: "Materijal isječen, okantovan i, po potrebi, izbušen prema dogovoru — spreman za preuzimanje ili dostavu." },
+];
 const heroSlides = [
   { label: "Uslužno rezanje", tone: "tone-1", src: hero1 },
   { label: "Kantovanje i bušenje", tone: "tone-2", src: hero2 },
@@ -25,20 +36,20 @@ const heroSlides = [
   description="Ivertim — precizna obrada pločastog materijala, od uslužnog rezanja do namještaja po mjeri, iz Prijedora."
 >
   <Header />
-  <main>
-    <section class="section hero" aria-labelledby="hero-heading" data-reveal>
-      <div class="hero-carousel" role="img" aria-label="Faze saradnje sa Ivertim-om — uslužno rezanje, kantovanje i bušenje, mjerenje i dogovor, namještaj po mjeri">
+  <main id="main-content">
+    <section class="section hero" aria-labelledby="hero-heading">
+      <div id="hero-carousel" class="hero-carousel" role="img" aria-label="Faze saradnje sa Ivertim-om — uslužno rezanje, kantovanje i bušenje, mjerenje i dogovor, namještaj po mjeri">
         {
           heroSlides.map((slide, index) => (
-            <div class:list={["hero-slide", slide.tone]} style={`animation-delay: ${index * 6}s`}>
-              <Image class="hero-slide-img" src={slide.src} alt="" width={1600} height={900} />
-              <img class="hero-slide-shape" src="/images/signature-shape-inverse.svg" alt="" aria-hidden="true" />
+            <div class:list={["hero-slide", slide.tone]}>
+              <Image class="hero-slide-img" src={slide.src} alt="" width={1600} height={900} widths={[480, 800, 1280, 1600]} sizes="(max-width: 1280px) 100vw, 1280px" loading={index === 0 ? "eager" : "lazy"} fetchpriority={index === 0 ? "high" : "auto"} />
             </div>
           ))
         }
       </div>
       <div class="hero-scrim" aria-hidden="true"></div>
 
+      <button class="carousel-toggle" type="button" aria-controls="hero-carousel" aria-pressed="false" hidden>Pauziraj fotografije</button>
       <div class="hero-content">
         <div class="hero-bottom">
           <h1 id="hero-heading" class="hero-heading">Precizna obrada pločastog materijala — od uslužnog rezanja do namještaja po mjeri.</h1>
@@ -82,30 +93,72 @@ const heroSlides = [
       </div>
     </section>
 
-    <section class="section" aria-labelledby="process-heading" data-reveal>
-      <h2 id="process-heading">Proces postoji da bi neizvjesnost pretvorio u sigurnost.</h2>
-      <p class="section-lead">
-        Svaki korak postoji kako bi odluke bile donesene na vrijeme, a projekat tekao jasno i bez nepotrebnih iznenađenja.
-      </p>
-      <a class="link-cta" href="/proces-saradnje">Pogledajte cijeli proces →</a>
+    <section class="section services" aria-labelledby="services-heading">
+      <div class="section-intro">
+        <div><p class="eyebrow">Usluge</p><h2 id="services-heading">Dvije usluge. Jedan isti pristup preciznosti.</h2></div>
+        <p class="section-lead">Bilo da vam treba precizno isječen i okantovan materijal ili kompletan namještaj po mjeri, pristupamo im na isti način — prvo razumijemo šta vam treba, zatim izmjerimo, pa tek onda predlažemo najbolje rješenje.</p>
+      </div>
+      <div class="service-bands">
+        {services.map((service, index) => (
+          <article class:list={["service-band", { "service-band--reverse": index % 2 === 1 }]}>
+            {/* ⚠️ DRAFT — existing AI placeholder, awaiting real service photography. */}
+            {service.data.heroImage && <Image class="service-image" src={service.data.heroImage} alt={index === 0 ? "Ilustracija obrade pločastog materijala" : "Ilustracija namještaja po mjeri"} width={800} height={600} widths={[400, 640, 800]} sizes="(min-width: 1024px) 600px, 100vw" loading="lazy" />}
+            <div class="service-copy">
+              <p class="eyebrow">{index === 0 ? "01 / Obrada materijala" : "02 / Namještaj po mjeri"}</p>
+              <h3>{service.data.title}</h3>
+              <p>{service.data.description}</p>
+              {index === 1 && <p class="capacity-note">Kapacitet za izradu po mjeri zavisi od trenutnog obima uslužnog rezanja — javite se i reći ćemo vam realno stanje prije nego išta dogovorimo.</p>}
+              <a class="link-cta" href={"/usluge/" + service.id}>Saznajte više <span aria-hidden="true">↗</span><span class="sr-only"> — {service.data.title}</span></a>
+            </div>
+          </article>
+        ))}
+      </div>
     </section>
 
-    <section class="section" aria-labelledby="proof-heading" data-reveal>
-      <h2 id="proof-heading">Ne prikazujemo namještaj. Prikazujemo riješene prostore.</h2>
-      <p class="section-lead">
-        Svaki projekat nastaje iz konkretnog problema. Zato ne prikazujemo samo gotove enterijere, već način razmišljanja koji je doveo do rješenja.
-      </p>
-      <a class="link-cta" href="/projekti">Pogledajte projekte →</a>
+    <section class="section process" aria-labelledby="process-heading">
+      <div class="section-intro">
+        <div><p class="eyebrow">Proces saradnje</p><h2 id="process-heading">Proces postoji da bi neizvjesnost pretvorio u sigurnost.</h2></div>
+        <div><p class="section-lead">Svaki korak postoji kako bi odluke bile donesene na vrijeme, a projekat tekao jasno i bez nepotrebnih iznenađenja.</p><a class="link-cta" href="/proces-saradnje">Pogledajte cijeli proces <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <div class="process-layout">
+        <figure class="process-photo">
+          {/* ⚠️ DRAFT — existing AI illustration, not a real completed project. */}
+          <Image src={hero3} alt="Ilustracija provjere mjera i nacrta prije obrade" width={800} height={900} widths={[400, 640, 800]} sizes="(min-width: 1024px) 500px, 100vw" loading="lazy" />
+          <figcaption>Uslužno rezanje, kantovanje i bušenje</figcaption>
+        </figure>
+        <ol class="process-steps">
+          {steps.map((step, index) => <li><span class="step-number" aria-hidden="true">0{index + 1}</span><div><h3>{step.title}</h3><p>{step.text}</p><p class="step-result">{step.result}</p></div></li>)}
+        </ol>
+      </div>
+      <div class="furniture-process"><h3>Namještaj po mjeri</h3><p>Razgovor → Mjerenje → Prijedlog → Potvrda → Proizvodnja → Montaža</p><a class="link-cta" href="/proces-saradnje#namjestaj">Pogledajte korake <span aria-hidden="true">↗</span></a></div>
     </section>
+
+    <section class="section proof" aria-labelledby="proof-heading">
+      <div><p class="eyebrow">Projekti</p><h2 id="proof-heading">Ne prikazujemo namještaj. Prikazujemo riješene prostore.</h2></div>
+      <div><p class="section-lead">Svaki projekat nastaje iz konkretnog problema. Zato ne prikazujemo samo gotove enterijere, već način razmišljanja koji je doveo do rješenja.</p>
+      {projects.length === 0 ? <p class="project-status">Prvi projekti stižu uskoro.</p> : <ul class="project-links">{projects.map(project => <li><a class="link-cta" href={"/projekti/" + project.id}>{project.data.title} <span aria-hidden="true">↗</span></a><p>{project.data.description}</p></li>)}</ul>}
+      <a class="link-cta" href="/projekti">Pogledajte projekte <span aria-hidden="true">↗</span></a></div>
+    </section>
+
+    {articles.length > 0 && <section class="section advice" aria-labelledby="advice-heading">
+      <div class="section-intro"><div><p class="eyebrow">Savjeti</p><h2 id="advice-heading">Znanje koje pomaže prije nego što donesete odluku.</h2></div><a class="link-cta" href="/blog">Istražite savjete <span aria-hidden="true">↗</span></a></div>
+      <div class="advice-grid">{articles.map(article => <article class="advice-item">
+        {/* ⚠️ DRAFT — existing AI article illustration, awaiting real photography. */}
+        {article.data.heroImage && <Image src={article.data.heroImage} alt="" width={640} height={400} widths={[400, 640]} sizes="(min-width: 1024px) 400px, 100vw" loading="lazy" />}
+        <p class="article-meta">{blogTopicLabel(article.data.topic)} · {estimateReadingMinutes(article.body)} min čitanja</p>
+        <h3><a href={"/blog/" + article.id}>{article.data.title} <span aria-hidden="true">↗</span></a></h3>
+      </article>)}</div>
+    </section>}
 
     <section class="section closing-wrap" aria-labelledby="closing-heading" data-reveal>
       <div class="closing gradient-brand">
-        <h2 id="closing-heading">Prvi korak je razgovor.</h2>
+        <div class="closing-title"><p class="eyebrow">Razgovarajmo</p><h2 id="closing-heading">Prvi korak je razgovor.</h2></div><div class="closing-copy">
         <p class="section-lead closing-lead">
           Svaki projekat počinje drugačije, ali uvijek istim prvim korakom. Razgovor nam pomaže da razumijemo vaš prostor, potrebe i očekivanja kako bismo zajedno pronašli najbolje rješenje.
         </p>
         <p class="reassurance">Nema obaveze. Nema pritiska. Samo razgovor.</p>
         <a class="cta cta-on-gradient" href="/kontakt">Razgovarajmo</a>
+        </div>
       </div>
     </section>
   </main>
@@ -138,10 +191,6 @@ const heroSlides = [
   }
 
   if (counters.length && !prefersReducedMotion && "IntersectionObserver" in window) {
-    counters.forEach((el) => {
-      el.textContent = "0";
-    });
-
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -155,6 +204,21 @@ const heroSlides = [
     );
     counters.forEach((el) => observer.observe(el));
   }
+  const hero = document.querySelector<HTMLElement>(".hero");
+  const toggle = document.querySelector<HTMLButtonElement>(".carousel-toggle");
+  const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let paused = false;
+  function updateCarousel() {
+    hero?.classList.toggle("is-playing", !paused && !motion.matches);
+    if (toggle) {
+      toggle.hidden = motion.matches;
+      toggle.textContent = paused ? "Pokreni fotografije" : "Pauziraj fotografije";
+      toggle.setAttribute("aria-pressed", String(paused));
+    }
+  }
+  toggle?.addEventListener("click", () => { paused = !paused; updateCarousel(); });
+  motion.addEventListener("change", updateCarousel);
+  updateCarousel();
   // Reduced motion (or no IntersectionObserver support): leave the
   // server-rendered final values in place, animate nothing.
 </script>
@@ -167,7 +231,7 @@ const heroSlides = [
 
   .section {
     padding: var(--space-3xl) var(--container-padding);
-    border-top: var(--border-1) solid var(--border-subtle);
+    border-top: none;
   }
 
   /* Hero now IS the photo — text overlays it directly (owner's ask,
@@ -256,7 +320,7 @@ const heroSlides = [
   }
 
   .hero-content .lead {
-    color: rgb(255 255 255 / 0.85);
+    color: var(--text-inverse);
   }
 
   h1 {
@@ -301,6 +365,7 @@ const heroSlides = [
     inset: 0;
     opacity: 0;
     animation: hero-slide-fade 24s infinite;
+    animation-play-state: paused;
   }
 
   /* Tone gradients now sit as a fallback background (visible only while
@@ -338,33 +403,7 @@ const heroSlides = [
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(to top, rgb(0 0 0 / 0.8) 0%, rgb(0 0 0 / 0.35) 45%, rgb(0 0 0 / 0) 75%);
-  }
-
-  /* Signature Shape corner accents always sit bottom-left, bleeding
-     across the edge rather than staying fully inset — locked rule,
-     2026-09-05 (see docs/09 - Signature System.md §Cards). Was
-     top-right; mirrored in place (top/right → bottom/left, same
-     magnitudes) rather than re-deriving new offsets.
-
-     Sized off height, not width (fixed same day) — .hero-carousel has
-     a fixed 320px height but a fluid width (full-width single-column
-     below 768px, narrower grid column above it), so a width-relative
-     size made the image's own rendered size swing wildly with viewport
-     width. At ~700px wide specifically, width:65% produced an image
-     taller than the 320px box, clipping straight through the middle of
-     the swirl instead of bleeding cleanly off one edge — confirmed by
-     measuring the image's rendered box at several widths. Tying the
-     size to the container's stable height keeps the shape's own size
-     constant regardless of viewport width. */
-  .hero-slide-shape {
-    position: absolute;
-    z-index: 2;
-    bottom: -15%;
-    left: -10%;
-    height: 65%;
-    width: auto;
-    opacity: 0.16;
+    background: linear-gradient(to top, var(--bg-inverse), var(--overlay-heavy) 45%, var(--overlay-light));
   }
 
   /* True crossfade, not sequential fade-to-nothing-then-fade-in: each
@@ -378,17 +417,9 @@ const heroSlides = [
      ended this slide's fade-out exactly when the next one's fade-in
      began, instead of overlapping it). */
   @keyframes hero-slide-fade {
-    0%,
-    100% {
-      opacity: 0;
-    }
-    4.17%,
-    20.83% {
-      opacity: 1;
-    }
-    29.17% {
-      opacity: 0;
-    }
+    0%, 25% { opacity: 1; }
+    33.33%, 91.67% { opacity: 0; }
+    100% { opacity: 1; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -757,5 +788,95 @@ const heroSlides = [
          pair (equal height), same as compatto's own paired cards. */
       align-items: stretch;
     }
+  }
+
+  /* Homepage rhythm: existing tokens, restrained surfaces, natural document flow. */
+  .hero-slide:first-child { animation-delay: -2s; }
+  .hero-slide:nth-child(2) { animation-delay: -20s; }
+  .hero-slide:nth-child(3) { animation-delay: -14s; }
+  .hero-slide:nth-child(4) { animation-delay: -8s; }
+  .hero.is-playing .hero-slide { animation-play-state: running; }
+  .hero-carousel { background: var(--bg-inverse); }
+  .carousel-toggle {
+    position: absolute; top: var(--space-2xl); right: var(--container-padding); z-index: var(--z-dropdown);
+    border: var(--border-1) solid var(--text-inverse); border-radius: var(--radius-2);
+    padding: var(--space-sm) var(--space-md); background: var(--overlay-heavy);
+    color: var(--text-inverse); font: inherit; font-size: var(--text-body-sm-size); cursor: pointer;
+  }
+  .carousel-toggle[hidden] { display: none; }
+  .carousel-toggle:hover { background: var(--bg-inverse); }
+  .carousel-toggle:focus-visible, .closing a:focus-visible { box-shadow: var(--focus-inverse); }
+  .section-intro { display: grid; gap: var(--space-lg); margin-bottom: var(--space-2xl); }
+  .section-intro .section-lead, .proof .section-lead { margin-top: 0; }
+  .section-intro > .link-cta { align-self: end; justify-self: start; }
+  .service-bands { display: grid; gap: var(--space-2xl); }
+  .service-band { display: grid; overflow: hidden; border-radius: var(--radius-4); background: var(--surface-1); }
+  .service-image { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .service-copy { padding: var(--space-xl); align-self: center; }
+  .service-copy h3 { font-size: var(--text-h3-size-fluid); line-height: var(--text-h3-leading); letter-spacing: var(--text-h3-tracking); }
+  .service-copy > p:not(.eyebrow) { margin-top: var(--space-lg); color: var(--text-secondary); }
+  .service-copy .capacity-note { font-size: var(--text-body-sm-size); line-height: var(--text-body-sm-leading); }
+  .link-cta { padding-block: var(--space-xs); text-decoration: underline; text-underline-offset: var(--space-1); }
+  .link-cta span[aria-hidden] { display: inline-block; margin-left: var(--space-xs); }
+  .process { background: var(--bg-secondary); border-radius: var(--radius-4); }
+  .process-layout { display: grid; gap: var(--space-xl); }
+  .process-photo { position: relative; align-self: start; overflow: hidden; border-radius: var(--radius-4); }
+  .process-photo img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .process-photo figcaption { padding: var(--space-md) var(--space-lg); background: var(--surface-1); font-size: var(--text-body-sm-size); }
+  .process-steps { list-style: none; padding: 0; margin: 0; }
+  .process-steps li { display: grid; grid-template-columns: auto 1fr; gap: var(--space-lg); padding-block: var(--space-xl); border-top: var(--border-1) solid var(--border-default); }
+  .process-steps li:first-child { padding-top: 0; border-top: none; }
+  .step-number { color: var(--text-accent); font-size: var(--text-h3-size-fluid); line-height: var(--text-h3-leading); }
+  .process-steps h3, .furniture-process h3 { font-size: var(--text-h5-size); line-height: var(--text-h5-leading); }
+  .process-steps p { color: var(--text-secondary); margin-top: var(--space-sm); }
+  .step-result { font-size: var(--text-body-sm-size); }
+  .furniture-process { border-top: var(--border-1) solid var(--border-default); padding-top: var(--space-xl); margin-top: var(--space-xl); }
+  .furniture-process p { margin-top: var(--space-md); color: var(--text-secondary); }
+  .proof { display: grid; gap: var(--space-xl); }
+  .project-status { margin-top: var(--space-lg); padding-left: var(--space-md); border-left: var(--border-2) solid var(--border-accent); color: var(--text-secondary); }
+  .project-links { padding-left: var(--space-lg); }
+  .advice { padding-top: var(--space-lg); }
+  .advice-grid { display: grid; gap: var(--space-xl); }
+  .advice-item img { width: 100%; aspect-ratio: 8 / 5; object-fit: cover; border-radius: var(--radius-3); }
+  .article-meta { color: var(--text-secondary); font-size: var(--text-body-sm-size); margin-block: var(--space-lg) var(--space-sm); }
+  .advice-item h3 { font-size: var(--text-h5-size); line-height: var(--text-h5-leading); }
+  .advice-item a { color: var(--text-primary); }
+  .advice-item a:hover { color: var(--link-hover); text-decoration: underline; text-underline-offset: var(--space-1); }
+  .closing { display: grid; gap: var(--space-xl); }
+  .closing .eyebrow { color: var(--text-inverse); }
+  .closing h2 { font-size: var(--text-display-sm-size-fluid); line-height: var(--text-display-sm-leading); }
+  .closing-lead { margin-top: 0; color: var(--text-inverse); }
+  .reassurance { color: var(--text-inverse); }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  @media (min-width: 1024px) {
+    .section-intro, .proof { grid-template-columns: 1.1fr 1fr; gap: var(--space-3xl); }
+    .service-band { grid-template-columns: 1fr 1fr; }
+    .service-band--reverse .service-image { order: 2; }
+    .service-copy { padding: var(--space-2xl); }
+    .process-layout { grid-template-columns: 0.85fr 1fr; gap: var(--space-3xl); }
+    .process-photo { position: sticky; top: var(--space-xl); }
+    .process-photo img { aspect-ratio: 8 / 9; }
+    .advice-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .closing { grid-template-columns: 1fr 1fr; gap: var(--space-3xl); }
+  }
+  @media (max-width: 1023px) {
+    .hero-bottom { flex-direction: column; }
+    .hero-copy { flex: auto; max-width: var(--content-max); }
+    .about { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 767px) {
+    .hero { margin-inline: var(--space-md); min-height: var(--container-sm); }
+    .hero-content { padding-top: var(--space-4xl); }
+    .hero-scrim { background: var(--overlay-heavy); }
+    .hero-copy .lead { font-size: var(--text-body-md-size); line-height: var(--text-body-md-leading); }
+    .about-text, .closing { padding: var(--space-xl) var(--space-lg); }
+    .about-stats-counters { padding-left: var(--space-9); gap: var(--space-lg); align-items: flex-start; }
+    .about-stats::after { width: var(--space-9); }
+    .counter { flex: 1; }
+    .counter-label { color: var(--text-inverse); }
+    .process-steps li { gap: var(--space-md); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .process-photo { position: static; }
   }
 </style>
