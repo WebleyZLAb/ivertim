@@ -205,13 +205,26 @@ const navItems = [
     padding: 0;
   }
 
-  nav a {
+  /* :not(.cta) — real bug found 2026-09-10 (owner: mobile sidebar CTA
+     text wasn't light): Astro's scoped-style pass appends the same
+     `[data-astro-cid-...]` attribute selector to every simple selector
+     in a rule, which doesn't preserve relative specificity — a 1-class
+     selector like `.cta` becomes 2 specificity units (class+attribute),
+     but a 2-element selector like `nav a` becomes 4 (2×element+attribute
+     each). That inversion let this rule's --text-secondary beat .cta's
+     own --action-primary-text on the mobile CTA specifically (only
+     mobile, since .cta-desktop isn't a descendant of this <nav>),
+     confirmed via the page's actual matched CSSOM rules, not guessed.
+     Excluding .cta here is the correct fix either way — this rule was
+     only ever meant to style the plain nav links, never the CTA button
+     that happens to share the same <nav>. */
+  nav a:not(.cta) {
     color: var(--text-secondary);
     text-decoration: none;
     font-size: var(--text-body-sm-size);
   }
 
-  nav a:hover {
+  nav a:not(.cta):hover {
     color: var(--text-accent);
   }
 
