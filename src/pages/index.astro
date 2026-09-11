@@ -191,19 +191,22 @@ const heroSlides = [
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    /* Gap under the pill, not an overlap (owner's ask, 2026-09-11,
+       reversing the 2026-09-08 overlap below) — now that the navbar is
+       translucent (color-mix "milk glass", Header.astro), sitting it
+       directly against the hero's own busy photo/scrim read as muddy
+       rather than showing a clean hint of what's behind. Same value as
+       the pill's own top margin (space-lg) so the composition stays
+       visually balanced: viewport-to-pill and pill-to-hero are now the
+       same gap. Applies on both breakpoints — mobile previously had no
+       gap at all (0, implicit), not an overlap, but the same "give the
+       translucent pill room to breathe" reasoning applies there too. */
+    margin-top: var(--space-lg);
   }
 
   @media (min-width: 768px) {
     .hero {
       min-height: 680px;
-      /* Pull the hero up under the floating navbar pill so the photo
-         overlaps its bottom half — owner's ask, 2026-09-08. Header.astro
-         gives the pill z-index: var(--z-sticky) so it stays visually on
-         top of the (later-in-DOM, otherwise higher-painting) hero; this
-         negative margin is roughly half the pill's own rendered height
-         (~76px per Header.astro's own geometry comment) — verify against
-         the real measured height and adjust if it drifts. */
-      margin-top: -38px;
     }
   }
 
