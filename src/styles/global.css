@@ -94,6 +94,48 @@ a:active {
   translate: none;
 }
 
+/* Text reveal, scroll-scrubbed ("parallax"-feeling) — explicit new owner
+   decision, 2026-09-11, narrowly scoped to H1/H2 headings only, not a
+   general license for decorative animation: owner asked for a slow,
+   scroll-linked reveal on headings after looking at (and explicitly
+   rejecting, on cost/fit grounds — see CLAUDE.md) a React+motion library
+   component for the same idea. Rebuilt here as plain CSS instead — zero
+   JS, zero new dependencies, using the native CSS scroll-driven-animations
+   spec (`animation-timeline: view()`) so the reveal genuinely scrubs with
+   scroll position rather than firing once on a fixed timer, which is what
+   makes it read as "parallax" instead of a normal fade-in.
+
+   Progressive enhancement, not a fallback hack: the un-animated default
+   state is fully visible (opacity:1), so a browser without scroll-driven-
+   animation support (or with prefers-reduced-motion) just shows static
+   text — never stuck invisible. Both gates (`@supports` + `@media`) must
+   pass before anything is hidden to start with.
+
+   `cover 0% cover 45%` (not `entry`) deliberately spans much more scroll
+   distance than the element's own height — `entry`'s range is capped at
+   the element's block size, which for a single heading is short enough
+   to feel like a snap, not the slow drift asked for. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .text-reveal {
+      animation: text-reveal-in linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 45%;
+    }
+
+    @keyframes text-reveal-in {
+      from {
+        opacity: 0;
+        translate: 0 var(--space-xl);
+      }
+      to {
+        opacity: 1;
+        translate: 0 0;
+      }
+    }
+  }
+}
+
 /* Animated brand gradient — added 2026-09-04, see design-system/colors.md
    §Gradients. Scoped utility class, not a global default: apply only to the
    one or two CTA/closing-moment surfaces per page that call for it. */
