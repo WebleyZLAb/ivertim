@@ -67,6 +67,22 @@ const navItems = [
     padding: var(--space-md) var(--container-padding);
     border-bottom: var(--border-1) solid var(--border-subtle);
     background: var(--bg-primary);
+    /* "Milk glass" soft edge (owner's ask, 2026-09-11), applied on both
+       breakpoints' pill treatment below — the owner's own term for a
+       reference navbar effect, explicitly distinguished from banned
+       glassmorphism: no `backdrop-filter` blurring whatever sits behind
+       it, just the pill's OWN bottom edge dissolving into a gradient
+       instead of cutting off with a hard line, via `mask-image` (masks
+       don't blur content, they fade the element's own paint — bg,
+       border, shadow — to transparent, so whatever's genuinely behind
+       the pill shows through in the fade, not a guessed color). 60%
+       tested live against three different backgrounds (hero photo, a
+       dark about-section, the plain page background) before landing
+       here — 85% read as barely-there, 30% dissolved distractingly far
+       into the pill's own content; 60% keeps the logo/nav fully solid
+       and only softens the lower third. */
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
   }
 
   .logo {
@@ -340,6 +356,25 @@ const navItems = [
 
   /* Mobile: logo + toggle in the bar, full nav panel opens below it. */
   @media (max-width: 767px) {
+    /* Squarish floating pill (owner's ask, 2026-09-11) — echoes the
+       desktop pill instead of a flush full-width bar, via the same
+       ratio-matching technique already used for the desktop pill's own
+       radius (design-system/geometry.md): .cta is radius-2 (8px) at a
+       ~52px height, an 8/52 ≈ 0.154 ratio. Measured this bar's actual
+       rendered height at 68px (not guessed) — 0.154 × 68 ≈ 10.5px,
+       landing closer to radius-3 (12px) than radius-2. Sticky top
+       offset matches the margin-top (space-lg), same reasoning as the
+       desktop pill — no visible jump the moment it starts sticking. */
+    .site-header {
+      top: var(--space-lg);
+      margin: var(--space-lg) var(--container-padding) 0;
+      padding: var(--space-sm) var(--space-lg);
+      background: var(--surface-1);
+      border-bottom: none;
+      border-radius: var(--radius-3);
+      box-shadow: var(--shadow-2);
+    }
+
     .cta-desktop {
       display: none;
     }
@@ -361,31 +396,45 @@ const navItems = [
       box-shadow: var(--focus-default);
     }
 
-    /* Fixed (not absolute) + a z-index above the sidebar's own
-       (--z-overlay), so the toggle stays visible/clickable pinned to
-       the viewport corner instead of getting covered by the full-height
-       sidebar panel opening beneath it. */
+    /* Toggle now sits inside the floating pill itself (no longer needs
+       to escape a full-height sidebar covering the whole viewport top —
+       see the sidebar comment below), so it stays in normal flow;
+       .site-header's own position:sticky already keeps it on screen. */
     .nav-disclosure[open] summary {
-      position: fixed;
-      top: var(--space-md);
-      right: var(--container-padding);
       z-index: var(--z-modal);
     }
 
-    /* Sidebar, not a full-width dropdown (owner's ask, 2026-09-10):
-       fixed + full viewport height (top:0 to bottom:0) so it always
-       spans the screen regardless of scroll position, sliding in from
-       the same edge as the toggle. Width is intrinsic (max-content,
-       capped at 85vw as a safety net on very narrow screens) rather
-       than stretched edge-to-edge — align-items:flex-start keeps every
-       child (logo, links, CTA) at its own natural width instead of
-       stretching to fill, so the panel's width ends up exactly as wide
-       as its widest piece of content plus the horizontal padding.
-       Logo sits right under the top padding; links follow immediately
-       after via .nav-logo's own margin-bottom (not the container gap,
-       which would space every child evenly including before the CTA);
-       the CTA is pushed down to the bottom edge with margin-top:auto
-       instead of living in the natural flow gap.
+    /* Floating card, not a full-height dropdown (owner's ask, 2026-09-11,
+       superseding the 2026-09-10 full-height version) — starts below the
+       pill instead of at the true viewport top, and stops short of the
+       viewport bottom by the same gap, so it reads as a card floating
+       under the pill rather than an edge-to-edge utility panel. Docked
+       right, same side as the toggle, so the panel visually "unfurls"
+       from the same spot you tapped — matches the pill's own top/side
+       margins (space-lg) exactly so the two feel like one connected
+       shape rather than two independently-placed floating objects.
+
+       Corner radius: only the two corners facing the page content (left
+       side) are rounded — the right edge stays flush/square against the
+       viewport's own right edge, since conceptually the shape continues
+       past it (same "half a rounded card peeking out" logic already
+       used for the pill/button radius matching elsewhere in this file).
+       radius-4 chosen over the pill's own radius-3: this card is taller
+       than the pill, and a slightly larger radius reads better at that
+       scale — kept to an existing token, not a new value.
+
+       Width is intrinsic (max-content, capped at 85vw as a safety net on
+       very narrow screens) rather than stretched edge-to-edge —
+       align-items:flex-start keeps every child (logo, links, CTA) at its
+       own natural width instead of stretching to fill, so the panel's
+       width ends up exactly as wide as its widest piece of content plus
+       the horizontal padding. Logo sits right under the top padding;
+       links follow immediately after via .nav-logo's own margin-bottom
+       (not the container gap, which would space every child evenly
+       including before the CTA); the CTA is pushed down to the bottom
+       edge with margin-top:auto instead of living in the natural flow
+       gap — still the most thumb-reachable zone, just inset by the same
+       small margin as the rest of the card now.
 
        Slide in/out, not an instant display:none/flex swap (owner's ask,
        2026-09-10: "mnogo nježniji easy in i out") — display can't be
@@ -401,18 +450,29 @@ const navItems = [
     nav[aria-label="Glavna navigacija"] {
       display: flex;
       position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
+      top: calc(var(--space-lg) + 68px + var(--space-lg));
+      right: var(--container-padding);
+      /* Explicit height, not `bottom` + auto-height — found a second real
+         bug 2026-09-11 alongside the transform/containing-block one
+         above: even with a clean containing-block chain, this engine
+         wasn't solving `height:auto` correctly from `top`+`bottom` on a
+         `position:fixed; display:flex` element (computed to a bogus
+         ~50px instead of filling to the bottom gap) — confirmed by
+         setting an explicit height and watching it render correctly,
+         where `bottom` alone did not. Sidesteps the auto-height instead
+         of chasing why one specific combination of fixed+flex+top+bottom
+         doesn't resolve height as it should. */
+      height: calc(100dvh - (var(--space-lg) * 3) - 68px);
       width: max-content;
       max-width: 85vw;
-      height: 100dvh;
       z-index: var(--z-overlay);
       flex-direction: column;
       align-items: flex-start;
       padding: var(--space-md) var(--space-lg) var(--space-xl);
       background: var(--surface-1);
-      border-left: var(--border-1) solid var(--border-subtle);
+      border: var(--border-1) solid var(--border-subtle);
+      border-right: none;
+      border-radius: var(--radius-4) 0 0 var(--radius-4);
       box-shadow: var(--shadow-2);
       overflow-y: auto;
       visibility: hidden;

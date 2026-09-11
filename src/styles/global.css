@@ -67,18 +67,31 @@ a:active {
 /* Scroll-reveal: paired with BaseLayout's IntersectionObserver script.
    Elements start slightly lowered and transparent, then settle into place
    once — never re-hides, never loops. Skipped entirely under reduced motion
-   (the script adds .is-revealed immediately in that case). */
+   (the script adds .is-revealed immediately in that case).
+
+   Uses the standalone `translate` property, not `transform` — found a real
+   bug 2026-09-11 while rebuilding Header.astro's mobile sidebar: ANY
+   non-`none` `transform` value (even `translateY(0)`, post-reveal) creates
+   a new containing block for `position: fixed` descendants per spec, so a
+   fixed-position sidebar nested inside `<header data-reveal>` was computing
+   its top/right/bottom against the header's own small box instead of the
+   real viewport — confirmed via computed-style inspection, not guessed.
+   `translate`/`rotate`/`scale` are separate CSS properties from `transform`
+   and do NOT trigger that side effect, so switching to `translate` keeps
+   the exact same visual animation while fixing (and future-proofing
+   against) this for every `[data-reveal]` element site-wide, not just
+   Header. */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(20px);
+  translate: 0 20px;
   transition:
     opacity var(--motion-slow) var(--ease-out),
-    transform var(--motion-slow) var(--ease-out);
+    translate var(--motion-slow) var(--ease-out);
 }
 
 [data-reveal].is-revealed {
   opacity: 1;
-  transform: translateY(0);
+  translate: none;
 }
 
 /* Animated brand gradient — added 2026-09-04, see design-system/colors.md
