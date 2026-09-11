@@ -449,7 +449,14 @@ const navItems = [
       display: flex;
       position: fixed;
       top: calc(var(--space-lg) + 68px + var(--space-lg));
-      right: var(--container-padding);
+      /* Flush with the true viewport edge, not the pill's own inset —
+         real bug, owner caught it live (screenshot showed a visible gap
+         of page background between the card and the screen's right
+         edge). The whole point of this dock direction is that the right
+         edge is NOT separated from the screen edge ("da se ne odvaja od
+         krajnje zone", per the original mockup) — only the left (page-
+         facing) corners are meant to read as detached/rounded. */
+      right: 0;
       /* Explicit height, not `bottom` + auto-height — found a second real
          bug 2026-09-11 alongside the transform/containing-block one
          above: even with a clean containing-block chain, this engine
