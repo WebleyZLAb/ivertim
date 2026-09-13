@@ -1023,10 +1023,16 @@ const marqueeRepeat = Array.from({ length: 6 });
      exactly, same convention as `.about-stats::after`'s own ratio-match
      — `height` in `em` off the shared .marquee-group font-size above
      (see its comment) so it scales with the fluid text automatically,
-     width follows from the ratio instead of being guessed separately. */
+     width follows from the ratio instead of being guessed separately.
+     0.58em → 0.72em (owner's ask, 2026-09-14: size the mark to match
+     the cap-height of the adjacent text's first letter, not just "a
+     bit bigger" — 0.72 is Instrument Sans' approximate cap-height
+     ratio, so the mark now sits roughly flush with the "K" in
+     "Kompetentnost" at its own em-box's top/bottom, text itself
+     unchanged). */
   .marquee-mark {
     flex-shrink: 0;
-    height: 0.58em;
+    height: 0.72em;
     aspect-ratio: 174.79 / 168.95;
     background-color: var(--text-tertiary);
     -webkit-mask-image: url("/images/logo-mark.svg");
