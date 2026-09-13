@@ -97,6 +97,15 @@ const navItems = [
      same button colors as before, but shaped to echo the logo mark —
      a generous rounded-rect instead of a full pill, a subtle lift
      shadow, and a faint Signature Shape watermark in the corner. */
+  /* Hover now INVERTS the button (owner's ask, 2026-09-13, referencing
+     compatto.gr's own primary-button hover): border transparent → brown
+     border/text, fill (the ::before layer below) gradient → transparent.
+     `border: 2px solid transparent` reserves the ring's space at rest so
+     the hover border doesn't shift layout. Everything moves on
+     motion-slower (480ms) instead of motion-fast — explicitly the part
+     the owner liked most about compatto's own hover ("animacija je jako
+     spora"), a deliberate deviation from motion.md's own "hover feedback:
+     motion-fast" mapping for this one interaction. */
   .cta {
     position: relative;
     z-index: 0;
@@ -105,13 +114,14 @@ const navItems = [
     align-items: center;
     justify-content: center;
     padding: var(--space-sm) calc(var(--space-lg) + var(--space-xl));
+    border: var(--border-1) solid transparent;
     color: var(--action-primary-text);
     border-radius: var(--radius-2);
     box-shadow: var(--shadow-1);
     text-decoration: none;
     font-size: var(--text-label-md-size);
     font-weight: var(--text-label-md-weight);
-    transition: transform var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out);
+    transition: border-color var(--motion-slower) var(--ease-out), color var(--motion-slower) var(--ease-out);
   }
 
   /* Signature Shape as a genuine cutout, 2026-09-05 (owner-specified) —
@@ -157,7 +167,8 @@ const navItems = [
     inset: 0;
     border-radius: inherit;
     background: var(--gradient-button);
-    transition: background var(--motion-fast) var(--ease-out);
+    opacity: 1;
+    transition: opacity var(--motion-slower) var(--ease-out);
     -webkit-mask-image: linear-gradient(#000 0 0), url("/images/signature-shape.svg");
     -webkit-mask-repeat: no-repeat, no-repeat;
     -webkit-mask-position: 0 0, 0 calc(100% + 4px);
@@ -170,27 +181,45 @@ const navItems = [
     mask-composite: exclude;
   }
 
-  .cta:hover::before {
-    background: var(--gradient-button-hover);
-  }
-
+  /* Fill fades out via `opacity`, not by swapping `background` to
+     transparent (owner's ask, 2026-09-13: primary's hover felt much
+     faster than .cta-secondary's despite the same motion-slower
+     duration on both) — real cause: `background` here holds a gradient
+     (`background-image`), and background-image can't be interpolated
+     between two values of different kinds (a gradient vs. none) the way
+     a plain background-COLOR can, so the browser was snapping it near-
+     instantly instead of crossfading, while only the border/text color
+     (a real animatable color) kept animating at the full 480ms —
+     .cta-secondary never had this problem since its fill is a flat
+     color the whole time. `opacity` is continuously interpolable
+     regardless of what's underneath, so fading the whole layer out now
+     matches .cta-secondary's fade exactly. Same reasoning as the
+     background-image "flash" bug already fixed on .cta-secondary itself
+     (2026-09-12) — a different symptom (speed mismatch, not a flash)
+     from the same root cause (background-image isn't a real animatable
+     value). The Signature Shape cutout still just fades away with it,
+     same visual result as before. */
+  .cta:hover::before,
   .cta:active::before {
-    background: var(--gradient-button-active);
+    opacity: 0;
   }
 
-  /* Lift on hover, press back down on active — a neutral (uncolored)
-     shadow step-up + a small upward nudge, not a color change, so it
-     reads clearly without touching the locked no-colored-shadows rule.
-     Same treatment on .cta-secondary for consistency (2026-09-05,
-     owner-specified). */
+  /* Border + text now carry the color the fill used to (owner's ask,
+     2026-09-13) — hover: --action-primary-hover (accent-700), active:
+     --action-primary-active (accent-800), the same two steps already
+     used for this exact progression elsewhere (e.g. .cta-secondary).
+     No lift/press transform or shadow change here (owner's follow-up
+     ask, same day, after seeing .cta-secondary's plain color-only
+     crossfade and preferring it over the earlier lift+shadow treatment
+     from 2026-09-05) — just the slow color change, nothing else moves. */
   .cta:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-2);
+    border-color: var(--action-primary-hover);
+    color: var(--action-primary-hover);
   }
 
   .cta:active {
-    transform: translateY(0);
-    box-shadow: var(--shadow-1);
+    border-color: var(--action-primary-active);
+    color: var(--action-primary-active);
   }
 
   .cta:focus-visible {
@@ -227,14 +256,50 @@ const navItems = [
      Excluding .cta here is the correct fix either way — this rule was
      only ever meant to style the plain nav links, never the CTA button
      that happens to share the same <nav>. */
-  nav a:not(.cta) {
+  /* All-caps + wider tracking (owner's ask, 2026-09-12) — gives the plain
+     nav links a bit more visual presence without bumping their color or
+     weight, using the same uppercase/tracking pairing already locked for
+     .eyebrow labels (--text-overline-tracking) rather than inventing a
+     new letter-spacing value.
+
+     :not(.nav-logo) — real bug found 2026-09-13 (owner spotted a second
+     logo sitting in the desktop navbar): this selector's two type
+     selectors (nav, a) outweigh .nav-logo's one class in specificity
+     (0,1,2 vs 0,1,0 — class counts tie, element count decides), so this
+     rule's `display: inline-block` was beating .nav-logo's own
+     `display: none` regardless of source order, making the mobile-only
+     logo link render on desktop too. Same class of bug as the
+     .cta-exclusion note below, different pair of rules. */
+  nav a:not(.cta):not(.nav-logo) {
+    display: inline-block;
+    padding: var(--space-1) var(--space-sm);
+    border-radius: var(--radius-1);
     color: var(--text-secondary);
     text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: var(--text-overline-tracking);
     font-size: var(--text-body-sm-size);
+    background-color: transparent;
+    transition: color var(--motion-fast) var(--ease-out), background-color var(--motion-fast) var(--ease-out);
   }
 
-  nav a:not(.cta):hover {
+  /* Owner's ask, 2026-09-13: a color-only swap (text-secondary → text-
+     accent) read as "neprimjetno" (barely noticeable) — measured why:
+     neutral-700 (#5a4f45) and accent-700 (#5c402a) are close in
+     lightness, not just hue, so two similarly-dark browns on the same
+     transparent background barely differ. Added a light accent-tinted
+     chip behind the text (surface-accent-subtle — accent-50 — an
+     existing design-system token that was defined but not used anywhere
+     yet) so the feedback comes from background-vs-text contrast, not two
+     dark text colors next to each other; padding above is reserved at
+     rest too so the chip appearing doesn't shift layout.
+     :active (not just :hover) is what actually matters on mobile — touch
+     devices don't reliably fire :hover on tap, but :active fires on
+     touchstart every time, giving the same visible feedback there. */
+  nav a:not(.cta):not(.nav-logo):hover,
+  nav a:not(.cta):not(.nav-logo):active {
     color: var(--text-accent);
+    background-color: var(--surface-accent-subtle);
   }
 
   .nav-disclosure summary {
@@ -511,6 +576,13 @@ const navItems = [
     nav ul {
       flex-direction: column;
       gap: var(--space-md);
+    }
+
+    /* Bumped to match the desktop nav's own size (owner's ask,
+       2026-09-12) — was still the smaller --text-body-sm-size base,
+       looked too quiet in the roomier sidebar card. */
+    nav a:not(.cta) {
+      font-size: var(--text-label-lg-size);
     }
 
     .cta-mobile {

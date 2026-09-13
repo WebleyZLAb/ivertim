@@ -18,6 +18,13 @@ const heroSlides = [
   { label: "Mjerenje i dogovor", tone: "tone-3", src: hero3 },
   { label: "Namještaj po mjeri", tone: "tone-4", src: hero4 },
 ];
+
+// Repeat count for the infinite marquee below — enough copies per half so
+// even a very wide/ultrawide viewport never shows a gap before the loop
+// point. The track renders TWO of these groups back to back and animates
+// exactly -50%, so as long as one group's real width covers the widest
+// viewport this site needs to support, the loop is seamless.
+const marqueeRepeat = Array.from({ length: 6 });
 ---
 
 <BaseLayout
@@ -98,6 +105,31 @@ const heroSlides = [
       <a class="link-cta" href="/projekti">Pogledajte projekte →</a>
     </section>
 
+    <section class="section marquee-section" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="marquee-group">
+          {
+            marqueeRepeat.map(() => (
+              <>
+                <span class="marquee-text">Kompetentnost kojoj vjeruješ</span>
+                <span class="marquee-mark" />
+              </>
+            ))
+          }
+        </div>
+        <div class="marquee-group">
+          {
+            marqueeRepeat.map(() => (
+              <>
+                <span class="marquee-text">Kompetentnost kojoj vjeruješ</span>
+                <span class="marquee-mark" />
+              </>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
     <section class="section closing-wrap" aria-labelledby="closing-heading" data-reveal>
       <div class="closing gradient-brand">
         <h2 id="closing-heading" class="text-reveal">Prvi korak je razgovor.</h2>
@@ -160,12 +192,18 @@ const heroSlides = [
 </script>
 
 <style>
+  /* max-width now lives on .section itself (below), not on <main> — .hero
+     needs to render wider than the other sections (see .hero's own
+     comment), which isn't possible while it's a child of a parent whose
+     own box is already capped at container-xl. Every other section
+     replicates the old look exactly (same cap, same centering). */
   main {
-    max-width: var(--container-xl);
-    margin: 0 auto;
+    width: 100%;
   }
 
   .section {
+    max-width: var(--container-xl);
+    margin: 0 auto;
     padding: var(--space-3xl) var(--container-padding);
     border-top: var(--border-1) solid var(--border-subtle);
   }
@@ -183,6 +221,7 @@ const heroSlides = [
      560px could fit). */
   .hero {
     position: relative;
+    max-width: none;
     border-top: none;
     padding: 0;
     border-radius: var(--radius-4);
@@ -202,11 +241,28 @@ const heroSlides = [
        gap at all (0, implicit), not an overlap, but the same "give the
        translucent pill room to breathe" reasoning applies there too. */
     margin-top: var(--space-lg);
+    /* Side insets match the floating navbar's own margin exactly
+       (Header.astro's .site-header — container-padding on mobile,
+       space-xl on desktop) instead of the container-xl cap every other
+       .section keeps — owner's ask 2026-09-12, comparing a compatto.gr
+       screenshot against Ivertim's own: past ~1344px viewport the old
+       centered-and-capped hero read narrower than the navbar floating
+       above it, the opposite of compatto's wider, closer-to-the-edge
+       hero photo. `max-width: none` above opts this one section out of
+       .section's shared cap; these margins (not a vw-based "breakout"
+       trick, which risks a scrollbar-width overflow) are what actually
+       produce the width — .hero can be wider than its siblings now that
+       <main> itself is uncapped (see the shared `main`/`.section` rule
+       above). */
+    margin-left: var(--container-padding);
+    margin-right: var(--container-padding);
   }
 
   @media (min-width: 768px) {
     .hero {
       min-height: 680px;
+      margin-left: var(--space-xl);
+      margin-right: var(--space-xl);
     }
   }
 
@@ -422,18 +478,23 @@ const heroSlides = [
 
   /* Rounded-rectangle "mark" treatment — see Header.astro's .cta for the
      full rationale (2026-09-05, owner-specified: echo the logo mark). */
+  /* Hover inverts the button — see Header.astro's .cta for the full
+     rationale (2026-09-13, owner-specified, compatto.gr reference):
+     border/fill swap and everything moves on motion-slower, not
+     motion-fast. */
   .cta {
     position: relative;
     z-index: 0;
     overflow: hidden;
     display: inline-flex;
     padding: var(--space-sm) calc(var(--space-xl) * 2);
+    border: var(--border-1) solid transparent;
     color: var(--action-primary-text);
     border-radius: var(--radius-2);
     box-shadow: var(--shadow-1);
     text-decoration: none;
     font-weight: var(--text-label-lg-weight);
-    transition: transform var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out);
+    transition: border-color var(--motion-slower) var(--ease-out), color var(--motion-slower) var(--ease-out);
   }
 
   /* Signature Shape as a genuine cutout — see Header.astro's .cta::before
@@ -461,7 +522,8 @@ const heroSlides = [
     inset: 0;
     border-radius: inherit;
     background: var(--gradient-button);
-    transition: background var(--motion-fast) var(--ease-out);
+    opacity: 1;
+    transition: opacity var(--motion-slower) var(--ease-out);
     -webkit-mask-image: linear-gradient(#000 0 0), url("/images/signature-shape.svg");
     -webkit-mask-repeat: no-repeat, no-repeat;
     -webkit-mask-position: 0 0, 0 calc(100% + 4px);
@@ -474,64 +536,68 @@ const heroSlides = [
     mask-composite: exclude;
   }
 
-  .cta:hover::before {
-    background: var(--gradient-button-hover);
-  }
-
+  /* Fill fades via `opacity`, not by swapping `background` to transparent
+     — see Header.astro's .cta:hover::before for the full rationale
+     (2026-09-13: fixes a real hover-speed mismatch against
+     .cta-secondary, same root cause as that button's own 2026-09-12
+     "flash" bug — background-image can't be smoothly interpolated). */
+  .cta:hover::before,
   .cta:active::before {
-    background: var(--gradient-button-active);
+    opacity: 0;
   }
 
-  /* Lift on hover, press back down on active — a neutral (uncolored)
-     shadow step-up + a small upward nudge, not a color change, so it
-     reads clearly without touching the locked no-colored-shadows rule.
-     Same treatment on .cta-secondary for consistency (2026-09-05,
-     owner-specified). */
+  /* Border + text now carry the color the fill used to — see
+     Header.astro's .cta:hover for the full rationale, including why
+     there's no lift/press transform or shadow here (owner's follow-up
+     ask, 2026-09-13): just the slow color change, nothing else moves. */
   .cta:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-2);
+    border-color: var(--action-primary-hover);
+    color: var(--action-primary-hover);
   }
 
   .cta:active {
-    transform: translateY(0);
-    box-shadow: var(--shadow-1);
+    border-color: var(--action-primary-active);
+    color: var(--action-primary-active);
   }
 
-  /* Outline treatment, 2026-09-05 — border carries the same gradient as
-     the primary button (--gradient-button), via the standard two-layer
-     background trick: an opaque page-bg fill clipped to the padding-box
-     sits under the gradient clipped to the border-box, so only the 2px
-     ring shows the gradient and the interior stays flat page-background. */
+  /* Rebuilt again, 2026-09-13 (compatto.gr reference, owner-specified) —
+     dropped the gradient-border trick entirely: rest is now a flat light
+     accent-tinted fill (surface-accent-subtle — accent-50, the same
+     token the navbar's own hover chip uses) with no border and brown
+     text. Hover inverts it — fill goes transparent (revealing the hero
+     photo behind it), and a light/white border + text appear, like the
+     "ghost button" compatto itself uses on its own photo hero. This
+     button specifically sits on a photo with a dark scrim (.hero-scrim),
+     unlike 404.astro's own .cta-secondary which sits on the plain page
+     background and uses brown for the same hover step instead — see that
+     file's comment for why the two diverge. */
   .cta-secondary {
     display: inline-flex;
     align-items: center;
     padding: var(--space-sm) var(--space-xl);
-    border: 2px solid transparent;
+    border: var(--border-1) solid transparent;
     border-radius: var(--radius-2);
-    background:
-      linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box,
-      var(--gradient-button) border-box;
+    background: var(--surface-accent-subtle);
     color: var(--action-primary);
     text-decoration: none;
     font-weight: var(--text-label-lg-weight);
-    transition: background var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out),
-      transform var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out);
+    transition: background var(--motion-slower) var(--ease-out), border-color var(--motion-slower) var(--ease-out),
+      color var(--motion-slower) var(--ease-out), transform var(--motion-slower) var(--ease-out),
+      box-shadow var(--motion-slower) var(--ease-out);
   }
 
   .cta-secondary:hover {
-    background:
-      linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box,
-      var(--gradient-button-glow) border-box;
-    color: var(--action-primary-hover);
+    background: transparent;
+    border-color: var(--text-inverse);
+    color: var(--text-inverse);
     transform: translateY(-2px);
     box-shadow: var(--shadow-2);
   }
 
   .cta-secondary:active {
-    background:
-      linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box,
-      var(--gradient-button-active) border-box;
-    color: var(--action-primary-active);
+    background: transparent;
+    border-color: var(--text-inverse);
+    color: var(--text-inverse);
     transform: translateY(0);
     box-shadow: var(--shadow-0);
   }
@@ -706,6 +772,121 @@ const heroSlides = [
     border-radius: var(--radius-4);
   }
 
+  /* ---------- Marquee: infinite scroll of the brand line ----------
+     Owner's ask, 2026-09-13 (compatto.gr reference — its own "Simple. ⟠
+     Furnishing Made Simple. ⟠ Furn..." band) — same mechanism, our own
+     assets: the locked brand-essence line ("Kompetentnost kojoj
+     vjeruješ", already used as the about-section tagline) alternating
+     with the logo mark (owner's ask, 2026-09-13: the standalone
+     text-free mark — logo-mark.svg — not the Signature Shape, and not
+     compatto's own swirl icon or any of its text). Sits directly above
+     the closing CTA, per the ask.
+
+     Opts out of .section's shared max-width/centering (see the shared
+     `main`/`.section` rule near the top of this file — same mechanism
+     already used for .hero) so the track can bleed to the true viewport
+     edges like compatto's own marquee does, instead of stopping at the
+     1280px content cap every other section uses. `aria-hidden` on the
+     whole section: it's decorative repetition of a line already spoken
+     once, meaningfully, in the about section above — a screen reader
+     looping through a dozen duplicate copies would add noise, not
+     content. */
+  .marquee-section {
+    max-width: none;
+    margin: 0;
+    padding: var(--space-4xl) 0;
+    border-top: none;
+    overflow: hidden;
+  }
+
+  /* Two identical groups back-to-back, animated exactly -50% — once the
+     first group has scrolled fully past, the second is sitting exactly
+     where the first started, so the loop has no visible seam. `width:
+     max-content` lets the track grow as wide as its content actually
+     needs (double the real content width) rather than being capped to
+     the viewport, which is what makes the -50% math line up. */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    /* 42s → 54.6s (owner's ask, 2026-09-13: 30% slower). */
+    animation: marquee-scroll 54.6s linear infinite;
+  }
+
+  /* font-size lives here, not on .marquee-text — real bug found
+     2026-09-13 (measured, not guessed: computed .marquee-mark width was
+     8.8px, not the intended ~53px): .marquee-text and .marquee-mark are
+     SIBLINGS, so an `em` unit on the mark was resolving against its OWN
+     inherited font-size (the page default, ~16px) rather than the
+     text's 96px — `em` always resolves against the element's own font-
+     size, never a sibling's. Putting the size on their shared parent
+     instead means both children inherit the same font-size context, so
+     .marquee-mark's `em` sizing below actually tracks .marquee-text's
+     visible size. Sized off the existing display-lg fluid scale, not a
+     new token, but pushed taller still ("da bude visok", owner's
+     explicit ask) — no locked type step goes this large, so this clamp
+     is a deliberate new value scoped to this one decorative element,
+     same category of exception as --gradient-brand: flagged here rather
+     than invented quietly. */
+  .marquee-group {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: var(--space-2xl);
+    padding-right: var(--space-2xl);
+    font-size: clamp(2.5rem, 1.6rem + 5.5vw, 6rem);
+  }
+
+  .marquee-text {
+    flex-shrink: 0;
+    font-size: inherit;
+    line-height: 1;
+    font-weight: var(--text-display-lg-weight);
+    letter-spacing: var(--text-display-lg-tracking);
+    color: var(--text-tertiary);
+    white-space: nowrap;
+  }
+
+  /* The logo mark (owner's ask, 2026-09-13: logo-mark.svg — the
+     standalone text-free mark, not the Signature Shape), recolored via
+     mask (same technique used site-wide for tinting this mark/shape
+     family, e.g. .about-stats-mark, .about-stats::after) instead of an
+     <img> — the source file has no fill/currentColor wiring of its own,
+     so masking a flat color is how this codebase always tints it.
+     `aspect-ratio` matches the file's own viewBox (174.79 × 168.95)
+     exactly, same convention as `.about-stats::after`'s own ratio-match
+     — `height` in `em` off the shared .marquee-group font-size above
+     (see its comment) so it scales with the fluid text automatically,
+     width follows from the ratio instead of being guessed separately. */
+  .marquee-mark {
+    flex-shrink: 0;
+    height: 0.58em;
+    aspect-ratio: 174.79 / 168.95;
+    background-color: var(--text-tertiary);
+    -webkit-mask-image: url("/images/logo-mark.svg");
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    -webkit-mask-position: center;
+    mask-image: url("/images/logo-mark.svg");
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-position: center;
+  }
+
+  @keyframes marquee-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+  }
+
   /* ---------- Closing: animated brand gradient ---------- */
   .closing-wrap {
     border-top: none;
@@ -740,17 +921,32 @@ const heroSlides = [
   /* This variant's fill is white, not the brown gradient — so its cutout
      reveals the animated .gradient-brand section showing straight
      through the button, not a flat page color. Same mask mechanism as
-     the base .cta::before, just overriding the fill color per state. */
+     the base .cta::before, just overriding the fill color per state.
+
+     Hover/active, 2026-09-13: goes transparent too, same as every other
+     .cta (see Header.astro's .cta:hover::before) — but border/text turn
+     white/light here instead of the base rule's brown (--action-primary-
+     hover/-active), since brown-on-brand-gradient would barely register
+     on this specific background, unlike every other .cta usage which
+     sits on a light surface. Same specificity as the base .cta:hover/
+     :active (one class + :hover/:active each) — wins by appearing later
+     in the cascade, same mechanism already relied on for the ::before
+     override above. */
   .cta-on-gradient::before {
     background: var(--neutral-0);
   }
 
-  .cta-on-gradient:hover::before {
-    background: var(--neutral-100);
+  /* Fades via `opacity`, not `background` — see Header.astro's
+     .cta:hover::before for the full rationale. */
+  .cta-on-gradient:hover::before,
+  .cta-on-gradient:active::before {
+    opacity: 0;
   }
 
-  .cta-on-gradient:active::before {
-    background: var(--neutral-200);
+  .cta-on-gradient:hover,
+  .cta-on-gradient:active {
+    border-color: var(--text-inverse);
+    color: var(--text-inverse);
   }
 
   @media (min-width: 768px) {

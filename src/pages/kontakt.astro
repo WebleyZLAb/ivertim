@@ -297,6 +297,12 @@ const structuredData = {
 
   /* Rounded-rectangle "mark" treatment — see Header.astro's .cta for the
      full rationale (2026-09-05, owner-specified: echo the logo mark). */
+  /* Hover inverts the button — see Header.astro's .cta for the full
+     rationale (2026-09-13, owner-specified, compatto.gr reference):
+     border/fill swap and everything moves on motion-slower, not
+     motion-fast. `border` was `none` before — now a transparent 2px ring
+     reserved at rest, colored on hover/active, same box-sizing:border-box
+     trick used everywhere else so it doesn't shift layout. */
   button {
     position: relative;
     z-index: 0;
@@ -304,13 +310,13 @@ const structuredData = {
     justify-self: start;
     padding: var(--space-sm) calc(var(--space-xl) * 2);
     color: var(--action-primary-text);
-    border: none;
+    border: var(--border-1) solid transparent;
     border-radius: var(--radius-2);
     box-shadow: var(--shadow-1);
     font-size: var(--text-label-lg-size);
     font-weight: var(--text-label-lg-weight);
     cursor: pointer;
-    transition: transform var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out);
+    transition: border-color var(--motion-slower) var(--ease-out), color var(--motion-slower) var(--ease-out);
   }
 
   /* Signature Shape as a genuine cutout — see Header.astro's .cta::before
@@ -338,7 +344,8 @@ const structuredData = {
     inset: 0;
     border-radius: inherit;
     background: var(--gradient-button);
-    transition: background var(--motion-fast) var(--ease-out);
+    opacity: 1;
+    transition: opacity var(--motion-slower) var(--ease-out);
     -webkit-mask-image: linear-gradient(#000 0 0), url("/images/signature-shape.svg");
     -webkit-mask-repeat: no-repeat, no-repeat;
     -webkit-mask-position: 0 0, 0 calc(100% + 4px);
@@ -351,27 +358,28 @@ const structuredData = {
     mask-composite: exclude;
   }
 
-  button:hover::before {
-    background: var(--gradient-button-hover);
-  }
-
+  /* Fill fades via `opacity`, not by swapping `background` to transparent
+     — see Header.astro's .cta:hover::before for the full rationale
+     (2026-09-13: fixes a real hover-speed mismatch against
+     .cta-secondary, same root cause as that button's own 2026-09-12
+     "flash" bug — background-image can't be smoothly interpolated). */
+  button:hover::before,
   button:active::before {
-    background: var(--gradient-button-active);
+    opacity: 0;
   }
 
-  /* Lift on hover, press back down on active — a neutral (uncolored)
-     shadow step-up + a small upward nudge, not a color change, so it
-     reads clearly without touching the locked no-colored-shadows rule.
-     Same treatment on .cta-secondary elsewhere for consistency
-     (2026-09-05, owner-specified). */
+  /* Border + text now carry the color the fill used to — see
+     Header.astro's .cta:hover for the full rationale, including why
+     there's no lift/press transform or shadow here (owner's follow-up
+     ask, 2026-09-13): just the slow color change, nothing else moves. */
   button:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-2);
+    border-color: var(--action-primary-hover);
+    color: var(--action-primary-hover);
   }
 
   button:active {
-    transform: translateY(0);
-    box-shadow: var(--shadow-1);
+    border-color: var(--action-primary-active);
+    color: var(--action-primary-active);
   }
 
   button:focus-visible {
