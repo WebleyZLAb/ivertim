@@ -11,6 +11,10 @@ import hero1 from "../assets/hero/hero-1-usluzno-rezanje.png";
 import hero2 from "../assets/hero/hero-2-kantovanje-busenje.png";
 import hero3 from "../assets/hero/hero-3-mjerenje-dogovor.png";
 import hero4 from "../assets/hero/hero-4-namjestaj-po-mjeri.png";
+// Reused for the new "benefits" bento's image card (see the section below)
+// — a room photo, not one of the four hero slides above, so it doesn't
+// repeat an image already visible higher on this same page.
+import benefitsImage from "../assets/rooms/kuhinje.png";
 
 const heroSlides = [
   { label: "Uslužno rezanje", tone: "tone-1", src: hero1 },
@@ -97,12 +101,46 @@ const marqueeRepeat = Array.from({ length: 6 });
       <a class="link-cta" href="/proces-saradnje">Pogledajte cijeli proces →</a>
     </section>
 
-    <section class="section" aria-labelledby="proof-heading" data-reveal>
-      <h2 id="proof-heading" class="text-reveal">Ne prikazujemo namještaj. Prikazujemo riješene prostore.</h2>
-      <p class="section-lead">
-        Svaki projekat nastaje iz konkretnog problema. Zato ne prikazujemo samo gotove enterijere, već način razmišljanja koji je doveo do rješenja.
-      </p>
-      <a class="link-cta" href="/projekti">Pogledajte projekte →</a>
+    <!-- Replaces the old Projekti-teaser section (owner's ask, 2026-09-13
+         — compatto.gr's "Why Choose Compatto" reference): Projekti already
+         has its own navbar link for whoever wants to browse it, so this
+         slot now highlights Ivertim's own real differentiators instead of
+         duplicating that link. Structural reference only (the asymmetric
+         "bento" grid), not a literal copy — colors/gradients stay within
+         this site's own locked palette (no decorative gradient blobs like
+         compatto's own cards use), and the copy is 100% real, confirmed
+         facts already established elsewhere in this project (own factory,
+         two-service model, the 16+/500+ stats), nothing fabricated. -->
+    <section class="section benefits" aria-labelledby="benefits-heading" data-reveal>
+      <p class="eyebrow">Zašto Ivertim</p>
+      <h2 id="benefits-heading" class="text-reveal">Ono što stoji iza svakog projekta.</h2>
+      <p class="section-lead">Nije u obećanjima — vidi se u opremi, procesu i ljudima koji stoje iza njih.</p>
+
+      <div class="bento">
+        <div class="bento-card bento-card--factory">
+          <h3>Sopstvena fabrika</h3>
+          <p>Rezanje, kantovanje i bušenje radimo u vlastitoj fabrici u Prijedoru, na sopstvenim CNC mašinama — bez čekanja na podizvođače.</p>
+        </div>
+
+        <div class="bento-card bento-card--process">
+          <h3>Jasan proces</h3>
+          <p>Slušamo, mjerimo, predlažemo. Svaka odluka se donosi na vrijeme, a projekat teče bez iznenađenja.</p>
+        </div>
+
+        <div class="bento-card bento-card--dark">
+          <h3>Dva servisa, jedan pouzdan partner</h3>
+          <p>Bilo da vam treba samo precizno rezanje i kantovanje ili kompletno rješenje po mjeri, radimo na istoj adresi, sa istim timom — 16+ godina rada, 500+ zadovoljnih klijenata.</p>
+        </div>
+
+        <div class="bento-card bento-card--image">
+          <Image class="bento-card-img" src={benefitsImage} alt="" width={800} height={500} />
+          <div class="bento-card-scrim" aria-hidden="true"></div>
+          <div class="bento-card-content">
+            <h3>Isti standard preciznosti, od materijala do gotovog rješenja</h3>
+            <p>Od uslužnog rezanja za manje radionice do namještaja po mjeri za domove i poslovne prostore — pristup se ne mijenja.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="section marquee-section" aria-hidden="true">
@@ -621,6 +659,135 @@ const marqueeRepeat = Array.from({ length: 6 });
     text-transform: uppercase;
     color: var(--text-accent);
     margin-bottom: var(--space-xs);
+  }
+
+  /* ---------- Benefits: asymmetric "bento" grid ----------
+     Structural reference only (compatto.gr's "Why Choose Compatto",
+     owner's ask 2026-09-13) — the uneven card sizing, not its colors:
+     compatto's own cards use decorative gradient blobs, which this site's
+     locked "no heavy gradients outside CTA/closing moments" rule doesn't
+     allow — so the light cards reuse this site's own plain card look
+     (.about-text's surface-1/border-subtle), and the dark card reuses
+     .about-stats's own fill (--gradient-button-active) rather than
+     inventing a third dark treatment. Mobile-first: one column, stacked;
+     the grid-template-areas layout only applies at the desktop
+     breakpoint below. */
+  .bento {
+    display: grid;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .bento-card {
+    padding: var(--space-xl);
+    border-radius: var(--radius-4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 220px;
+  }
+
+  .bento-card h3 {
+    font-size: var(--text-h4-size);
+    line-height: var(--text-h4-leading);
+    font-weight: var(--text-h4-weight);
+    color: var(--text-primary);
+  }
+
+  .bento-card p {
+    margin-top: var(--space-sm);
+    color: var(--text-secondary);
+    font-size: var(--text-body-md-size);
+    line-height: var(--text-body-md-leading);
+  }
+
+  .bento-card--factory,
+  .bento-card--process {
+    background: var(--surface-1);
+    border: var(--border-1) solid var(--border-subtle);
+  }
+
+  /* Same dark fill as .about-stats above — deliberate reuse, not a new
+     "dark card" treatment for this page to carry. */
+  .bento-card--dark {
+    background: var(--gradient-button-active);
+  }
+
+  .bento-card--dark h3 {
+    color: var(--text-inverse);
+  }
+
+  .bento-card--dark p {
+    color: rgb(255 255 255 / 0.82);
+  }
+
+  /* Photo card — same overlay mechanism as the hero (photo fills the box,
+     a bottom scrim keeps light text readable over a photo of varying
+     brightness), just without the crossfade since this is a single
+     static image, not a carousel. */
+  .bento-card--image {
+    position: relative;
+    overflow: hidden;
+    justify-content: flex-end;
+    min-height: 280px;
+    padding: 0;
+  }
+
+  .bento-card-img {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .bento-card-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.75) 0%, rgb(0 0 0 / 0.15) 55%, rgb(0 0 0 / 0) 80%);
+  }
+
+  .bento-card-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-xl);
+  }
+
+  .bento-card-content h3 {
+    color: var(--text-inverse);
+  }
+
+  .bento-card-content p {
+    color: rgb(255 255 255 / 0.85);
+  }
+
+  @media (min-width: 768px) {
+    .bento {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+    }
+
+    .bento-card--factory {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .bento-card--process {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .bento-card--dark {
+      grid-column: 3;
+      grid-row: 1 / span 2;
+    }
+
+    .bento-card--image {
+      grid-column: 1 / span 2;
+      grid-row: 2;
+    }
   }
 
   /* ---------- About: dark stats panel + paired text card ----------

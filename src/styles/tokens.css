@@ -271,7 +271,14 @@
   --container-sm: 640px;
   --container-md: 768px;
   --container-lg: 1024px;
-  --container-xl: 1280px;
+  /* 1280px → 1440px, 2026-09-13, owner's explicit ask: compared this
+     site's own section/footer width against compatto.gr's and asked for
+     the same wider feel. Measured compatto.gr's actual content card live
+     (not guessed) — its footer's own rounded card is exactly 1440px wide
+     at a 1536px viewport. Site-wide, not Home-only, since every page
+     shares this one token and a per-page override would leave widths
+     inconsistent across the site. */
+  --container-xl: 1440px;
   --container-full: 100%;
   --content-max: 720px;
 

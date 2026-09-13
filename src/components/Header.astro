@@ -22,7 +22,7 @@ const navItems = [
 
   <nav aria-label="Glavna navigacija">
     <a class="nav-logo" href="/" aria-label="Ivertim — početna">
-      <img src="/images/logo-horizontal.svg" alt="Ivertim" width="140" height="21" />
+      <img src="/images/logo-mark.svg" alt="Ivertim" width="21" height="20" />
     </a>
     <ul>
       {
@@ -80,10 +80,13 @@ const navItems = [
     width: auto;
   }
 
-  /* Second logo lockup, mobile-sidebar-only (see the mobile media query
-     below) — the real header logo sits behind the sidebar once it's
-     open (fixed, full-height panel), so the sidebar carries its own
-     copy at its own top instead of relying on the one in the bar. */
+  /* Second logo, mobile-sidebar-only (see the mobile media query below)
+     — the real header logo sits behind the sidebar once it's open
+     (fixed, full-height panel), so the sidebar carries its own copy at
+     its own top instead of relying on the one in the bar. Just the mark
+     (logo-mark.svg), not the full horizontal lockup (owner's ask,
+     2026-09-13) — the wordmark repeated right below the header's own
+     full lockup read as a duplicate; the bare mark alone doesn't. */
   .nav-logo {
     display: none;
   }
@@ -568,8 +571,14 @@ const navItems = [
       }
     }
 
+    /* align-self:center, not the panel's default flex-start (see
+       nav[aria-label="Glavna navigacija"]'s own comment above on why
+       every child keeps its intrinsic width/left alignment) — owner's
+       ask, 2026-09-13: the mark should sit centered above the links, not
+       pinned to the same left edge as the nav text. */
     .nav-logo {
       display: inline-flex;
+      align-self: center;
       margin-bottom: var(--space-lg);
     }
 

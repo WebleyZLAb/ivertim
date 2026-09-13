@@ -1,0 +1,128 @@
+---
+// ⚠️ DRAFT — owner's ask, 2026-09-13: draft this page directly (following
+// this project's own tone/rules docs, since no dedicated legal blueprint
+// exists in docs/04 - Copywriting/), to be refined together later
+// ("poslije ćemo ih dorađivati"). Every fact here (entity name, address,
+// contact, what data the site actually collects) is real and already
+// confirmed elsewhere in this project (CLAUDE.md, kontakt.astro's own
+// LocalBusiness JSON-LD, Footer.astro) — nothing fabricated — but this is
+// not a substitute for a real legal review before the site is considered
+// fully launched.
+import PageLayout from "../layouts/PageLayout.astro";
+---
+
+<PageLayout
+  title="Politika privatnosti"
+  description="Koje podatke Ivertim prikuplja preko kontakt forme i newslettera, zašto, i kako ih možete izmijeniti ili obrisati."
+>
+  <article class="legal" data-reveal>
+    <p class="eyebrow">Pravno</p>
+    <h1>Politika privatnosti</h1>
+    <p class="lead">Posljednja izmjena: septembar 2026.</p>
+
+    <div class="prose">
+      <h2>Ko smo mi</h2>
+      <p>
+        Ivertim (Zajednička zanatska radnja IVER TIM Nenad Crnogorac Bojan Jeftić s.p, Svale bb, 79101 Prijedor) je odgovoran za obradu ličnih podataka prikupljenih preko ovog sajta.
+      </p>
+
+      <h2>Koje podatke prikupljamo</h2>
+      <p>Prikupljamo samo podatke koje nam sami dostavite, i to u dvije prilike:</p>
+      <ul>
+        <li><strong>Kontakt forma</strong> — ime, email adresa, telefon (opciono) i sadržaj poruke.</li>
+        <li><strong>Prijava na newsletter</strong> — samo email adresa.</li>
+      </ul>
+      <p>Ne koristimo kolačiće za praćenje niti alate za analitiku posjeta — više o tome u <a href="/kolacici">Politici kolačića</a>.</p>
+
+      <h2>Zašto ih koristimo</h2>
+      <p>
+        Podatke iz kontakt forme koristimo isključivo da odgovorimo na vaš upit. Email sa newslettera koristimo da vam povremeno pošaljemo savjete i novosti — nikad ga ne prosljeđujemo trećim stranama niti ga koristimo u druge svrhe.
+      </p>
+
+      <h2>Kako čuvamo podatke</h2>
+      <p>
+        Poruke sa kontakt forme i prijave na newsletter obrađuju se preko Resend-a (resend.com), servisa za slanje email-a. Ne prodajemo, ne iznajmljujemo i ne dijelimo vaše podatke sa trećim stranama u marketinške svrhe.
+      </p>
+
+      <h2>Vaša prava</h2>
+      <p>
+        U svakom trenutku možete zatražiti uvid u podatke koje čuvamo o vama, njihovu izmjenu ili brisanje. Za newsletter, odjava je moguća jednim klikom u svakom emailu koji pošaljemo. Za bilo šta drugo, javite nam se na kontakte ispod.
+      </p>
+
+      <h2>Kontakt</h2>
+      <p>
+        Za sva pitanja o ovoj politici, pišite nam na <a href="mailto:namjestajivertim@gmail.com">namjestajivertim@gmail.com</a> ili pozovite <a href="tel:+38765748943">+387 65 748 943</a>.
+      </p>
+
+      <h2>Izmjene ove politike</h2>
+      <p>
+        Ova politika će se mijenjati kako sajt i naš rad budu evoluirali. Datum posljednje izmjene uvijek stoji na vrhu ove stranice.
+      </p>
+    </div>
+  </article>
+</PageLayout>
+
+<style>
+  .legal {
+    max-width: var(--content-max);
+  }
+
+  .eyebrow {
+    font-size: var(--text-overline-size);
+    font-weight: var(--text-overline-weight);
+    letter-spacing: var(--text-overline-tracking);
+    text-transform: uppercase;
+    color: var(--text-accent);
+  }
+
+  h1 {
+    margin-top: var(--space-sm);
+    font-size: var(--text-h1-size-fluid);
+    line-height: var(--text-h1-leading);
+    font-weight: var(--text-h1-weight);
+    letter-spacing: var(--text-h1-tracking);
+  }
+
+  .lead {
+    margin-top: var(--space-sm);
+    color: var(--text-tertiary);
+    font-size: var(--text-body-sm-size);
+  }
+
+  .prose h2 {
+    margin-top: var(--space-2xl);
+    font-size: var(--text-h4-size);
+    line-height: var(--text-h4-leading);
+    font-weight: var(--text-h4-weight);
+  }
+
+  .prose p {
+    margin-top: var(--space-md);
+    font-size: var(--text-body-lg-size);
+    line-height: var(--text-body-lg-leading);
+    color: var(--text-secondary);
+  }
+
+  .prose ul {
+    margin-top: var(--space-md);
+    padding-left: var(--space-lg);
+    display: grid;
+    gap: var(--space-xs);
+    color: var(--text-secondary);
+    font-size: var(--text-body-md-size);
+    line-height: var(--text-body-md-leading);
+  }
+
+  .prose strong {
+    color: var(--text-primary);
+  }
+
+  .prose a {
+    color: var(--text-accent);
+    font-weight: var(--text-label-md-weight);
+  }
+
+  .prose a:hover {
+    color: var(--link-hover);
+  }
+</style>

@@ -3,42 +3,264 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
+  <!-- Whole footer wrapped as one rounded card (owner's ask, 2026-09-13,
+       compatto reference), not just a top border — measured compatto's
+       own footer card live: background distinct from the page, radius
+       ~24px (this site's own --radius-4/16px reused, not a new value),
+       inset from the viewport edges rather than edge-to-edge. Both the
+       main content row and the copyright bar below sit inside this same
+       card, matching what compatto's own DOM does. -->
+  <div class="footer-card">
   <div class="footer-main">
     <div class="footer-brand">
-      <img src="/images/logo-mark.svg" alt="" width="28" height="28" />
+      <a class="footer-logo" href="/" aria-label="Ivertim — početna">
+        <img src="/images/logo-horizontal.svg" alt="Ivertim" width="140" height="21" />
+      </a>
       <p class="tagline">Kompetentnost kojoj vjeruješ.</p>
+
+      <!-- Newsletter — owner's ask, 2026-09-13 (compatto.gr reference).
+           Progressively enhanced: works as a plain POST to /api/newsletter
+           with no JS (redirects back here with ?status=..., see that
+           file's own comment on why it can't render a styled confirmation
+           on a static page without JS); the script below intercepts it for
+           a real inline message instead. Only needs RESEND_API_KEY (same
+           key the contact form already uses) — Resend's Contacts API is
+           global, no Audience/ID to create (see src/lib/email.ts's
+           subscribeToNewsletter). Stacked full-width fields + a real
+           consent checkbox (owner's ask, same day, second pass matching
+           compatto's own layout more closely) instead of the first
+           version's inline input+button row. -->
+      <form class="newsletter-form" method="POST" action="/api/newsletter" data-newsletter-form>
+        <p class="label">Newsletter</p>
+        <p class="newsletter-copy">Povremeni savjeti o obradi materijala i namještaju po mjeri — bez spama.</p>
+
+        <label class="visually-hidden" for="newsletter-email">Email adresa</label>
+        <input
+          class="newsletter-input"
+          id="newsletter-email"
+          type="email"
+          name="email"
+          placeholder="Vaš email"
+          autocomplete="email"
+          required
+        />
+
+        <div class="newsletter-consent">
+          <input id="newsletter-consent" type="checkbox" name="consent" required />
+          <label for="newsletter-consent">Slažem se sa <a href="/politika-privatnosti">Politikom privatnosti</a>.</label>
+        </div>
+
+        <!-- Same visual treatment as the site's primary .cta buttons
+             (fill fades via opacity, border/text invert to brand brown on
+             hover, motion-slower, no lift) — owner's ask, 2026-09-13:
+             "da izgleda kao primary sa našim hoverom". -->
+        <button class="newsletter-submit" type="submit">Prijavi se</button>
+
+        <!-- Honeypot — same technique as the contact form, real users never see/fill this. -->
+        <input class="hp-field" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <input type="hidden" name="referer" value="" data-newsletter-referer />
+        <p class="newsletter-note" data-newsletter-message>Odjava u jednom kliku, kad god poželite.</p>
+      </form>
     </div>
 
-    <div class="footer-contact">
-      <p class="label">Kontakt</p>
-      <a href="tel:+38765748943">+387 65 748 943</a>
-      <a href="mailto:namjestajivertim@gmail.com">namjestajivertim@gmail.com</a>
-      <p>Svale bb, 79101 Prijedor</p>
-      <p>Radnim danima 7–16h, vikendom ne radimo.</p>
-    </div>
+    <!-- Owner's ask, 2026-09-13: keep this cluster visually separate from
+         the brand column (compatto's own footer has a much wider gap
+         before its Menu/Legal/Contact group than between those three
+         themselves) — a plain 4-column grid can't have two different gap
+         sizes, so the three link columns are grouped under their own
+         nested grid instead. -->
+    <div class="footer-links">
+      <nav aria-label="Footer navigacija">
+        <p class="label">Stranice</p>
+        <ul>
+          <li><a href="/usluge">Usluge</a></li>
+          <li><a href="/projekti">Projekti</a></li>
+          <li><a href="/proces-saradnje">Proces saradnje</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
 
-    <nav aria-label="Footer navigacija">
-      <p class="label">Stranice</p>
-      <ul>
-        <li><a href="/usluge">Usluge</a></li>
-        <li><a href="/projekti">Projekti</a></li>
-        <li><a href="/proces-saradnje">Proces saradnje</a></li>
-        <li><a href="/blog">Blog</a></li>
-        <li><a href="/kontakt">Kontakt</a></li>
-      </ul>
-    </nav>
+      <!-- Draft pages (owner's ask, 2026-09-13) — see politika-privatnosti.astro's
+           own header comment: real content, not placeholders, but flagged
+           there as pending a proper legal review before final launch. -->
+      <nav aria-label="Pravna navigacija">
+        <p class="label">Pravno</p>
+        <ul>
+          <li><a href="/politika-privatnosti">Politika privatnosti</a></li>
+          <li><a href="/uslovi-koristenja">Uslovi korištenja</a></li>
+          <li><a href="/kolacici">Kolačići</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer-contact-block">
+        <p class="label">Kontakt</p>
+        <!-- <address> — a single semantic block for the business's contact
+             facts (owner's ask, 2026-09-13: "u jedan div koji će biti
+             adresa... google to voli"). Each row is icon+link now
+             (owner's ask, second pass, compatto reference) — icons are
+             Feather's map-pin/phone/mail (MIT, verified source, not
+             hand-drawn) recolored via `currentColor` like every other
+             icon on this site. Same real, confirmed facts already used
+             in the LocalBusiness JSON-LD on /kontakt. -->
+        <address class="footer-address">
+          <a
+            class="address-row"
+            href="https://www.google.com/maps/search/?api=1&query=Svale+bb%2C+79101+Prijedor"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg class="address-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span>Svale bb, 79101 Prijedor</span>
+          </a>
+          <a class="address-row" href="tel:+38765748943">
+            <svg class="address-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>+387 65 748 943</span>
+          </a>
+          <a class="address-row" href="mailto:namjestajivertim@gmail.com">
+            <svg class="address-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <span>namjestajivertim@gmail.com</span>
+          </a>
+        </address>
+
+        <!-- Social — Google is now its own "G" mark (owner's ask, second
+             pass — was a Maps pin), same verified simple-icons source as
+             Instagram/Facebook/LinkedIn below. All four now sit in the
+             brand brown at rest, not a neutral gray, with hover staying
+             in the same brown family (owner's ask: "sve u našoj smeđoj
+             ... i krug na hoveru u istoj boji") — same accent-600 →
+             accent-700 step already used for hover everywhere else on
+             this site (--action-primary → --action-primary-hover).
+             Instagram, Facebook and LinkedIn stay as inert `#`
+             placeholders per the owner's own explicit instruction
+             ("ostavi # dok napravim stranice i profil"). -->
+        <ul class="social-list">
+          <li>
+            <a
+              class="social-link"
+              href="https://share.google/PpIoLqM3tq55eKLzq"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Ivertim na Google profilu"
+            >
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
+                ></path>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a class="social-link" href="#" aria-label="Ivertim na Instagramu">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"
+                ></path>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a class="social-link" href="#" aria-label="Ivertim na Facebooku">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"
+                ></path>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a class="social-link" href="#" aria-label="Ivertim na LinkedInu">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                ></path>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 
+  <!-- Short, centered copyright (owner's ask, 2026-09-13, replacing the
+       previous left-aligned line that spelled out the full legal entity
+       name — that fuller name still lives on /kontakt's own LocalBusiness
+       JSON-LD and legal pages, so it isn't lost, just not repeated here). -->
   <div class="footer-legal">
-    <p>&copy; {year} Ivertim — Zajednička zanatska radnja IVER TIM Nenad Crnogorac Bojan Jeftić s.p, Prijedor.</p>
+    <p>&copy; {year} Ivertim — Sva prava zadržana.</p>
+  </div>
   </div>
 </footer>
 
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-newsletter-form]");
+  const message = document.querySelector<HTMLElement>("[data-newsletter-message]");
+  const refererField = document.querySelector<HTMLInputElement>("[data-newsletter-referer]");
+  const defaultNote = message?.textContent ?? "";
+
+  if (refererField) refererField.value = window.location.pathname;
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!message) return;
+
+    const submitButton = form.querySelector<HTMLButtonElement>(".newsletter-submit");
+    const emailInput = form.querySelector<HTMLInputElement>("#newsletter-email");
+    submitButton?.setAttribute("disabled", "true");
+
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(form),
+      });
+      const data = await response.json();
+
+      if (data.ok) {
+        message.textContent = "Hvala! Prijava je uspješna.";
+        message.classList.remove("is-error");
+        message.classList.add("is-success");
+        if (emailInput) emailInput.value = "";
+        form.reset();
+      } else {
+        message.textContent =
+          data.reason === "invalid-email" ? "Unesite ispravnu email adresu." : "Nešto nije uspjelo. Pokušajte ponovo.";
+        message.classList.remove("is-success");
+        message.classList.add("is-error");
+      }
+    } catch {
+      message.textContent = "Nešto nije uspjelo. Pokušajte ponovo.";
+      message.classList.remove("is-success");
+      message.classList.add("is-error");
+    } finally {
+      submitButton?.removeAttribute("disabled");
+      window.setTimeout(() => {
+        message.textContent = defaultNote;
+        message.classList.remove("is-success", "is-error");
+      }, 6000);
+    }
+  });
+</script>
+
 <style>
+  /* Outer wrapper just provides the inset (container-padding) and top
+     spacing — no background/border of its own now, that lives on
+     .footer-card below so the page's own background shows around the
+     card's edges instead of the footer bleeding edge-to-edge. */
   .site-footer {
-    padding: var(--space-2xl) var(--container-padding);
+    padding: 0 var(--container-padding) var(--container-padding);
     margin-top: var(--section-gap);
-    border-top: var(--border-1) solid var(--border-subtle);
+  }
+
+  .footer-card {
+    max-width: var(--container-xl);
+    margin: 0 auto;
+    padding: var(--space-2xl);
+    border-radius: var(--radius-4);
     background: var(--bg-secondary);
   }
 
@@ -52,17 +274,33 @@ const year = new Date().getFullYear();
 
   .footer-brand {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
     gap: var(--space-sm);
   }
 
-  .footer-brand img {
-    flex-shrink: 0;
+  .footer-logo {
+    display: block;
+    line-height: 0;
   }
 
+  /* Bigger than the header's own 140px logo, but capped — NOT stretched
+     to the full (now wide, ~50%) brand column — owner's ask, 2026-09-13,
+     fourth pass: compatto's own logo reads as a modest standalone mark
+     sitting inside a much wider column, with real unused space beside it
+     (see .footer-main's own comment on why the column itself stays wide
+     while its content doesn't). */
+  .footer-logo img {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+  }
+
+  /* Bumped up a step (owner's ask, 2026-09-13) — was --text-body-sm,
+     read too quiet next to the now much bigger logo above it. */
   .tagline {
     color: var(--text-secondary);
-    font-size: var(--text-body-sm-size);
+    font-size: var(--text-body-md-size);
   }
 
   .label {
@@ -76,29 +314,280 @@ const year = new Date().getFullYear();
     margin-bottom: var(--space-sm);
   }
 
-  .footer-contact {
+  /* ---------- Newsletter ----------
+     No flex `gap` here (unlike .footer-brand above) — deliberately, so
+     each child's own margin controls its own spacing instead of a single
+     uniform value applying everywhere. That's what makes the tight
+     label→copy pairing below possible without also cramping every other
+     gap in the form. */
+  /* Capped, not stretched to the (now wide, ~50%) brand column — same
+     reasoning as .footer-logo img above: the leftover space to the right
+     of this cap, still inside the same grid column, is what actually
+     produces the "gap" before Menu/Legal/Contact start. */
+  .newsletter-form {
+    margin-top: var(--space-md);
+    max-width: 380px;
     display: flex;
     flex-direction: column;
-    gap: var(--space-xs);
-    font-size: var(--text-body-sm-size);
-    color: var(--text-secondary);
   }
 
-  .footer-contact a {
+  /* Sits close under its own "NEWSLETTER" label (owner's ask, 2026-09-13:
+     the two should read as one group) — overrides the shared .label's
+     own margin-bottom (space-sm) down to space-1. */
+  .newsletter-form .label {
+    margin-bottom: var(--space-1);
+  }
+
+  .newsletter-copy {
+    color: var(--text-secondary);
+    font-size: var(--text-body-sm-size);
+    line-height: var(--text-body-sm-leading);
+    margin-bottom: var(--space-md);
+  }
+
+  .newsletter-input {
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    border: var(--border-1) solid var(--border-default);
+    border-radius: var(--radius-2);
+    background: var(--surface-1);
+    color: var(--text-primary);
+    font-size: var(--text-body-sm-size);
+    font-family: inherit;
+  }
+
+  .newsletter-input:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-default);
+  }
+
+  .newsletter-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xs);
+    margin-top: var(--space-sm);
+  }
+
+  .newsletter-consent input {
+    margin-top: 3px;
+    flex-shrink: 0;
+    accent-color: var(--action-primary);
+  }
+
+  .newsletter-consent label {
+    color: var(--text-secondary);
+    font-size: var(--text-caption-size);
+    line-height: var(--text-body-sm-leading);
+  }
+
+  .newsletter-consent a {
+    color: var(--text-accent);
+  }
+
+  .newsletter-consent a:hover {
+    color: var(--link-hover);
+  }
+
+  /* Same inversion/opacity-fade pattern as every primary .cta button
+     site-wide — see Header.astro's .cta for the full rationale on why
+     it's opacity, not a background swap, and why there's no lift/shadow.
+     Duplicated here rather than shared, matching how every other file
+     with a primary-style button already does it. */
+  .newsletter-submit {
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: var(--space-sm);
+    padding: var(--space-sm) var(--space-lg);
+    border: var(--border-1) solid transparent;
+    border-radius: var(--radius-2);
+    background: none;
+    color: var(--action-primary-text);
+    font-size: var(--text-body-sm-size);
+    font-weight: var(--text-label-md-weight);
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color var(--motion-slower) var(--ease-out), color var(--motion-slower) var(--ease-out);
+  }
+
+  .newsletter-submit::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--gradient-button);
+    opacity: 1;
+    transition: opacity var(--motion-slower) var(--ease-out);
+    -webkit-mask-image: linear-gradient(#000 0 0), url("/images/signature-shape.svg");
+    -webkit-mask-repeat: no-repeat, no-repeat;
+    -webkit-mask-position: 0 0, 0 calc(100% + 4px);
+    -webkit-mask-size: 100% 100%, auto 62%;
+    -webkit-mask-composite: xor;
+    mask-image: linear-gradient(#000 0 0), url("/images/signature-shape.svg");
+    mask-repeat: no-repeat, no-repeat;
+    mask-position: 0 0, 0 calc(100% + 4px);
+    mask-size: 100% 100%, auto 62%;
+    mask-composite: exclude;
+  }
+
+  .newsletter-submit:hover::before,
+  .newsletter-submit:active::before {
+    opacity: 0;
+  }
+
+  .newsletter-submit:hover {
+    border-color: var(--action-primary-hover);
+    color: var(--action-primary-hover);
+  }
+
+  .newsletter-submit:active {
+    border-color: var(--action-primary-active);
+    color: var(--action-primary-active);
+  }
+
+  .newsletter-submit:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .newsletter-submit:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-default);
+  }
+
+  .newsletter-note {
+    margin-top: var(--space-sm);
+    color: var(--text-tertiary);
+    font-size: var(--text-caption-size);
+  }
+
+  .newsletter-note.is-success {
+    color: var(--success-text);
+  }
+
+  .newsletter-note.is-error {
+    color: var(--error-text);
+  }
+
+  /* Honeypot — visually and semantically hidden, but still present/
+     fillable by bots that don't respect display:none. */
+  .hp-field {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ---------- Link cluster (Menu / Legal / Contact) ---------- */
+  .footer-links {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  /* ---------- Contact + social ---------- */
+  .footer-contact-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .footer-address {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    font-size: var(--text-body-sm-size);
+    /* <address> is italic by default in every browser — this footer's
+       type doesn't use italics anywhere else, so it's reset here. */
+    font-style: normal;
+  }
+
+  .address-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
     color: var(--text-secondary);
     text-decoration: none;
     width: fit-content;
   }
 
-  .footer-contact a:hover {
+  .address-icon {
+    flex-shrink: 0;
+    color: var(--icon-secondary);
+    transition: color var(--motion-fast) var(--ease-out);
+  }
+
+  .address-row:hover {
     color: var(--text-accent);
   }
 
-  .footer-contact p {
-    margin: 0;
+  .address-row:hover .address-icon {
+    color: var(--icon-accent);
   }
 
-  nav[aria-label="Footer navigacija"] ul {
+  .social-list {
+    display: flex;
+    gap: var(--space-sm);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Brand brown at rest, not neutral gray, and hover stays in the same
+     brown family (owner's ask, 2026-09-13, second pass) — the same
+     accent-600 → accent-700 step already used everywhere else on this
+     site (--action-primary / --action-primary-hover), not a new color.
+     Border is transparent at rest and only appears on hover (owner's
+     ask, third pass: "krug ... samo na hoveru") — same reserve-the-
+     border-space-as-transparent technique already used for the primary/
+     secondary buttons and nav links, so the icon doesn't shift size when
+     the ring appears. */
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full, 999px);
+    border: var(--border-1) solid transparent;
+    color: var(--action-primary);
+    transition: color var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out);
+  }
+
+  .social-link svg {
+    fill: currentColor;
+  }
+
+  .social-link:hover {
+    color: var(--action-primary-hover);
+    border-color: var(--action-primary-hover);
+  }
+
+  /* Attribute-prefix selector — matches both "Footer navigacija" and
+     "Pravna navigacija" without repeating this whole block twice. */
+  nav[aria-label$="navigacija"] ul {
     display: flex;
     flex-direction: column;
     gap: var(--space-xs);
@@ -107,13 +596,13 @@ const year = new Date().getFullYear();
     padding: 0;
   }
 
-  nav[aria-label="Footer navigacija"] a {
+  nav[aria-label$="navigacija"] a {
     color: var(--text-secondary);
     text-decoration: none;
     font-size: var(--text-body-sm-size);
   }
 
-  nav[aria-label="Footer navigacija"] a:hover {
+  nav[aria-label$="navigacija"] a:hover {
     color: var(--text-accent);
   }
 
@@ -125,6 +614,8 @@ const year = new Date().getFullYear();
     /* text-secondary, not text-tertiary — see .label above for why. */
     color: var(--text-secondary);
     font-size: var(--text-caption-size);
+    /* Centered (owner's ask, 2026-09-13) — was left-aligned. */
+    text-align: center;
   }
 
   .footer-legal p {
@@ -132,8 +623,24 @@ const year = new Date().getFullYear();
   }
 
   @media (min-width: 768px) {
+    /* Reverted from a fixed 340px track (owner's ask, 2026-09-13, fourth
+       pass — side-by-side screenshots made the real mechanism clear):
+       compatto's brand column is actually WIDE (~50% of the row, measured
+       live: 649px of 1296px), the same small gap as everywhere else
+       (~15px) sits between it and the Menu column — the "gap" everyone
+       sees is unused space INSIDE that wide column, to the right of its
+       narrower content (logo/form both capped below), not a bigger gap
+       value or a narrower column. `1fr 1fr` reproduces that ~50/50 split
+       regardless of how wide --container-xl is; the content-width caps
+       below are what actually keep the visible logo/form compact. */
     .footer-main {
-      grid-template-columns: 1.2fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2xl);
+      align-items: start;
+    }
+
+    .footer-links {
+      grid-template-columns: 0.7fr 0.7fr 1fr;
     }
   }
 </style>

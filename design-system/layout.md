@@ -19,7 +19,7 @@ Mobile-first.
 | `container-sm` | `640px` |
 | `container-md` | `768px` |
 | `container-lg` | `1024px` |
-| `container-xl` | `1280px` |
+| `container-xl` | `1440px` (was `1280px` — bumped 2026-09-13, owner's explicit ask referencing compatto.gr's own wider content width, measured live) |
 | `container-full` | `100%` |
 
 ## Content width
