@@ -29,6 +29,45 @@ const heroSlides = [
 // exactly -50%, so as long as one group's real width covers the widest
 // viewport this site needs to support, the loop is seamless.
 const marqueeRepeat = Array.from({ length: 6 });
+
+// ---------- Home Proces teaser: zigzag "pinned note" cards ----------
+// Owner's ask, 2026-09-14: NOT the GSAP pinned-stack treatment already
+// built for /proces-saradnje (that's the full operational process, two
+// tracks) — a distinct, lighter visual for Home specifically, referencing
+// a zigzag/pinned-card layout the owner found on 21st.dev. That component
+// was React + Tailwind + shadcn + motion(framer-motion) — a stack this
+// project doesn't use (no Tailwind/React per Technical Decisions) — so
+// this is a from-scratch equivalent in Astro + plain CSS: no new
+// dependency, same "pin on rotated card + wavy connecting line" idea.
+// Content is the already-locked verbal principle (docs/01-branding.md
+// §Verbalni princip: "Slušaj → postavi → shvati → izmjeri → predloži"),
+// not the operational step lists already used on /proces-saradnje — this
+// is the brand's underlying approach, not a duplicate of that page.
+const procesKoraci = [
+  { rijec: "Slušaj", opis: "Prije rješenja, razumijemo šta vam zaista treba." },
+  { rijec: "Postavi pitanja", opis: "Pravo pitanje u pravom trenutku sprječava kasnije nesporazume." },
+  { rijec: "Shvati", opis: "Ne predlažemo dok potpuno ne razumijemo prostor i cilj." },
+  { rijec: "Izmjeri", opis: "Tačna mjera je osnova svakog dobrog rješenja." },
+  { rijec: "Predloži", opis: "Konkretan prijedlog, zasnovan na onome što smo čuli i izmjerili." },
+];
+
+// Anchor points for both the cards' vertical offsets and the connecting
+// SVG path, computed the same way as the 21st.dev reference did (a reduce
+// over anchor points, smooth C-curve control points at each segment's
+// midpoint Y) — just generic enough to still work if the step count ever
+// changes, rather than hand-tuned bezier values for exactly five cards.
+const ZIGZAG_GAP_Y = 190;
+const ZIGZAG_START_Y = 140;
+const zigzagCenters = procesKoraci.map((_, i) => ({
+  x: i % 2 === 0 ? 290 : 710,
+  y: ZIGZAG_START_Y + i * ZIGZAG_GAP_Y,
+}));
+const zigzagPath = zigzagCenters.slice(1).reduce((acc, point, i) => {
+  const prev = zigzagCenters[i];
+  const midY = (prev.y + point.y) / 2;
+  return `${acc} C ${prev.x} ${midY}, ${point.x} ${midY}, ${point.x} ${point.y}`;
+}, `M ${zigzagCenters[0].x} ${zigzagCenters[0].y}`);
+const zigzagHeight = zigzagCenters[zigzagCenters.length - 1].y + 170;
 ---
 
 <BaseLayout
@@ -37,7 +76,7 @@ const marqueeRepeat = Array.from({ length: 6 });
 >
   <Header />
   <main>
-    <section class="section hero" aria-labelledby="hero-heading" data-reveal>
+    <section class="section hero" aria-labelledby="hero-heading">
       <div class="hero-carousel" role="img" aria-label="Faze saradnje sa Ivertim-om — uslužno rezanje, kantovanje i bušenje, mjerenje i dogovor, namještaj po mjeri">
         {
           heroSlides.map((slide, index) => (
@@ -93,12 +132,34 @@ const marqueeRepeat = Array.from({ length: 6 });
       </div>
     </section>
 
-    <section class="section" aria-labelledby="process-heading" data-reveal>
+    <section class="section process-teaser" aria-labelledby="process-heading" data-reveal>
       <h2 id="process-heading" class="text-reveal">Proces postoji da bi neizvjesnost pretvorio u sigurnost.</h2>
       <p class="section-lead">
         Svaki korak postoji kako bi odluke bile donesene na vrijeme, a projekat tekao jasno i bez nepotrebnih iznenađenja.
       </p>
-      <a class="link-cta" href="/proces-saradnje">Pogledajte cijeli proces →</a>
+
+      <div class="zigzag" style={`--zigzag-height: ${zigzagHeight}px`}>
+        <svg class="zigzag-line" viewBox={`0 0 1000 ${zigzagHeight}`} preserveAspectRatio="none" aria-hidden="true">
+          <path d={zigzagPath} />
+        </svg>
+        {
+          procesKoraci.map((korak, index) => (
+            <div
+              class:list={["zigzag-card", index % 2 === 0 ? "zigzag-card--left" : "zigzag-card--right"]}
+              style={`--zigzag-top: ${zigzagCenters[index].y - 30}px`}
+            >
+              <span class="zigzag-pin" aria-hidden="true"></span>
+              <span class="zigzag-number">{`0${index + 1}`}</span>
+              <p class="zigzag-title">{korak.rijec}</p>
+              <p class="zigzag-text">{korak.opis}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="process-teaser-cta">
+        <a class="cta" href="/proces-saradnje">Pogledajte cijeli proces</a>
+      </div>
     </section>
 
     <!-- Replaces the old Projekti-teaser section (owner's ask, 2026-09-13
@@ -350,6 +411,31 @@ const marqueeRepeat = Array.from({ length: 6 });
      used for .closing-lead/.reassurance on the gradient CTA section. */
   .hero-content h1 {
     color: var(--text-inverse);
+  }
+
+  /* Light entrance for the hero heading only, 2026-09-14 — NOT the shared
+     `.text-reveal` utility (global.css): that one is scroll-scrubbed via
+     `animation-timeline: view()`, meant for headings the visitor scrolls
+     down to. The hero is the very first thing on the page, visible at
+     scroll:0 with no scrolling yet to drive that timeline, so it would
+     never visibly play here. This is a plain load-triggered keyframe
+     instead — fades in while sliding up from slightly below its resting
+     position, once, on page load. `prefers-reduced-motion` is already
+     handled globally (global.css forces every animation to ~0 duration
+     under that media query), so no extra guard needed here. */
+  .hero-heading {
+    animation: hero-heading-in var(--motion-slower) var(--ease-out) both;
+  }
+
+  @keyframes hero-heading-in {
+    from {
+      opacity: 0;
+      translate: 0 var(--space-xl);
+    }
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
   }
 
   .hero-content .lead {
@@ -650,6 +736,152 @@ const marqueeRepeat = Array.from({ length: 6 });
 
   .link-cta:hover {
     color: var(--link-hover);
+  }
+
+  /* ---------- Process teaser: zigzag "pinned note" cards ----------
+     Owner's ask, 2026-09-14 (21st.dev reference, React/Tailwind/shadcn/
+     motion original — rebuilt here in plain Astro + CSS, no new
+     dependency): NOT the GSAP pinned-stack on /proces-saradnje, a
+     lighter, distinct teaser using the locked verbal principle
+     (docs/01-branding.md). Mobile-first: a plain stacked list, no
+     rotation, no connecting line — the absolute-positioned zigzag only
+     applies at the desktop breakpoint below, same pattern as every other
+     "simple on mobile, elaborate on desktop" section on this site
+     (.story-stack on proces-saradnje.astro is the closest precedent). */
+  .zigzag {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .zigzag-line {
+    display: none;
+  }
+
+  .zigzag-card {
+    padding: var(--space-lg);
+    background: var(--surface-1);
+    border: var(--border-1) solid var(--border-subtle);
+    border-radius: var(--radius-4);
+    box-shadow: var(--shadow-1);
+    text-align: center;
+    transition: transform var(--motion-slow) var(--ease-emphasized), box-shadow var(--motion-slow) var(--ease-emphasized);
+  }
+
+  /* Signature Shape as the "pin" — replaces a generic decorative icon,
+     same sanctioned use as CTA elements (docs/09 - Signature System.md
+     §CTA Elements), tinted via the same mask technique used everywhere
+     else on this site (e.g. .about-stats-mark, .marquee-mark) since the
+     source file carries no fill/currentColor wiring of its own. */
+  .zigzag-pin {
+    display: block;
+    width: 28px;
+    aspect-ratio: 169.44 / 179.65;
+    margin: 0 auto var(--space-sm);
+    background-color: var(--icon-accent);
+    -webkit-mask-image: url("/images/signature-shape.svg");
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    -webkit-mask-position: center;
+    mask-image: url("/images/signature-shape.svg");
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-position: center;
+  }
+
+  .zigzag-number {
+    display: block;
+    font-size: var(--text-overline-size);
+    font-weight: var(--text-overline-weight);
+    letter-spacing: var(--text-overline-tracking);
+    color: var(--text-accent);
+    margin-bottom: var(--space-xs);
+  }
+
+  .zigzag-title {
+    font-size: var(--text-h5-size);
+    line-height: var(--text-h5-leading);
+    font-weight: var(--text-h5-weight);
+    color: var(--text-primary);
+  }
+
+  .zigzag-text {
+    margin-top: var(--space-xs);
+    font-size: var(--text-body-sm-size);
+    line-height: var(--text-body-sm-leading);
+    color: var(--text-secondary);
+  }
+
+  @media (min-width: 768px) {
+    .zigzag {
+      position: relative;
+      height: var(--zigzag-height);
+      margin-top: var(--space-2xl);
+    }
+
+    .zigzag-line {
+      display: block;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .zigzag-line path {
+      fill: none;
+      stroke: var(--border-default);
+      stroke-width: 2;
+      stroke-dasharray: 8 6;
+      stroke-linecap: round;
+      vector-effect: non-scaling-stroke;
+      animation: zigzag-flow 3s linear infinite;
+    }
+
+    .zigzag-card {
+      position: absolute;
+      top: var(--zigzag-top);
+      width: 300px;
+    }
+
+    .zigzag-card--left {
+      left: 4%;
+      transform: rotate(-3deg);
+    }
+
+    .zigzag-card--right {
+      right: 4%;
+      transform: rotate(3deg);
+    }
+
+    .zigzag-card:hover {
+      transform: rotate(0deg) scale(1.05);
+      box-shadow: var(--shadow-2);
+      z-index: 5;
+    }
+  }
+
+  @keyframes zigzag-flow {
+    to {
+      stroke-dashoffset: -140;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .zigzag-line path {
+      animation: none;
+    }
+  }
+
+  /* Separated + centered, replacing the old plain text .link-cta below
+     the zigzag cards — owner's ask, 2026-09-14: the bare arrow link read
+     as an afterthought once real cards sat above it. Reuses the site's
+     one primary-button look (.cta, defined above) rather than inventing
+     a second button style. */
+  .process-teaser-cta {
+    margin-top: var(--space-4xl);
+    text-align: center;
   }
 
   .eyebrow {
