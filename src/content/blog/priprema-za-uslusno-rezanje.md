@@ -5,9 +5,9 @@ publishDate: 2026-09-04
 topic: "materijali-i-odrzavanje"
 category: "edukativno"
 featured: true
-# ⚠️ DRAFT — AI-generated placeholder photo, not real photography. See
-# docs/10 - Photo Prompts.md / CLAUDE.md 2026-09-07 session notes.
-heroImage: ./photos/priprema-za-uslusno-rezanje.png
+# Real photo, 2026-09-14 — material warehouse shot from the owner's own
+# factory shoot (D:\ivertim slike), replacing the earlier AI placeholder.
+heroImage: ./photos/priprema-za-uslusno-rezanje-real.jpg
 ---
 
 ## Zašto je ovo važno

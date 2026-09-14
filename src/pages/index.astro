@@ -3,18 +3,21 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { Image } from "astro:assets";
-// ⚠️ DRAFT — AI-generated placeholder photos (GPT Image), not real photography.
-// Per docs/10 - Photo Prompts.md: these exist only to check real container
-// sizes/proportions before commissioning real photography. Not yet confirmed
-// for the live site — see CLAUDE.md 2026-09-07 session notes before committing.
-import hero1 from "../assets/hero/hero-1-usluzno-rezanje.png";
-import hero2 from "../assets/hero/hero-2-kantovanje-busenje.png";
+// Slides 1–2: real photos, 2026-09-14, from the owner's own factory shoot
+// (D:\ivertim slike) — replacing the earlier AI placeholders.
+// Slides 3–4: still ⚠️ DRAFT AI-generated placeholders (GPT Image) — no real
+// photo yet for "mjerenje i dogovor" (on-site measurement) or finished
+// made-to-measure furniture. See docs/10 - Photo Prompts.md / CLAUDE.md
+// 2026-09-14 session notes.
+import hero1 from "../assets/hero/hero-1-usluzno-rezanje-real.jpg";
+import hero2 from "../assets/hero/hero-2-kantovanje-busenje-real.jpg";
 import hero3 from "../assets/hero/hero-3-mjerenje-dogovor.png";
 import hero4 from "../assets/hero/hero-4-namjestaj-po-mjeri.png";
-// Reused for the new "benefits" bento's image card (see the section below)
-// — a room photo, not one of the four hero slides above, so it doesn't
-// repeat an image already visible higher on this same page.
-import benefitsImage from "../assets/rooms/kuhinje.png";
+// Benefits/bento section photos — real, 2026-09-14, same factory shoot as
+// the hero slides above (see CLAUDE.md same-date session notes).
+import bentoFactoryImage from "../assets/photos/bento-factory-real.jpg";
+import bentoProcessImage from "../assets/photos/bento-process-real.jpg";
+import benefitsImage from "../assets/photos/bento-image-real.jpg";
 
 const heroSlides = [
   { label: "Uslužno rezanje", tone: "tone-1", src: hero1 },
@@ -178,14 +181,22 @@ const zigzagHeight = zigzagCenters[zigzagCenters.length - 1].y + 170;
       <p class="section-lead">Nije u obećanjima — vidi se u opremi, procesu i ljudima koji stoje iza njih.</p>
 
       <div class="bento">
-        <div class="bento-card bento-card--factory">
-          <h3>Sopstvena fabrika</h3>
-          <p>Rezanje, kantovanje i bušenje radimo u vlastitoj fabrici u Prijedoru, na sopstvenim CNC mašinama — bez čekanja na podizvođače.</p>
+        <div class="bento-card bento-card--factory bento-card--photo">
+          <Image class="bento-card-img" src={bentoFactoryImage} alt="" width={800} height={500} />
+          <div class="bento-card-scrim" aria-hidden="true"></div>
+          <div class="bento-card-content">
+            <h3>Sopstvena fabrika</h3>
+            <p>Rezanje, kantovanje i bušenje radimo u vlastitoj fabrici u Prijedoru, na sopstvenim CNC mašinama — bez čekanja na podizvođače.</p>
+          </div>
         </div>
 
-        <div class="bento-card bento-card--process">
-          <h3>Jasan proces</h3>
-          <p>Slušamo, mjerimo, predlažemo. Svaka odluka se donosi na vrijeme, a projekat teče bez iznenađenja.</p>
+        <div class="bento-card bento-card--process bento-card--photo">
+          <Image class="bento-card-img" src={bentoProcessImage} alt="" width={800} height={500} />
+          <div class="bento-card-scrim" aria-hidden="true"></div>
+          <div class="bento-card-content">
+            <h3>Jasan proces</h3>
+            <p>Slušamo, mjerimo, predlažemo. Svaka odluka se donosi na vrijeme, a projekat teče bez iznenađenja.</p>
+          </div>
         </div>
 
         <div class="bento-card bento-card--dark">
@@ -193,7 +204,7 @@ const zigzagHeight = zigzagCenters[zigzagCenters.length - 1].y + 170;
           <p>Bilo da vam treba samo precizno rezanje i kantovanje ili kompletno rješenje po mjeri, radimo na istoj adresi, sa istim timom — 16+ godina rada, 500+ zadovoljnih klijenata.</p>
         </div>
 
-        <div class="bento-card bento-card--image">
+        <div class="bento-card bento-card--image bento-card--photo">
           <Image class="bento-card-img" src={benefitsImage} alt="" width={800} height={500} />
           <div class="bento-card-scrim" aria-hidden="true"></div>
           <div class="bento-card-content">
@@ -933,12 +944,6 @@ const zigzagHeight = zigzagCenters[zigzagCenters.length - 1].y + 170;
     line-height: var(--text-body-md-leading);
   }
 
-  .bento-card--factory,
-  .bento-card--process {
-    background: var(--surface-1);
-    border: var(--border-1) solid var(--border-subtle);
-  }
-
   /* Same dark fill as .about-stats above — deliberate reuse, not a new
      "dark card" treatment for this page to carry. */
   .bento-card--dark {
@@ -956,8 +961,10 @@ const zigzagHeight = zigzagCenters[zigzagCenters.length - 1].y + 170;
   /* Photo card — same overlay mechanism as the hero (photo fills the box,
      a bottom scrim keeps light text readable over a photo of varying
      brightness), just without the crossfade since this is a single
-     static image, not a carousel. */
-  .bento-card--image {
+     static image, not a carousel. Applies to all three real-photo cards
+     (factory/process/image, 2026-09-14) — was --image-only before the
+     other two also got real photos. */
+  .bento-card--photo {
     position: relative;
     overflow: hidden;
     justify-content: flex-end;
