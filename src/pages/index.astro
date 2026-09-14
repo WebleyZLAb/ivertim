@@ -42,16 +42,26 @@ const marqueeRepeat = Array.from({ length: 6 });
 // project doesn't use (no Tailwind/React per Technical Decisions) — so
 // this is a from-scratch equivalent in Astro + plain CSS: no new
 // dependency, same "pin on rotated card + wavy connecting line" idea.
-// Content is the already-locked verbal principle (docs/01-branding.md
+// Content follows the already-locked verbal principle (docs/01-branding.md
 // §Verbalni princip: "Slušaj → postavi → shvati → izmjeri → predloži"),
 // not the operational step lists already used on /proces-saradnje — this
 // is the brand's underlying approach, not a duplicate of that page.
+// Titles reworded 2026-09-14, owner's direct ask: imperative verb forms
+// ("Slušaj", "Shvati", "Predloži") read as commands to the reader rather
+// than something Ivertim itself does, and step 3 ("Shvati") had drifted
+// too close to step 1 in meaning once both were written out. Now: present
+// tense where the principle is an action Ivertim takes, and step 3 is its
+// own distinct step (final visual/technical check, not "understanding the
+// space and goal" again). A deliberate wording change on top of the
+// locked doc's own phrasing, not a change to the underlying principle
+// itself — docs/01-branding.md's arrow-chain stays as the source of truth
+// for the *sequence*, this is just how it reads as five short cards.
 const procesKoraci = [
-  { rijec: "Slušaj", opis: "Prije rješenja, razumijemo šta vam zaista treba." },
-  { rijec: "Postavi pitanja", opis: "Pravo pitanje u pravom trenutku sprječava kasnije nesporazume." },
-  { rijec: "Shvati", opis: "Ne predlažemo dok potpuno ne razumijemo prostor i cilj." },
+  { rijec: "Slušamo", opis: "Prije rješenja trebamo shvatiti šta vam zaista treba." },
+  { rijec: "Postavljamo pitanja", opis: "Pravo pitanje u pravom trenutku sprječava kasnije nesporazume." },
+  { rijec: "Otklanjamo sumnje", opis: "Posljednja provjera vizuelnih i tehničkih zahtjeva." },
   { rijec: "Izmjeri", opis: "Tačna mjera je osnova svakog dobrog rješenja." },
-  { rijec: "Predloži", opis: "Konkretan prijedlog, zasnovan na onome što smo čuli i izmjerili." },
+  { rijec: "Ponuda", opis: "Konkretan prijedlog, zasnovan na onome što smo čuli i izmjerili." },
 ];
 
 // Anchor points for both the cards' vertical offsets and the connecting
@@ -771,7 +781,9 @@ const zigzagHeight = zigzagCenters[zigzagCenters.length - 1].y + 170;
   }
 
   .zigzag-card {
-    padding: var(--space-lg);
+    /* Bumped from --space-lg, owner's ask 2026-09-14: "kartice malo veće,
+       da budu konkretnije". */
+    padding: var(--space-xl);
     background: var(--surface-1);
     border: var(--border-1) solid var(--border-subtle);
     border-radius: var(--radius-4);
@@ -801,11 +813,14 @@ const zigzagHeight = zigzagCenters[zigzagCenters.length - 1].y + 170;
     mask-position: center;
   }
 
+  /* Bumped from the overline scale (12px) to h3, owner's ask 2026-09-14:
+     the step number should read as the card's own focal point, not a
+     quiet label above the title. */
   .zigzag-number {
     display: block;
-    font-size: var(--text-overline-size);
-    font-weight: var(--text-overline-weight);
-    letter-spacing: var(--text-overline-tracking);
+    font-size: var(--text-h3-size);
+    line-height: var(--text-h3-leading);
+    font-weight: var(--text-h3-weight);
     color: var(--text-accent);
     margin-bottom: var(--space-xs);
   }
@@ -853,7 +868,9 @@ const zigzagHeight = zigzagCenters[zigzagCenters.length - 1].y + 170;
     .zigzag-card {
       position: absolute;
       top: var(--zigzag-top);
-      width: 300px;
+      /* Bumped from 300px, owner's ask 2026-09-14 (see the padding/number
+         comments above — same "kartice malo veće" pass). */
+      width: 340px;
     }
 
     .zigzag-card--left {
