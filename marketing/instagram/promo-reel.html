@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<title>Ivertim promo</title>
+<style>
+@font-face { font-family: "Instrument Sans"; font-weight: 400 700; src: url(../../node_modules/@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2) format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF; }
+@font-face { font-family: "Instrument Sans"; font-weight: 400 700; src: url(../../node_modules/@fontsource-variable/instrument-sans/files/instrument-sans-latin-ext-wght-normal.woff2) format("woff2"); unicode-range: U+0100-024F, U+1E00-1EFF; }
+:root {
+  --n0:#fff; --n50:#f7f6f4; --n100:#f1efec; --n200:#e6e2dc; --n700:#5a4f45; --n950:#181513;
+  --a50:#f7f2ed; --a100:#eee2d6; --a200:#ddc5ad; --a300:#c8a27f; --a400:#a97850; --a500:#805a3c; --a600:#6e4d33; --a700:#5c402a; --a800:#493221; --a900:#362518; --a950:#22160e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--n50); }
+body { font-family: "Instrument Sans", system-ui, sans-serif; color: var(--n950); -webkit-font-smoothing: antialiased; }
+.stage { position: absolute; inset: 0; overflow: hidden; }
+.layer { position: absolute; inset: 0; overflow: hidden; }
+
+/* Brand-colored logo pieces via alpha mask (same technique the site uses) */
+.mask { background: currentColor; -webkit-mask-repeat: no-repeat; -webkit-mask-size: contain; -webkit-mask-position: center; }
+.m-mark { -webkit-mask-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNzQuNzkgMTY4Ljk1Ij4KICA8cGF0aCBkPSJNMTAxLjUzLDE2MC4zM2MtLjI5LTEyLjY1LjY5LTI0LjE2LS4zMy0zNi43Mi0yLjMxLTI4LjUyLTI1LjA4LTUyLjM4LTUzLjU4LTU0LjY2LTExLjc5LS45NC0yMi40NS0uMDctMzQuMTgtLjMzLTEuOTctLjA0LTMuODQtMi4xNi0zLjg0LTQuMTdWMjMuMjFjMC04LjU3LDYuNTMtMTcuOTgsMTYuMzMtMTcuOTlsMTE2LjQ4LS4wNWMxNS41LDAsMjUuNDksMTMuMzQsMjUuNDcsMjcuNzlsLS4xMywxMDkuNzhjLS4wMiwxMi43OC0xMC40NiwyMS4wOS0yMi41NiwyMS4wNWwtNDAuMi0uMTJjLTEuNTQsMC0zLjQzLTEuODQtMy40Ni0zLjMzWiIvPgogIDxwYXRoIGQ9Ik03NS40NSwxNjMuNzFsLTUwLjM3LS4zMWMtOC45Ny0uMDUtMTUuNDUtOC43NS0xNS40NS0xN2wtLjAzLTUxLjY1YzAtMS4zMywyLjU1LTMuNTcsMy43Ny0zLjUyLDkuNzUuMzcsMTguNDUtLjYxLDI4LjE0LjQsMTkuNzYsMi4wNSwzNS41NCwxOS4xMywzNy4xMSwzOC45MS44MSwxMC4yOC4xMSwxOS40NC4zNCwyOS44Mi4wMywxLjM5LTIuMDQsMy4zNi0zLjUsMy4zNVoiLz4KPC9zdmc+); }
+.m-word { -webkit-mask-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MjMuNDkgMTA1LjY4Ij4KICA8cmVjdCB4PSIxMy42NCIgeT0iNi4xNiIgd2lkdGg9IjE3LjEyIiBoZWlnaHQ9Ijk0LjI4IiByeD0iMy4xIiByeT0iMy4xIi8+CiAgPHBhdGggZD0iTTE4NS4zMiw2LjE2aC0xMi4xN2MtMS4xOSwwLTIuMjYuNzMtMi43LDEuODRsLTI5LjA0LDczLjM0Yy0uODQsMi4xMy0zLjg2LDIuMTMtNC43LDBMMTA3LjY2LDcuOTljLS40NC0xLjExLTEuNTEtMS44NC0yLjctMS44NGgtMTIuMTZjLTIuMDUsMC0zLjQ2LDIuMDctMi43LDMuOThsMzAuOSw3OC4wM2MyLjkzLDcuNDEsMTAuMDksMTIuMjcsMTguMDYsMTIuMjdzMTUuMTMtNC44NiwxOC4wNi0xMi4yN2wzMC45MS03OC4wM2MuNzYtMS45MS0uNjUtMy45OC0yLjctMy45OFoiLz4KICA8cGF0aCBkPSJNMzM3LjExLDYuMTZoLTcxLjM3Yy05LjY0LDAtMTcuNDYsNy44Mi0xNy40NiwxNy40NnY1OS4zN2MwLDkuNjQsNy44MiwxNy40NiwxNy40NiwxNy40Nmg3MS4zN2MyLjQyLDAsNC4zOC0xLjk2LDQuMzgtNC4zOHYtNi4zNGMwLTIuNDItMS45Ni00LjM4LTQuMzgtNC4zOGgtNjcuMjdjLTIuNDQsMC00LjQyLTEuOTgtNC40Mi00LjQydi0xOS43OGg2MC41N2MyLjQyLDAsNC4zOC0xLjk2LDQuMzgtNC4zOHYtNi41MWMwLTIuNDItMS45Ni00LjM4LTQuMzgtNC4zOGgtNjAuNTd2LTE5Ljc4YzAtMi40NCwxLjk4LTQuNDIsNC40Mi00LjQyaDY3LjI3YzIuNDIsMCw0LjM4LTEuOTYsNC4zOC00LjM4di02Ljc4YzAtMi40Mi0xLjk2LTQuMzgtNC4zOC00LjM4WiIvPgogIDxwYXRoIGQ9Ik02NTYuMTksNi4xNmgtODguOTZjLTEuNTIsMC0yLjc1LDEuMjMtMi43NSwyLjc1djEwLjAyYzAsMS41MiwxLjIzLDIuNzUsMi43NSwyLjc1aDM1LjE0djc2YzAsMS41MiwxLjIzLDIuNzUsMi43NSwyLjc1aDExLjYxYzEuNTIsMCwyLjc1LTEuMjMsMi43NS0yLjc1VjIxLjY5aDM2LjcxYzEuNTIsMCwyLjc1LTEuMjMsMi43NS0yLjc1di0xMC4wMmMwLTEuNTItMS4yMy0yLjc1LTIuNzUtMi43NVoiLz4KICA8cmVjdCB4PSI3MTguMSIgeT0iNi4xNiIgd2lkdGg9IjE3LjEzIiBoZWlnaHQ9Ijk0LjI4IiByeD0iMi43NSIgcnk9IjIuNzUiLz4KICA8cGF0aCBkPSJNOTAyLjk1LDYuMTZoLTUuNDJjLTEuMzQuMDItMi42LjY1LTMuNDMsMS43MWwtMzkuNDIsNTAuNi00MC4wMi01MS4zOGMtLjQ2LS41OS0xLjE3LS45My0xLjkxLS45M2gtNS42M2MtNS4yOSwwLTkuNTgsNC4yOS05LjU4LDkuNTh2ODEuMTJjMCwxLjk4LDEuNiwzLjU4LDMuNTgsMy41OGg5Ljk1YzEuOTgsMCwzLjU4LTEuNiwzLjU4LTMuNTh2LTYxLjg5bDI5LjE2LDM3LjQ0LDIuNTMsMy4yNWM0LjIzLDUuNDIsMTIuNDIsNS40MiwxNi42NSwwbDIuNTQtMy4yNiwyOS44Ni0zOC4zM3Y2Mi43OWMwLDEuOTgsMS42LDMuNTgsMy41OCwzLjU4aDkuOTVjMS45OCwwLDMuNTgtMS42LDMuNTgtMy41OFYxNS43M2MwLTUuMjktNC4yOS05LjU4LTkuNTgtOS41OFoiLz4KICA8cGF0aCBkPSJNNDg2LjA4LDI4LjQ2djE2LjQzYzAsNS43OC00LjY5LDEwLjQ3LTEwLjQ3LDEwLjQ3aC0uODZsMTEuMzMsMTEuMDksMS4wNCwxLjAxYzguODksMCwxNi4wOS03LjIsMTYuMDktMTYuMDl2LTI5LjEyYzAtOC44OS03LjItMTYuMDktMTYuMDktMTYuMDloLTY3LjI5Yy03LjI5LDAtMTMuMiw1LjkxLTEzLjIsMTMuMnY3Ny4yNGMwLDIuMTIsMS43MiwzLjg0LDMuODQsMy44NGg5LjQ1YzIuMTIsMCwzLjg0LTEuNzIsMy44NC0zLjg0VjIyLjIxaDU2LjA3YzMuNDUsMCw2LjI1LDIuOCw2LjI1LDYuMjVaIi8+CiAgPHBhdGggZD0iTTUwMy4yMSw5NS4xOGwtMTcuMTMtMTYuNzYtMTEuMi0xMC45Ni0xMC44MS0xMC41OGMtMS0uOTgtMi4zNC0xLjUyLTMuNzQtMS41MmgtMTcuNzNjLTEuNjcsMC0yLjUsMi4wMy0xLjMxLDMuMmw5LjEsOC45LDMzLjcxLDMyLjk4aDIwLjljMS4zMSwwLDEuOTYtMS41OSwxLjAyLTIuNTFsLTIuODEtMi43NVoiLz4KPC9zdmc+); }
+.m-sig  { -webkit-mask-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjkuNDQgMTc5LjY1Ij4KICA8cGF0aCBkPSJNMTY2LjI4LDE3Ni4zNnYuMDRoLTQyLjU2Yy0uNDMtMTkuNTUuODktMzYuODItLjY1LTU2LjItMi45NC0zNy4yOC0zMi43LTY5LjQ4LTY5Ljk1LTczLjM0LTE4LjIxLTEuOS0zNC41OC0uMDctNTIuOTEtLjc1VjMuNDhjMjIuMTIuNDksNDIuMjItMS4xNiw2NC40NC42Miw1My43NCw0LjMsOTYuNjUsNDkuMjksMTAxLjAxLDEwMy4wNCwxLjkxLDIzLjY3LjA4LDQ1LjM3LjYyLDY5LjIyWiIvPgo8L3N2Zz4=); }
+
+/* Intro */
+#intro { background: var(--n50); }
+#intro .mark { position: absolute; left: 50%; top: 700px; width: 300px; height: 290px; margin-left: -150px; color: var(--a600); }
+#intro .word { position: absolute; left: 50%; top: 1060px; width: 560px; height: 64px; margin-left: -280px; color: var(--n950); }
+#intro .tag { position: absolute; left: 0; right: 0; top: 1190px; text-align: center; font-size: 40px; font-weight: 500; color: var(--n700); letter-spacing: 0.01em; }
+#intro .sig { position: absolute; left: -40px; bottom: -40px; width: 620px; height: 657px; color: var(--a100); }
+
+/* Photo scenes */
+.photo { position: absolute; inset: 0; }
+.photo img { position: absolute; left: 50%; top: 50%; height: 1920px; width: auto; transform-origin: center; }
+.scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(24,21,19,.88) 0%, rgba(24,21,19,.55) 38%, rgba(24,21,19,0) 62%); }
+.scrim-top { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(24,21,19,.45), rgba(24,21,19,0) 22%); }
+.caption { position: absolute; left: 80px; right: 80px; top: 1060px; color: var(--n0); }
+.num { font-size: 34px; font-weight: 600; letter-spacing: .14em; color: var(--a200); display: flex; align-items: center; gap: 20px; }
+.num .bar { display: inline-block; height: 3px; width: 90px; background: var(--a300); transform-origin: left; }
+.big { font-size: 150px; line-height: 1; font-weight: 700; letter-spacing: -0.03em; margin-top: 26px; }
+.sub { font-size: 44px; line-height: 1.25; font-weight: 500; margin-top: 30px; color: var(--n100); max-width: 860px; }
+.line { display: block; overflow: hidden; }
+.line > span { display: block; }
+.corner { position: absolute; left: -30px; bottom: -30px; width: 300px; height: 318px; color: var(--a500); opacity: .9; }
+.wipe-bar { position: absolute; left: 0; right: 0; height: 26px; background: var(--a500); }
+
+/* Stats scene */
+#stats { background: var(--a950); color: var(--n0); }
+#stats .sig { position: absolute; right: -180px; top: 180px; width: 900px; height: 954px; color: var(--a900); }
+#stats .head { position: absolute; left: 90px; right: 90px; top: 430px; display: flex; align-items: center; gap: 26px; }
+#stats .head .m { width: 70px; height: 68px; color: var(--a300); }
+#stats .head p { font-size: 38px; font-weight: 500; color: var(--a200); }
+.stat { position: absolute; left: 90px; right: 90px; }
+.stat .v { font-size: 250px; font-weight: 700; line-height: 1; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.stat .l { font-size: 50px; font-weight: 500; color: var(--a100); margin-top: 10px; }
+.stat .rule { height: 2px; background: var(--a800); margin-top: 60px; transform-origin: left; }
+
+/* Closing */
+#outro { background: linear-gradient(135deg, var(--a700), var(--a500), var(--a900), var(--a600)); background-size: 400% 400%; color: var(--n0); }
+#outro .logo { position: absolute; left: 50%; top: 480px; width: 780px; height: 120px; margin-left: -390px; background: url(../../public/images/logo-horizontal-inverse.svg) center / contain no-repeat; }
+#outro .claim { position: absolute; left: 90px; right: 90px; top: 720px; text-align: center; font-size: 62px; line-height: 1.18; font-weight: 600; letter-spacing: -0.01em; }
+#outro .cta { position: absolute; left: 50%; top: 1030px; transform: translateX(-50%); padding: 34px 84px; border-radius: 16px; background: var(--n0); color: var(--a700); font-size: 52px; font-weight: 600; white-space: nowrap; }
+#outro .info { position: absolute; left: 0; right: 0; top: 1250px; text-align: center; font-size: 42px; line-height: 1.6; font-weight: 500; color: var(--a50); }
+#outro .info b { font-weight: 700; color: var(--n0); font-size: 50px; letter-spacing: .01em; }
+#outro .sig { position: absolute; left: -40px; bottom: -40px; width: 520px; height: 551px; color: var(--a400); opacity: .45; }
+#intro{z-index:1}#s1{z-index:2}#s2{z-index:3}#s3{z-index:4}#s4{z-index:5}#stats{z-index:6}#outro{z-index:7}#bar{z-index:10}
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <div class="layer" id="outro">
+    <div class="sig mask m-sig"></div>
+    <div class="logo"></div>
+    <p class="claim"><span class="line"><span>Od uslužnog rezanja</span></span><span class="line"><span>do namještaja po mjeri.</span></span></p>
+    <div class="cta">Razgovarajmo</div>
+    <p class="info"><b>+387 65 748 943</b><br>Svale bb, Prijedor</p>
+  </div>
+
+  <div class="layer" id="stats">
+    <div class="sig mask m-sig"></div>
+    <div class="head"><div class="m mask m-mark"></div><p>Kompetentnost kojoj vjeruješ</p></div>
+    <div class="stat" id="st1" style="top:640px"><div class="v">16+</div><div class="l">godina rada</div><div class="rule"></div></div>
+    <div class="stat" id="st2" style="top:1060px"><div class="v">500+</div><div class="l">zadovoljnih klijenata</div></div>
+  </div>
+
+  <div class="layer scene" id="s4">
+    <div class="photo"><img src="../../src/assets/photos-raw/aco_kantarica_portrait.JPG"></div><div class="scrim"></div><div class="scrim-top"></div>
+    <div class="caption"><div class="num"><span class="bar"></span><span>PRIJEDOR</span></div>
+      <p class="sub" style="font-size:66px;font-weight:600;line-height:1.12;color:#fff;margin-top:34px"><span class="line"><span>Sopstvena fabrika</span></span><span class="line"><span>i CNC mašine.</span></span></p>
+      <p class="sub"><span class="line"><span>Isti tim, ista adresa, isti standard.</span></span></p></div>
+    <div class="corner mask m-sig"></div>
+  </div>
+
+  <div class="layer scene" id="s3">
+    <div class="photo"><img src="../../src/assets/photos-raw/tiplarica_portrait.JPG"></div><div class="scrim"></div><div class="scrim-top"></div>
+    <div class="caption"><div class="num"><span class="bar"></span><span>03</span></div>
+      <p class="big"><span class="line"><span>Bušenje</span></span></p>
+      <p class="sub"><span class="line"><span>CNC obrada, spremno za montažu.</span></span></p></div>
+    <div class="corner mask m-sig"></div>
+  </div>
+
+  <div class="layer scene" id="s2">
+    <div class="photo"><img src="../../src/assets/photos-raw/kantarica3_portrait.JPG"></div><div class="scrim"></div><div class="scrim-top"></div>
+    <div class="caption"><div class="num"><span class="bar"></span><span>02</span></div>
+      <p class="big"><span class="line"><span>Kantovanje</span></span></p>
+      <p class="sub"><span class="line"><span>Čiste ivice, bez naknadne dorade.</span></span></p></div>
+    <div class="corner mask m-sig"></div>
+  </div>
+
+  <div class="layer scene" id="s1">
+    <div class="photo"><img src="../../src/assets/photos-raw/dejo_raskrajac_portrait.JPG"></div><div class="scrim"></div><div class="scrim-top"></div>
+    <div class="caption"><div class="num"><span class="bar"></span><span>01</span></div>
+      <p class="big"><span class="line"><span>Rezanje</span></span></p>
+      <p class="sub"><span class="line"><span>Pločasti materijal, tačno po vašoj mjeri.</span></span></p></div>
+    <div class="corner mask m-sig"></div>
+  </div>
+
+  <div class="layer" id="intro">
+    <div class="sig mask m-sig"></div>
+    <div class="mark mask m-mark"></div>
+    <div class="word mask m-word"></div>
+    <p class="tag"><span class="line"><span>Kompetentnost kojoj vjeruješ</span></span></p>
+  </div>
+
+  <div class="wipe-bar" id="bar"></div>
+</div>
+
+<script>
+// Deterministic timeline: window.render(t) paints frame at time t (seconds).
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const bez = (p1x, p1y, p2x, p2y) => {           // cubic-bezier solver (CSS semantics)
+  const cx = 3 * p1x, bx = 3 * (p2x - p1x) - cx, ax = 1 - cx - bx;
+  const cy = 3 * p1y, by = 3 * (p2y - p1y) - cy, ay = 1 - cy - by;
+  const X = t => ((ax * t + bx) * t + cx) * t, Y = t => ((ay * t + by) * t + cy) * t;
+  return x => { let t = x; for (let i = 0; i < 8; i++) { const d = (3 * ax * t + 2 * bx) * t + cx; t -= (X(t) - x) / (d || 1e-6); t = clamp(t); } return Y(t); };
+};
+const emph = bez(0.2, 0.8, 0.2, 1);     // --ease-emphasized
+const inout = bez(0.4, 0, 0.2, 1);     // --ease-in-out
+const eIn = bez(0.4, 0, 1, 1);          // --ease-in
+const prog = (t, s, d) => clamp((t - s) / d);
+const $ = s => document.querySelector(s);
+const $$ = (root, s) => [...root.querySelectorAll(s)];
+
+// Scene timing (seconds)
+const T = { introOut: 2.9, s1: 2.9, s2: 6.3, s3: 9.5, s4: 12.7, stats: 16.3, outro: 20.1, end: 25 };
+const W = 0.75; // reveal-wipe duration
+
+function lines(root, t0, t, stagger = 0.09) {
+  $$(root, '.line > span').forEach((el, i) => {
+    const p = emph(prog(t, t0 + i * stagger, 0.7));
+    el.style.transform = `translateY(${(1 - p) * 110}%)`;
+    el.style.opacity = p > 0 ? 1 : 0;
+  });
+}
+// Bottom-up clip reveal of a layer; returns progress
+function reveal(el, t, start) {
+  const p = inout(prog(t, start, W));
+  el.style.clipPath = `inset(${(1 - p) * 100}% 0 0 0)`;
+  el.style.visibility = t >= start ? 'visible' : 'hidden';
+  return p;
+}
+function scene(id, t, start, end) {
+  const el = $(id);
+  reveal(el, t, start);
+  const local = t - start;
+  const img = el.querySelector('img');
+  const k = clamp(local / (end - start + W));
+  img.style.transform = `translate(-50%, -50%) scale(${1.14 - 0.08 * k}) translateY(${(0.5 - k) * 30}px)`;
+  const bar = el.querySelector('.num .bar');
+  bar.style.transform = `scaleX(${emph(prog(t, start + 0.35, 0.6))})`;
+  el.querySelector('.num').style.opacity = prog(t, start + 0.3, 0.3);
+  lines(el, start + 0.4, t, 0.12);
+  const c = emph(prog(t, start + 0.55, 0.8));
+  el.querySelector('.corner').style.transform = `translate(${-(1 - c) * 60}%, ${(1 - c) * 60}%)`;
+}
+
+window.render = function (t) {
+  // Intro
+  const intro = $('#intro');
+  const mk = emph(prog(t, 0.15, 0.9));
+  $('#intro .mark').style.transform = `translateY(${(1 - mk) * 60}px) scale(${0.85 + 0.15 * mk})`;
+  $('#intro .mark').style.opacity = mk;
+  const wd = emph(prog(t, 0.6, 0.8));
+  $('#intro .word').style.clipPath = `inset(0 ${(1 - wd) * 100}% 0 0)`;
+  lines(intro, 1.0, t);
+  const sg = emph(prog(t, 0.3, 1.2));
+  $('#intro .sig').style.transform = `translate(${-(1 - sg) * 50}%, ${(1 - sg) * 50}%)`;
+  // Intro exits by being covered by scene 1's reveal wipe
+  intro.style.visibility = t < T.s1 + W ? 'visible' : 'hidden';
+
+  scene('#s1', t, T.s1, T.s2);
+  scene('#s2', t, T.s2, T.s3);
+  scene('#s3', t, T.s3, T.s4);
+  scene('#s4', t, T.s4, T.stats);
+
+  // Stats
+  const st = $('#stats');
+  reveal(st, t, T.stats);
+  const hd = emph(prog(t, T.stats + 0.35, 0.7));
+  $('#stats .head').style.opacity = hd; $('#stats .head').style.transform = `translateY(${(1 - hd) * 30}px)`;
+  [['#st1', 16, 0.55], ['#st2', 500, 0.85]].forEach(([id, target, d]) => {
+    const p = prog(t, T.stats + d, 1.6);
+    const e = 1 - Math.pow(1 - p, 3);
+    const el = $(id);
+    el.querySelector('.v').textContent = Math.round(target * e) + '+';
+    const a = emph(prog(t, T.stats + d - 0.1, 0.6));
+    el.style.opacity = a; el.style.transform = `translateY(${(1 - a) * 50}px)`;
+    const r = el.querySelector('.rule'); if (r) r.style.transform = `scaleX(${emph(prog(t, T.stats + d + 0.4, 0.9))})`;
+  });
+  const sgs = inout(prog(t, T.stats, 3.8));
+  $('#stats .sig').style.transform = `translateY(${(0.5 - sgs) * 80}px)`;
+
+  // Outro
+  const ou = $('#outro');
+  reveal(ou, t, T.outro);
+  ou.style.backgroundPosition = `${50 + 50 * Math.sin((t - T.outro) * 2 * Math.PI / 10)}% 50%`;
+  const lg = emph(prog(t, T.outro + 0.35, 0.9));
+  $('#outro .logo').style.opacity = lg; $('#outro .logo').style.transform = `translateY(${(1 - lg) * 40}px)`;
+  lines(ou, T.outro + 0.7, t, 0.12);
+  const ct = emph(prog(t, T.outro + 1.3, 0.8));
+  $('#outro .cta').style.opacity = ct; $('#outro .cta').style.transform = `translateX(-50%) translateY(${(1 - ct) * 40}px) scale(${0.94 + 0.06 * ct})`;
+  const inf = emph(prog(t, T.outro + 1.7, 0.8));
+  $('#outro .info').style.opacity = inf; $('#outro .info').style.transform = `translateY(${(1 - inf) * 30}px)`;
+  const so = emph(prog(t, T.outro + 0.4, 1.4));
+  $('#outro .sig').style.transform = `translate(${-(1 - so) * 50}%, ${(1 - so) * 50}%)`;
+
+  // Accent bar riding the leading edge of each bottom-up reveal
+  const starts = [T.s1, T.s2, T.s3, T.s4, T.stats, T.outro];
+  const bar = $('#bar'); bar.style.visibility = 'hidden';
+  for (const s of starts) {
+    if (t >= s && t < s + W) {
+      const p = inout(prog(t, s, W));
+      bar.style.visibility = 'visible';
+      bar.style.top = `${(1 - p) * 1920 - 13}px`;
+    }
+  }
+
+};
+window.DURATION = T.end;
+if (!navigator.webdriver) { const t0 = performance.now(); const loop = () => { render(((performance.now() - t0) / 1000) % T.end); requestAnimationFrame(loop); }; loop(); }
+</script>
+</body>
+</html>
