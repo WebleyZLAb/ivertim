@@ -1,6 +1,6 @@
 # Instagram promo reel
 
-`ivertim-promo-reel.mp4` — 1080×1920 (9:16), 30 fps, 25 s, H.264 + AAC stereo. Muzika je originalna, sintetizovana u kodu (`music.py`, bez semplova i licenci), 120 BPM, usklađena s animacijom: svaki rez scene pada na udarac (3/6/9/12/15/19 s), brojači u sceni sa statistikom prate „tik“ zvukovi, a logo i CTA na kraju zvono.
+`ivertim-promo-reel.mp4` — 1080×1920 (9:16), 30 fps, 25 s, H.264 + AAC stereo. Muzika je originalna, sintetizovana u kodu (`music.py`, bez semplova i licenci), 120 BPM, pop/dance karaktera (four-on-the-floor bubanj, klap na 2 i 4, „pumpajući“ akordi, pokretni bas, melodija po sceni, build preko statistike i drop na završnoj kartici), usklađena s animacijom: svaki rez scene pada na udarac (3/6/9/12/15/19 s), brojači u sceni sa statistikom prate „tik“ zvukovi, a logo i CTA na kraju zvono.
 
 Ako želiš koristiti muziku iz Instagram biblioteke umjesto ove, u aplikaciji utišaj originalni zvuk.
 
