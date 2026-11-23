@@ -6,9 +6,9 @@
 // of the search index until it is finished. To bring it back: restore
 // FULL_SITE_NAV below in Header/Footer, and empty HIDDEN_ROUTES.
 
-// Portal for online orders, Lupa and Optimizator. Final address will be
-// portal.ivertim.com once DNS is set up — change only this line then.
-export const PORTAL_URL = "https://ivertim-optimizator.vercel.app";
+// Portal for online orders, Lupa and Optimizator (Vercel project
+// ivertim-optimizator; the old ivertim-optimizator.vercel.app 308s here).
+export const PORTAL_URL = "https://portal.ivertim.com";
 
 // Navigation while in landing mode: anchors on the home page. Absolute
 // ("/#...") so they also work from the legal pages and hidden pages.
