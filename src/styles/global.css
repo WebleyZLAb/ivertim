@@ -8,6 +8,13 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+/* Landing mode (2026-11-23): nav links are same-page anchors — keep the
+   target section's top clear of the sticky header when jumping to it. */
+[id] {
+  scroll-margin-top: 96px;
 }
 
 body {

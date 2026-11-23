@@ -6,8 +6,14 @@ export const prerender = false;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_MESSAGE_LENGTH = 5000;
 
-function redirect(url: string) {
-  return new Response(null, { status: 303, headers: { Location: url } });
+// Where the visitor is sent back to after submitting. The landing page
+// (src/pages/index.astro, landing mode since 2026-11-23) posts a hidden
+// `return_to=landing` field; everything else falls back to /kontakt.
+// Allowlisted on purpose — never redirect to a value taken from the form.
+type ReturnTarget = "kontakt" | "landing";
+
+function statusUrl(target: ReturnTarget, status: string) {
+  return target === "landing" ? `/?status=${status}#kontakt` : `/kontakt?status=${status}`;
 }
 
 export const POST: APIRoute = async ({ request }) => {
@@ -15,12 +21,16 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     form = await request.formData();
   } catch {
-    return redirect("/kontakt?status=error");
+    return new Response(null, { status: 303, headers: { Location: statusUrl("kontakt", "error") } });
   }
+
+  const target: ReturnTarget = form.get("return_to") === "landing" ? "landing" : "kontakt";
+  const redirect = (status: string) =>
+    new Response(null, { status: 303, headers: { Location: statusUrl(target, status) } });
 
   // Honeypot: real users never fill this hidden field in.
   if (String(form.get("company") ?? "").trim() !== "") {
-    return redirect("/kontakt?status=success");
+    return redirect("success");
   }
 
   const name = String(form.get("name") ?? "").trim();
@@ -29,13 +39,13 @@ export const POST: APIRoute = async ({ request }) => {
   const message = String(form.get("message") ?? "").trim();
 
   if (!name || !email || !message) {
-    return redirect("/kontakt?status=missing");
+    return redirect("missing");
   }
   if (!EMAIL_PATTERN.test(email)) {
-    return redirect("/kontakt?status=invalid-email");
+    return redirect("invalid-email");
   }
   if (message.length > MAX_MESSAGE_LENGTH) {
-    return redirect("/kontakt?status=too-long");
+    return redirect("too-long");
   }
 
   try {
@@ -43,8 +53,8 @@ export const POST: APIRoute = async ({ request }) => {
   } catch (err) {
     // Logged so a real failure is diagnosable from Vercel function logs, not just a silent redirect.
     console.error("Contact form email send failed:", err);
-    return redirect("/kontakt?status=error");
+    return redirect("error");
   }
 
-  return redirect("/kontakt?status=success");
+  return redirect("success");
 };

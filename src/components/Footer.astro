@@ -1,4 +1,6 @@
 ---
+import { LANDING_NAV, SHOW_NEWSLETTER, SHOW_SOCIAL_PLACEHOLDERS } from "../lib/site";
+
 const year = new Date().getFullYear();
 ---
 
@@ -30,6 +32,7 @@ const year = new Date().getFullYear();
            consent checkbox (owner's ask, same day, second pass matching
            compatto's own layout more closely) instead of the first
            version's inline input+button row. -->
+      {SHOW_NEWSLETTER && (
       <form class="newsletter-form" method="POST" action="/api/newsletter" data-newsletter-form>
         <p class="label">Newsletter</p>
         <p class="newsletter-copy">Povremeni savjeti o obradi materijala i namještaju po mjeri — bez spama.</p>
@@ -50,17 +53,18 @@ const year = new Date().getFullYear();
           <label for="newsletter-consent">Slažem se sa <a href="/politika-privatnosti">Politikom privatnosti</a>.</label>
         </div>
 
-        <!-- Same visual treatment as the site's primary .cta buttons
+        {/* Same visual treatment as the site's primary .cta buttons
              (fill fades via opacity, border/text invert to brand brown on
              hover, motion-slower, no lift) — owner's ask, 2026-09-13:
-             "da izgleda kao primary sa našim hoverom". -->
+             "da izgleda kao primary sa našim hoverom". */}
         <button class="newsletter-submit" type="submit">Prijavi se</button>
 
-        <!-- Honeypot — same technique as the contact form, real users never see/fill this. -->
+        {/* Honeypot — same technique as the contact form, real users never see/fill this. */}
         <input class="hp-field" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <input type="hidden" name="referer" value="" data-newsletter-referer />
         <p class="newsletter-note" data-newsletter-message>Odjava u jednom kliku, kad god poželite.</p>
       </form>
+      )}
     </div>
 
     <!-- Owner's ask, 2026-09-13: keep this cluster visually separate from
@@ -73,11 +77,13 @@ const year = new Date().getFullYear();
       <nav aria-label="Footer navigacija">
         <p class="label">Stranice</p>
         <ul>
-          <li><a href="/usluge">Usluge</a></li>
-          <li><a href="/projekti">Projekti</a></li>
-          <li><a href="/proces-saradnje">Proces saradnje</a></li>
-          <li><a href="/blog">Blog</a></li>
-          <li><a href="/kontakt">Kontakt</a></li>
+          {
+            LANDING_NAV.map((item) => (
+              <li>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))
+          }
         </ul>
       </nav>
 
@@ -157,6 +163,10 @@ const year = new Date().getFullYear();
               </svg>
             </a>
           </li>
+          {/* Instagram/Facebook/LinkedIn profiles don't exist yet — the inert
+              "#" links stay hidden on the live landing until they do. */}
+          {SHOW_SOCIAL_PLACEHOLDERS && (
+            <>
           <li>
             <a class="social-link" href="#" aria-label="Ivertim na Instagramu">
               <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
@@ -181,6 +191,8 @@ const year = new Date().getFullYear();
               </svg>
             </a>
           </li>
+            </>
+          )}
         </ul>
       </div>
     </div>

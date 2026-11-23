@@ -1,6 +1,7 @@
 ---
 import "@fontsource-variable/instrument-sans/index.css";
 import "../styles/global.css";
+import { isHiddenRoute } from "../lib/site";
 
 interface Props {
   title: string;
@@ -10,6 +11,8 @@ interface Props {
 const { title, description } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const pageTitle = `${title} — Ivertim`;
+// Landing mode: full-site pages stay reachable but out of the index (src/lib/site.ts).
+const noindex = isHiddenRoute(Astro.url.pathname);
 ---
 
 <html lang="sr">
@@ -21,6 +24,7 @@ const pageTitle = `${title} — Ivertim`;
 		<meta name="generator" content={Astro.generator} />
 		<title>{pageTitle}</title>
 		<meta name="description" content={description} />
+		{noindex && <meta name="robots" content="noindex, follow" />}
 
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content="Ivertim" />
