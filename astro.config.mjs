@@ -7,9 +7,8 @@ import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 import { isHiddenRoute } from './src/lib/site.ts';
 
-// Vercel's stable project alias — update once a custom domain is connected
-// (see CLAUDE.md Open Questions: deliberately deferred, not urgent yet).
-const SITE_URL = 'https://ivertim.vercel.app';
+// Real domain, connected 2026-11-23 (landing mode, see src/lib/site.ts).
+const SITE_URL = 'https://www.ivertim.com';
 
 // https://astro.build/config
 export default defineConfig({
